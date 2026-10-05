@@ -1,6 +1,9 @@
 # Architecture
 
-> Status: **design target, not implemented**. Layers are frozen by
+> Status: **partially implemented**. The `domain/`, `storage/` and `security/`
+> foundations plus `services/activity` and `services/diagnostics` are implemented and
+> unit-tested (Phase 1). `providers/`, `host/dsh`, the remaining `services/`,
+> `runtime/`, `rpc/`, `cli/` and `ui/` are still design targets frozen by
 > `docs/developer/v1-flash-v3/18-WIRING.md`, 02 (data) and 03 (services/RPC).
 
 ## Layers

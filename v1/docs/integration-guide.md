@@ -1,7 +1,9 @@
 # Integration guide
 
-> Status: **design target, not implemented**. Interfaces below are frozen by the
-> contract in `docs/developer/v1-flash-v3/` (03, 05, 18) but have no runtime yet.
+> Status: **integration surface not implemented**. Only the Phase 1 foundation
+> (schema, store, security, Host port, descriptors, activity/diagnostics) exists; the
+> plugin, RPC, CLI and client described below are frozen by the contract in
+> `docs/developer/v1-flash-v3/` (03, 05, 18) but have no runtime yet.
 
 How a DSH host and downstream consumers integrate `dsh-notifier` v1.
 

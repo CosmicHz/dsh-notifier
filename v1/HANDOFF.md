@@ -15,10 +15,13 @@ not import it and does not keep v0 compatibility.
 
 ## Current state
 
-- **T00 Bootstrap: verified.** Package, scripts, docs skeleton, AGENTS rules,
-  neat-freak skill copy and pre-push gate are installed.
-- All other tasks are `planned`. See [docs/PROGRESS.md](docs/PROGRESS.md) for the
-  live status table.
+- **Phase 1 (Bootstrap & foundation): verified.** T00 bootstrap plus T01 schema,
+  T02 store/lock, T03 backup, T04 secrets/redaction, T08 network, T09 Host ports,
+  B00 static descriptors and T25 activity/diagnostics are implemented and pass
+  `npm run test:unit`.
+- **Phase 2 onward: planned.** Next is T05 Accounts/Destinations/Connections →
+  T06 Identity/Pairing → T07 Routes/Settings. See
+  [docs/PROGRESS.md](docs/PROGRESS.md) for the live status table.
 
 ## How to continue
 
