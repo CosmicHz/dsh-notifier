@@ -61,6 +61,10 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
   --show-toplevel` to reliably locate repository root regardless of invocation context.
   Added installation instructions to README.md. Verified hook correctly rejects pushes
   with missing DOC-SYNC.json, stale sourceDigest, and incorrect base commits.
+- R03: conversation session authorization. Fixed `/sessions` and `/tasks` to filter by
+  principal sessionIds (owner sees all, members see only authorized sessions). Fixed
+  `/stop` to check canConverse and session authorization before terminating. Unified
+  authorization logic via `isSessionAuthorized()` helper. All 340 tests pass.
 
 > Only the Phase 1 foundation, Phase 2 core entity services, Phase 3 outbound providers,
 > Phase 4 inbound/effects/interactions, and Phase 5 runtime + Telegram exist so far;

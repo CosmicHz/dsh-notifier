@@ -113,6 +113,33 @@ export function lookupPrincipal(draft, { accountId, userId }) {
 }
 
 // ---------------------------------------------------------------------------
+// authorization helpers (R03)
+// ---------------------------------------------------------------------------
+
+/**
+ * Check if a principal is authorized to access a session.
+ * - owner: authorized for all sessions
+ * - member: authorized only for sessions in their sessionIds list
+ */
+export function isSessionAuthorized(principal, sessionId) {
+  if (!principal || !sessionId) return false;
+  if (principal.role === 'owner') return true;
+  return (principal.sessionIds ?? []).includes(sessionId);
+}
+
+/**
+ * Filter sessions/tasks list by principal authorization.
+ * - owner: sees all
+ * - member: sees only authorized sessions
+ */
+export function filterByAuthorization(items, principal) {
+  if (!principal) return [];
+  if (principal.role === 'owner') return items;
+  const authorized = new Set(principal.sessionIds ?? []);
+  return items.filter((item) => authorized.has(item.id));
+}
+
+// ---------------------------------------------------------------------------
 // session binding (shared with RPC bindings.set)
 // ---------------------------------------------------------------------------
 
@@ -201,8 +228,10 @@ async function runReadCommand(store, name, args, { principal, account, envelope 
       const host = ctx.host;
       if (!host) throw new DomainError('UNSUPPORTED', 'the host cannot list sessions');
       const list = name === 'sessions' ? await host.listSessions() : await host.listTasks();
+      // R03: filter by authorization before pagination
+      const filtered = filterByAuthorization(list, principal);
       const page = pageArg(args);
-      const rows = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+      const rows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
       const label = rows.map((row) => row.id).join(' ');
       return { reply: label === '' ? `no ${name} on page ${page}` : `page ${page}: ${label}` };
     }
@@ -275,7 +304,15 @@ async function runActionCommand(store, name, args, { principal, account, envelop
     return { reply: `interaction ${interactionId} ${result.state}` };
   }
   if (name === 'stop') {
+    // R03: check canConverse and session authorization
+    if (principal.canConverse !== true) {
+      throw forbidden('this identity may not stop sessions (canConverse=false)');
+    }
     const sessionId = requireBinding(store.snapshot(), principal);
+    // R03: verify principal is authorized for this session
+    if (!isSessionAuthorized(principal, sessionId)) {
+      throw forbidden('this session is not authorized for you');
+    }
     const arbiter = ctx.arbiterFor ? ctx.arbiterFor(sessionId) : null;
     const requestId = requireRequestId(randomUUID());
     const run = async () => ctx.host.stop({ sessionId, requestId, signal: ctx.signal ?? new AbortController().signal });
@@ -288,8 +325,10 @@ async function runActionCommand(store, name, args, { principal, account, envelop
     const session = ctx.host ? await ctx.host.getSession(sessionId) : null;
     if (ctx.host && !session) throw notFound('unknown session');
     return commit(store, null, (draft) => {
-      const authorized = principal.role === 'owner' || (principal.sessionIds ?? []).includes(sessionId);
-      if (!authorized) throw forbidden('this session is not authorized for you');
+      // R03: use unified authorization check
+      if (!isSessionAuthorized(principal, sessionId)) {
+        throw forbidden('this session is not authorized for you');
+      }
       const binding = setBinding(draft, { principalId: principal.id, sessionId, now });
       appendActivity(draft, { kind: 'conversation', accountId: account.id, sessionId, status: 'bound' }, { now });
       return { reply: `bound session=${binding.sessionId}` };
