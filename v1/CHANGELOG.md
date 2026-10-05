@@ -46,6 +46,12 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
   long-poll with cursor persistence, photo media resolution, transient failure reconnect,
   and stale-epoch loop termination. Covered by `npm run test:protocol`,
   `npm run test:unit`, and `npm run test:integration`.
+- Phase 5 inbound channel T21 WxPusher (`src/providers/wxpusher/index.mjs`): outbound JSON
+  send with typed error mapping (`code !== 1000` → `API_ERROR`) and TIMEOUT/CANCELLED
+  propagation, plus a Host-mounted callback (W06) whose auth is the unguessable account
+  route, a strict uid shape check, and the conversation layer's pairing/whitelist. The
+  callback body never names its own account and the appToken comes only from the account
+  secret resolver. Covered by `npm run test:protocol`.
 
 ### Fixed
 
@@ -83,8 +89,30 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
   (never `.catch(() => null)`). `runtime/manager.mjs` now wires `onFatal` into
   `provider.start`, so a real background auth exit projects `connection.state='degraded'`
   + `health.degraded` (ignored for a superseded epoch).
+- R07: control-card actions follow the frozen `{label,token}` contract end to end
+  (service normalization, provider encoding, fixtures); a token over 64 UTF-8 bytes is a
+  typed `ENCODE_ERROR` instead of a silently dropped button.
+- R09: Telegram callback classification comes from the real chat type (a group press is
+  never treated as a private control message), and a callback is acknowledged only after
+  the durable receipt; the ACK never means the approval succeeded.
+- R10: `/pair` redemption is injected by the composition root (`runtime/manager.mjs`) so
+  the default manager + conversation + pairing assembly can pair, and `/unpair` revokes
+  only the caller's binding, reply refs and live interaction targets.
+- R11: Host events become durable state plus one control reply
+  (`src/runtime/host-return.mjs`): `turn.output`/`turn.completed`/`turn.failed` answer the
+  originating chat (with an explicit "no body" notice when nothing was cached, never a
+  fake recovery), `interaction.opened` opens an interaction and delivers its card to the
+  still-authorized targets, and `session.closed` cancels the session's pending work.
+- R12: the conversation path routes inbound attachments through `MediaService` — bounded,
+  cancellable, never relaxed to private networks — before `Host.saveAttachment`, so only a
+  secret-free `AttachmentRef` reaches `Host.submit`; attachment-only messages are allowed
+  and a download failure never falls back to the raw token URL.
+- R13: one logical control send is idempotent by `requestId` with per-segment effect
+  evidence; a platform 200 is recorded as `accepted`, never `confirmed`.
+- R14: an expired Host interaction deadline is refused instead of extended, and a future
+  deadline is capped at `min(host, now+15min)`.
 
 > Only the Phase 1 foundation, Phase 2 core entity services, Phase 3 outbound providers,
-> Phase 4 inbound/effects/interactions, and Phase 5 runtime + Telegram exist so far;
-> T17-T21 (remaining inbound providers), T26-T28 (DSH integration, RPC, CLI), and all
+> Phase 4 inbound/effects/interactions, and Phase 5 runtime + Telegram + WxPusher exist so
+> far; T17-T20 (remaining inbound providers), T26-T28 (DSH integration, RPC, CLI), and all
 > UI phases are still unimplemented plans, not working behavior.

@@ -3,17 +3,33 @@
   "generatedAt": "2026-10-05",
   "repository": "https://github.com/THEWOLFWALKER/dsh-notifier",
   "branch": "dev",
-  "base": "3d7f6e721717227b26d90628e1ac2eb53c630182",
-  "sourceDigest": "3015e3b9256c1c24ff35557e0d5edcf95c1d38e065eb1588b4e02d81f0c6b57c",
+  "base": "2eb91c9284484fac11ed5dc8652f95dd56f74a1d",
+  "sourceDigest": "117eca3fc6a9521a936b0b6443855fb04c6b7e8b9a16d3f3de324ebee3180bff",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "Handoff-package follow-up: rewrote handoff/00-START-HERE.md to be the authoritative entry (records that dev is an orphan branch vs the 353-commit main, that v1 is a library whose declared entry points plugin-entry.mjs/dist/client.js do not exist yet, current verified tasks and test count, and that REVIEW.md/RECOVERY-TASKS.csv/STATUS.json/NEXT-AGENT-PROMPT.txt are frozen 24404fb snapshots that are partly stale), and added the previously-missing handoff/MANIFEST.json + handoff/PACKAGE-README.md so the pushed handoff/ dir matches the local single-ZIP package. No code change; v1/docs/DOC-SYNC.json updated accordingly.",
+  "summary": "R07-R14 recovery closure plus one new inbound channel. Code: control-card {label,token} contract end to end with a typed ENCODE_ERROR over the 64-byte callback cap (R07); Telegram callback chat type read from the real chat and ACK only after the durable receipt (R09); /pair redemption injected by the composition root and /unpair revoking only the caller (R10); Host event return path in src/runtime/host-return.mjs (turn.output/completed/failed -> control reply, interaction.opened -> interaction + card, session.closed -> cancel) (R11); inbound media admitted through MediaService into Host.saveAttachment before submit, never the token URL (R12); control-send idempotency by requestId with per-segment evidence (R13); interaction TTL never extends a past deadline, future cap = min(host, now+15min) (R14); new T21 WxPusher provider (outbound send + Host-mounted callback with route/uid/pairing auth) wired into the provider registry. Docs: CHANGELOG, HANDOFF, docs/PROGRESS.md and docs/architecture.md updated. Verification: npm run check passes (74 source files); npm test 383 pass / 0 fail (73 protocol). Real devices/accounts remain out of scope; this is not a push authorization by itself.",
   "unresolved": [],
   "changedPaths": [
-    "handoff/00-START-HERE.md",
-    "handoff/MANIFEST.json",
-    "handoff/PACKAGE-README.md",
+    "v1/CHANGELOG.md",
     "v1/HANDOFF.md",
-    "v1/docs/DOC-SYNC.json"
+    "v1/docs/DOC-SYNC.json",
+    "v1/docs/PROGRESS.md",
+    "v1/docs/architecture.md",
+    "v1/src/providers/http.mjs",
+    "v1/src/providers/platform.mjs",
+    "v1/src/providers/registry.mjs",
+    "v1/src/providers/telegram/index.mjs",
+    "v1/src/providers/wxpusher/index.mjs",
+    "v1/src/runtime/host-return.mjs",
+    "v1/src/runtime/manager.mjs",
+    "v1/src/services/control-replies.mjs",
+    "v1/src/services/conversation.mjs",
+    "v1/src/services/interactions.mjs",
+    "v1/test/integration/r12-media.test.mjs",
+    "v1/test/integration/runtime.test.mjs",
+    "v1/test/protocol/telegram.test.mjs",
+    "v1/test/protocol/wxpusher.test.mjs",
+    "v1/test/unit/control-replies.test.mjs",
+    "v1/test/unit/conversation.test.mjs"
   ],
   "inventory": [
     {
@@ -154,12 +170,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Recorded R04 (controlEnabled admission), R05 (Telegram reliable offset) and R06 (background exit → degraded)."
+      "reason": "Added the T21 WxPusher entry and the R07/R09-R14 fixed entries; updated the remaining-work note."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "handoff entry rewritten to add branch topology + stale-snapshot warning; package MANIFEST/README added."
+      "reason": "Recovery table now marks R07/R09-R14 done; Phase 5 channel status and suite count updated."
     },
     {
       "path": "v1/README.md",
@@ -179,12 +195,12 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Added the R01–R14 recovery table (R04–R06 verified this commit; R07/R09–R14 required-not-run)."
+      "reason": "Status table marks R07-R14 (incl. R12) and T21 implemented."
     },
     {
       "path": "v1/docs/architecture.md",
-      "disposition": "reviewed-no-change",
-      "reason": "Frozen v1 contract/reference docs; unaffected by these code changes."
+      "disposition": "updated",
+      "reason": "Status paragraph and layer list corrected: inbound services, runtime/host-return and the Telegram+WxPusher channels are implemented."
     },
     {
       "path": "v1/docs/integration-guide.md",
@@ -235,11 +251,6 @@
       "path": "handoff/PACKAGE-README.md",
       "disposition": "updated",
       "reason": "added to the handoff package so the pushed handoff/ dir matches the local ZIP package."
-    },
-    {
-      "path": "v1/HANDOFF.md",
-      "disposition": "updated",
-      "reason": "points to handoff/00-START-HERE.md as the one-file orientation."
     },
     {
       "path": "v1/docs/DOC-SYNC.json",

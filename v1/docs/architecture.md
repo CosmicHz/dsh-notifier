@@ -3,13 +3,14 @@
 > Status: **partially implemented**. The `domain/`, `storage/` and `security/`
 > foundations, `services/activity` + `services/diagnostics` (Phase 1), the core entity
 > services `accounts`, `destinations`, `connections`, `principals`, `pairing`, `routes`
-> and `settings` (Phase 2), and the outbound layer — `providers/registry` + `http` +
-> `specs` with 23 wired adapters, `services/notifications`, `services/messages`/`replies`/
-> `media` and `services/import` (Phase 3) — are implemented and tested. `host/dsh`, the
-> inbound `services/` (`effects`, `inbox`, `reply-*`, `control-replies`,
-> `correlations`, `interactions`, `conversation`), `runtime/`, `rpc/`, `cli/` and `ui/`
-> are still design targets frozen by `docs/developer/v1-flash-v3/18-WIRING.md`, 02
-> (data) and 03 (services/RPC).
+> and `settings` (Phase 2), the outbound layer — `providers/registry` + `http` + `specs`
+> with 23 wired adapters, `services/notifications`, `services/messages`/`replies`/`media`
+> and `services/import` (Phase 3) — the inbound `services/` (`effects`, `inbox`,
+> `reply-*`, `control-replies`, `correlations`, `interactions`, `conversation`),
+> `runtime/` (manager, event-bus, arbiter, projection, host-return) and the Telegram +
+> WxPusher channels are implemented and tested. `host/dsh`, `rpc/`, `cli/`, `ui/` and the
+> remaining inbound channels (T17–T20) are still design targets frozen by
+> `docs/developer/v1-flash-v3/18-WIRING.md`, 02 (data) and 03 (services/RPC).
 
 ## Layers
 
@@ -23,7 +24,7 @@ services/   accounts, destinations, connections, principals, pairing, routes,
             settings, notifications, interactions, conversation, activity,
             diagnostics, import, effects, inbox, reply-*, control-replies,
             correlations
-runtime/    manager, event-bus, arbiter, login-manager, projection, application
+runtime/    manager, event-bus, arbiter, login-manager, projection, host-return, application
 rpc/        router, server
 cli/        main
 ui/         entry, controller, rpc, strings, theme, components, pages, field-copy

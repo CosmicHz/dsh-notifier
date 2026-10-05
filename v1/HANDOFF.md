@@ -43,10 +43,11 @@ not import it and does not keep v0 compatibility.
   implemented and verified on 2026-10-05 at commit 3308719. Protocol tests (59),
   unit tests (262), and integration tests (13) all pass. Source hash:
   d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced.
-- **Phase 5 (remaining providers) onward: planned.** T17 Feishu, T18 WeChat, T19 QQ,
-  T20 DingTalk, T21 WxPusher, T26 DSH integration, T27 RPC, T28 CLI and all UI/UX
-  phases remain planned. See [docs/PROGRESS.md](docs/PROGRESS.md) for the live status
-  table.
+- **Phase 5 inbound channels: Telegram + WxPusher done, the rest planned.** T16 Telegram
+  and T21 WxPusher are implemented and pass `npm run test:protocol` (WxPusher: outbound
+  JSON send + Host-mounted callback with route/uid/pairing auth). T17 Feishu, T18 WeChat,
+  T19 QQ, T20 DingTalk, T26 DSH integration, T27 RPC, T28 CLI and all UI/UX phases remain
+  planned. See [docs/PROGRESS.md](docs/PROGRESS.md) for the live status table.
 
 ### Recovery pass (R01–R14, `REVIEW.md`)
 
@@ -61,13 +62,13 @@ A static review of baseline `24404fb` opened 14 recovery items. Current progress
 | R04 | `controlEnabled` admission | **done**, tests green, in this commit |
 | R05 | Telegram reliable offset | **done**, tests green, in this commit |
 | R06 | background exit → real `degraded` health | **done**, tests green, in this commit |
-| R07 | control-card `{label,token}` contract | remaining |
-| R09 | Telegram callback group type + ACK | remaining |
-| R10 | `/pair` dependency injection + `/unpair` | remaining |
-| R11 | Host event return path (`turn.*`, `interaction.opened`) | remaining |
-| R12 | media safely into the Host (`MediaService` → `AttachmentRef`) | remaining |
-| R13 | control-send idempotency + segmentation | remaining |
-| R14 | interaction TTL (never extend a past deadline) | remaining |
+| R07 | control-card `{label,token}` contract | **done**, tests green, in this push |
+| R09 | Telegram callback group type + ACK | **done**, tests green, in this push |
+| R10 | `/pair` dependency injection + `/unpair` | **done**, tests green, in this push |
+| R11 | Host event return path (`turn.*`, `interaction.opened`) | **done**, tests green, in this push |
+| R12 | media safely into the Host (`MediaService` → `AttachmentRef`) | **done**, tests green, in this push |
+| R13 | control-send idempotency + segmentation | **done**, tests green, in this push |
+| R14 | interaction TTL (never extend a past deadline) | **done**, tests green, in this push |
 
 R04/R05/R06 details this pass (all covered by `npm run test:unit` +
 `npm run test:integration`):
@@ -90,7 +91,9 @@ R04/R05/R06 details this pass (all covered by `npm run test:unit` +
   **wires `onFatal` into `provider.start`** and projects a real background exit to
   `connection.state='degraded'` + `health.degraded` (ignored for a superseded epoch).
 
-Current suite: **356 tests pass**, `npm run check` passes (72 source files).
+Current suite: **383 tests pass** (73 of them protocol), `npm run check` passes (74
+source files). Recovery items R07, R09–R12 (and the previously landed R01–R06, R08) are
+all closed; see the table above and `CHANGELOG.md` for scope and verification bounds.
 
 ## How to continue
 
