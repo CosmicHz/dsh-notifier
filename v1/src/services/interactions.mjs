@@ -150,9 +150,18 @@ export function openInteraction(draft, input, ctx = {}) {
     throw bad('prompt is invalid');
   }
   const now = nowOf(ctx);
-  const expiresAt = Number.isInteger(input?.expiresAt) && input.expiresAt > now
-    ? input.expiresAt
-    : now + LIMITS.INTERACTION_TTL_MS;
+  // R14: a Host-supplied deadline can only shorten the interaction, never extend
+  // it, and an already-expired request must not be silently revived into an
+  // approvable pending row.
+  const cap = now + LIMITS.INTERACTION_TTL_MS;
+  let expiresAt;
+  if (input?.expiresAt === undefined || input?.expiresAt === null) {
+    expiresAt = cap;
+  } else {
+    if (!Number.isInteger(input.expiresAt) || input.expiresAt < 0) throw bad('expiresAt must be a non-negative integer');
+    if (input.expiresAt <= now) throw new DomainError('EXPIRED', 'the Host interaction already expired');
+    expiresAt = Math.min(input.expiresAt, cap);
+  }
 
   const pending = Object.values(draft.interactions).filter((i) => i.state === 'pending' || i.state === 'claimed').length;
   if (pending >= LIMITS.MAX_PENDING_INTERACTIONS) {

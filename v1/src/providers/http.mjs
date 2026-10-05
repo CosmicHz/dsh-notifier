@@ -18,6 +18,7 @@ export const PROVIDER_ERROR_CODES = Object.freeze([
   'CANCELLED',
   'UNSUPPORTED',
   'API_ERROR',
+  'ENCODE_ERROR',
 ]);
 
 const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);

@@ -64,7 +64,8 @@ export function controlText(content) {
   const text = str(content?.text);
   const actions = Array.isArray(content?.actions) ? content.actions : [];
   if (actions.length === 0) return text;
-  const labels = actions.map((a) => str(a?.label ?? a?.id)).filter((x) => x !== '');
+  // Actions follow the frozen {label, token} contract; only the label is display.
+  const labels = actions.map((a) => str(a?.label)).filter((x) => x !== '');
   if (labels.length === 0) return text;
   return `${text}${text === '' ? '' : '\n'}[${labels.join(' | ')}]`;
 }

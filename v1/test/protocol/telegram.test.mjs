@@ -67,15 +67,110 @@ test('telegram: control reply uses inline keyboard and reports the message id', 
   const result = await telegram.sendControlReply({
     account,
     replyContext: { chatId: '555', userId: '555' },
-    content: { text: 'pick', actions: [{ id: 'yes', label: 'Yes', value: 'tok-yes' }] },
+    content: { text: 'pick', actions: [{ label: 'Yes', token: 'tok-yes' }] },
     signal: noSignal(),
     network,
   });
-  assert.equal(result.status, 'confirmed');
+  assert.equal(result.status, 'accepted');
   assert.equal(result.providerMessageId, '7');
   const body = jsonBody(network.calls[0]);
   assert.equal(body.chat_id, '555');
   assert.deepEqual(body.reply_markup, { inline_keyboard: [[{ text: 'Yes', callback_data: 'tok-yes' }]] });
+});
+
+test('telegram: R07 an over-long callback token fails closed instead of dropping the button', async () => {
+  const network = makeNetwork(() => jsonResponse({ ok: true, result: { message_id: 7 } }));
+  await assert.rejects(
+    telegram.sendControlReply({
+      account,
+      replyContext: { chatId: '555', userId: '555' },
+      content: { text: 'pick', actions: [{ label: 'Yes', token: 'x'.repeat(65) }] },
+      signal: noSignal(),
+      network,
+    }),
+    (e) => e.code === 'ENCODE_ERROR',
+  );
+  assert.equal(network.calls.length, 0, 'no partial send precedes the encoding failure');
+});
+
+test('telegram: R13 a later segment failure keeps the earlier accepted segment', async () => {
+  let sends = 0;
+  const network = makeNetwork((init) => {
+    if (init.url.includes('/sendMessage')) {
+      sends += 1;
+      if (sends === 1) return jsonResponse({ ok: true, result: { message_id: 11 } });
+      return jsonResponse({ ok: false, description: 'boom' });
+    }
+    return jsonResponse({ ok: true, result: {} });
+  });
+  await assert.rejects(
+    telegram.sendControlReply({
+      account,
+      replyContext: { chatId: '555', userId: '555' },
+      content: { text: 'x'.repeat(5000) },
+      signal: noSignal(),
+      network,
+    }),
+    (e) => {
+      assert.equal(e.delivery, 'partial');
+      assert.equal(e.segments.length, 2);
+      assert.equal(e.segments[0].status, 'accepted');
+      assert.equal(e.segments[0].providerMessageId, '11');
+      assert.equal(e.segments[1].status, 'failed');
+      return true;
+    },
+  );
+});
+
+test('telegram: R09 a group callback is classified as group and ACKed after the receipt', async () => {
+  const order = [];
+  let polls = 0;
+  const network = makeNetwork((init) => {
+    if (init.url.includes('/getUpdates')) {
+      polls += 1;
+      if (polls > 1) return jsonResponse({ ok: true, result: [] });
+      return jsonResponse({ ok: true, result: [
+        { update_id: 300, callback_query: { id: 'cb-group', from: { id: 555 }, message: { chat: { id: -100, type: 'supergroup' } }, data: JSON.stringify({ t: 'tok' }) } },
+      ] });
+    }
+    if (init.url.includes('/answerCallbackQuery')) { order.push('ack'); return jsonResponse({ ok: true, result: true }); }
+    return jsonResponse({ ok: true, result: {} });
+  });
+  const emitted = [];
+  const started = await telegram.start({
+    account, epoch: 'e1', network, signal: noSignal(), cursorStore: cursorStore(),
+    emit: async (env) => { emitted.push(env); order.push('emit'); return { accepted: true }; },
+  });
+  await waitFor(() => order.includes('ack'));
+  await started.stop();
+  assert.equal(emitted[0].chatType, 'group');
+  assert.ok(order.indexOf('emit') < order.indexOf('ack'), 'ACK must follow the reliable receipt');
+  assert.equal(network.calls.some((c) => c.url.includes('/answerCallbackQuery')), true);
+});
+
+test('telegram: R09 a failed ACK does not invalidate the reliable receipt', async () => {
+  let polls = 0;
+  const network = makeNetwork((init) => {
+    if (init.url.includes('/getUpdates')) {
+      polls += 1;
+      if (polls > 1) return jsonResponse({ ok: true, result: [] });
+      return jsonResponse({ ok: true, result: [
+        { update_id: 301, callback_query: { id: 'cb-x', from: { id: 555 }, message: { chat: { id: 555, type: 'private' } }, data: JSON.stringify({ t: 'tok' }) } },
+      ] });
+    }
+    if (init.url.includes('/answerCallbackQuery')) return new Error('ack boom');
+    return jsonResponse({ ok: true, result: {} });
+  });
+  const emitted = [];
+  const cursor = cursorStore();
+  const started = await telegram.start({
+    account, epoch: 'e1', network, signal: noSignal(), cursorStore: cursor,
+    emit: async (env) => { emitted.push(env); return { accepted: true }; },
+  });
+  await waitFor(() => cursor.commits.length > 0);
+  await started.stop();
+  assert.equal(emitted.length, 1);
+  assert.deepEqual(cursor.commits[0], { offset: 302 });
 });
 
 test('telegram: inbound long-poll emits message + callback and commits the cursor', async () => {

@@ -11,16 +11,24 @@
 // /route is read-only, /quiet only an owner may set on the bound session, and no
 // IM command can edit credentials/destinations/roles. Groups refuse every control
 // path; outbound group notifications stay independent.
+//
+// R12: inbound attachments are provider download descriptors (they may embed a
+// platform token URL). They are turned into secret-free Host AttachmentRefs by
+// MediaService — bounded, cancellable, never relaxed to private networks — before
+// Host.submit; a raw URL/token is never handed to the Host.
 import { randomUUID } from 'node:crypto';
 import { DomainError, conflict, notFound, validationError } from '../domain/errors.mjs';
 import { LIMITS, codepointLength } from '../domain/limits.mjs';
 import { commit } from '../storage/store.mjs';
 import { appendActivity } from './activity.mjs';
 import { upsertReplyContext } from './reply-contexts.mjs';
-import { lookupReplyRefByToken, lookupReplyRefById, markReplyRefUsed } from './reply-refs.mjs';
-import { settleInteraction } from './interactions.mjs';
+import {
+  lookupReplyRefByToken, lookupReplyRefById, markReplyRefUsed, revokeReplyRefsForPrincipal,
+} from './reply-refs.mjs';
+import { settleInteraction, refreshInteractionTargets } from './interactions.mjs';
 import { resolveSessionForPrincipal, resolveRouteTargets } from './routes.mjs';
 import { createEffect, applyEffectResult, requireRequestId } from './effects.mjs';
+import { admitInboundAttachment } from './media.mjs';
 import {
   reserveCorrelation, bindCorrelationTurn, soleLiveCorrelationForSession, completeCorrelation,
 } from './correlations.mjs';
@@ -38,6 +46,7 @@ export const COMMAND_SPECS = Object.freeze({
   approve: 'member',
   reject: 'member',
   answer: 'member',
+  unpair: 'member',
   quiet: 'owner',
   unquiet: 'owner',
 });
@@ -204,7 +213,7 @@ function requireBinding(draft, principal) {
 function helpText(principal) {
   const base = ['/help', '/whoami'];
   if (!principal) return [...base, '/pair <code>'].join(' ');
-  const member = ['/status', '/tasks', '/sessions', '/use <id>', '/route', '/stop', '/approve <REF>', '/reject <REF>', '/answer <REF> <json>'];
+  const member = ['/status', '/tasks', '/sessions', '/use <id>', '/route', '/stop', '/approve <REF>', '/reject <REF>', '/answer <REF> <json>', '/unpair'];
   if (principal.role === 'owner') member.push('/quiet <on|off>', '/unquiet');
   return [...base, ...member].join(' ');
 }
@@ -334,6 +343,27 @@ async function runActionCommand(store, name, args, { principal, account, envelop
       return { reply: `bound session=${binding.sessionId}` };
     });
   }
+  if (name === 'unpair') {
+    // R10: only ever revoke the caller's own pairing — the binding, every
+    // outstanding reply ref, and any live interaction target it still holds.
+    return commit(store, null, (draft) => {
+      const current = draft.principals[principal.id];
+      if (!current) throw notFound('principal not found');
+      if (current.accountId !== account.id) throw forbidden('principal belongs to another account');
+      const affected = Object.values(draft.interactions)
+        .filter((i) => (i.state === 'pending' || i.state === 'claimed')
+          && i.targets.some((t) => t.principalId === current.id))
+        .map((i) => i.id);
+      revokeReplyRefsForPrincipal(draft, current.id);
+      delete draft.bindings[current.id];
+      delete draft.principals[current.id];
+      // A pending target is a strong ref; recompute so the deleted principal
+      // cannot leave a dangling target behind.
+      for (const interactionId of affected) refreshInteractionTargets(draft, interactionId, { now });
+      appendActivity(draft, { kind: 'account', accountId: account.id, status: 'unpaired' }, { now });
+      return { reply: `unpaired account=${account.id} role=${current.role}` };
+    });
+  }
   if (name === 'quiet' || name === 'unquiet') {
     const sessionId = requireBinding(store.snapshot(), principal);
     let quiet;
@@ -374,19 +404,51 @@ function emptySignal() {
   return new AbortController().signal;
 }
 
+/**
+ * R12: turn provider download descriptors into secret-free Host AttachmentRefs.
+ * Every byte goes through MediaService's bounded, cancellable download and
+ * Host.saveAttachment; the token-bearing URL never reaches the Host, and any
+ * failure aborts the turn instead of falling back to a raw-URL passthrough.
+ */
+async function admitDescriptors({ host, network, sessionId, requestId, descriptors, signal }) {
+  if (descriptors.length === 0) return [];
+  const declared = descriptors.reduce(
+    (sum, item) => sum + (Number.isInteger(item?.size) && item.size >= 0 ? item.size : 0),
+    0,
+  );
+  if (declared > LIMITS.MAX_ATTACHMENT_TOTAL_BYTES) {
+    throw validationError(`attachments exceed ${LIMITS.MAX_ATTACHMENT_TOTAL_BYTES} total bytes`);
+  }
+  const refs = [];
+  let total = 0;
+  for (const descriptor of descriptors) {
+    const ref = await admitInboundAttachment({ host, network, sessionId, requestId, attachment: descriptor, signal });
+    total += ref.size;
+    if (total > LIMITS.MAX_ATTACHMENT_TOTAL_BYTES) {
+      throw validationError(`attachments exceed ${LIMITS.MAX_ATTACHMENT_TOTAL_BYTES} total bytes`);
+    }
+    refs.push(ref);
+  }
+  return refs;
+}
+
 async function converse(store, envelope, { account, principal }, ctx) {
   if (principal.canConverse !== true) throw forbidden('this identity may not start conversations');
-  const text = envelope.text;
-  if (typeof text !== 'string' || codepointLength(text.trim()) === 0) {
-    throw validationError('message text is empty');
-  }
+  const text = typeof envelope.text === 'string' ? envelope.text : '';
   if (codepointLength(text) > LIMITS.MAX_MESSAGE_CODEPOINTS) {
     throw validationError(`message exceeds ${LIMITS.MAX_MESSAGE_CODEPOINTS} codepoints`);
   }
+  // R12: an attachment-only message is valid; a message with neither usable text
+  // nor an attachment is not (a steer still requires body text).
+  const descriptors = Array.isArray(envelope.attachments) ? envelope.attachments : [];
+  if (descriptors.length > LIMITS.MAX_ATTACHMENTS) {
+    throw validationError(`attachments exceed the ${LIMITS.MAX_ATTACHMENTS} item cap`);
+  }
   const steerIntent = text.startsWith('!');
   const body = steerIntent ? text.slice(1).trim() : text;
-  if (body === '') throw validationError('message text is empty after steer prefix');
-  const attachments = Array.isArray(envelope.attachments) ? envelope.attachments : [];
+  const hasBody = codepointLength(body.trim()) > 0;
+  if (steerIntent && !hasBody) throw validationError('message text is empty after steer prefix');
+  if (!hasBody && descriptors.length === 0) throw validationError('message text is empty');
 
   const snapshot = store.snapshot();
   const { sessionId } = resolveSessionForPrincipal(snapshot, principal.id, {
@@ -414,6 +476,12 @@ async function converse(store, envelope, { account, principal }, ctx) {
 
   const requestId = requireRequestId(randomUUID());
   const now = nowOf(ctx);
+  const signal = ctx.signal ?? emptySignal();
+  // Admit media BEFORE recording the submit effect: a crash mid-download must not
+  // leave a `started` leaf that claims a turn the Host never received (W11).
+  const attachments = await admitDescriptors({
+    host, network: ctx.network, sessionId, requestId, descriptors, signal,
+  });
   let prepared;
   if (mode === 'followup') {
     prepared = await commit(store, null, (draft) => {
@@ -453,7 +521,7 @@ async function converse(store, envelope, { account, principal }, ctx) {
     text: body,
     attachments,
     requestId,
-    signal: ctx.signal ?? emptySignal(),
+    signal,
   });
   const arbiter = ctx.arbiterFor ? ctx.arbiterFor(sessionId) : null;
   let result;
@@ -556,7 +624,7 @@ export async function handleInbound(store, envelope, ctx = {}) {
         await reply(await runReadCommand(store, command.name, command.args, { principal, account, envelope }, ctx).then((r) => r.reply));
         return { handled: true, kind: 'command', name: command.name };
       }
-      if (command.name in COMMAND_SPECS && ['approve', 'reject', 'answer', 'stop', 'use', 'quiet', 'unquiet'].includes(command.name)) {
+      if (command.name in COMMAND_SPECS && ['approve', 'reject', 'answer', 'stop', 'use', 'quiet', 'unquiet', 'unpair'].includes(command.name)) {
         const result = await runActionCommand(store, command.name, command.args, { principal, account, envelope, replyContextId }, ctx);
         await reply(result.reply);
         return { handled: true, kind: 'command', name: command.name };

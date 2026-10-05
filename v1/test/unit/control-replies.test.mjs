@@ -116,3 +116,77 @@ test('normalizeControlContent enforces the control content shape', () => {
   assert.throws(() => normalizeControlContent(null), (e) => e.code === 'VALIDATION');
   assert.throws(() => normalizeControlContent({ text: 'x'.repeat(20001) }), (e) => e.code === 'VALIDATION');
 });
+
+test('R07 control actions use the frozen {label, token} contract', () => {
+  assert.deepEqual(
+    normalizeControlContent({ text: 'pick', actions: [{ label: 'Yes', token: 'tok-1' }] }).actions,
+    [{ label: 'Yes', token: 'tok-1' }],
+  );
+  // Legacy/旁路 fields are rejected rather than silently ignored.
+  assert.throws(() => normalizeControlContent({ text: 'x', actions: [{ id: 'yes', label: 'Yes', value: 'v' }] }), (e) => e.code === 'VALIDATION');
+  assert.throws(() => normalizeControlContent({ text: 'x', actions: [{ label: 'Yes' }] }), (e) => e.code === 'VALIDATION');
+  assert.throws(() => normalizeControlContent({ text: 'x', actions: [{ label: 'Yes', token: 'x'.repeat(65) }] }), (e) => e.code === 'VALIDATION');
+});
+
+test('R13 the same requestId is idempotent: the channel is called once and the receipt replayed', async () => {
+  const store = await freshStore();
+  const { account, context } = await accountWithContext(store);
+  let calls = 0;
+  const provider = {
+    id: 'telegram',
+    capabilities: { controlReply: true },
+    async sendControlReply() { calls += 1; return { status: 'accepted', providerMessageId: 'pm-1' }; },
+  };
+  const input = { accountId: account.id, replyContextId: context.id, content: { text: 'hi' }, requestId: '22222222-2222-4222-8222-222222222222' };
+  const first = await sendControlReply(store, input, { now: 200, provider });
+  const second = await sendControlReply(store, input, { now: 201, provider });
+  assert.equal(calls, 1);
+  assert.equal(first.id, second.id);
+  assert.equal(Object.keys(store.snapshot().receipts).length, 1);
+});
+
+test('R13 a partial segment failure preserves the accepted segment and a partial receipt', async () => {
+  const store = await freshStore();
+  const { account, context } = await accountWithContext(store);
+  const error = Object.assign(new Error('second segment failed'), { code: 'API_ERROR', delivery: 'partial' });
+  error.segments = [
+    { index: 0, status: 'accepted', providerMessageId: 'pm-1', errorCode: null },
+    { index: 1, status: 'failed', providerMessageId: null, errorCode: 'API_ERROR' },
+  ];
+  await assert.rejects(
+    sendControlReply(store, {
+      accountId: account.id, replyContextId: context.id, content: { text: 'x' },
+      requestId: '33333333-3333-4333-8333-333333333333',
+    }, { now: 200, provider: fakeProvider({ throw: error }) }),
+    (e) => e.code === 'API_ERROR',
+  );
+  const state = store.snapshot();
+  const receipt = Object.values(state.receipts)[0];
+  assert.equal(receipt.status, 'failed');
+  assert.equal(receipt.delivery, 'partial');
+  assert.deepEqual(receipt.providerMessageIds, ['pm-1']);
+  assert.equal(receipt.effectIds.length, 2);
+  const effects = receipt.effectIds.map((id) => state.effects[id]);
+  assert.equal(effects[0].status, 'accepted');
+  assert.equal(effects[1].status, 'failed');
+});
+
+test('R14 an expired Host deadline is rejected; a future one is capped to the local TTL', async () => {
+  const { openInteraction } = await import('../../src/services/interactions.mjs');
+  const { createEmptyState } = await import('../../src/domain/schema.mjs');
+  const { LIMITS } = await import('../../src/domain/limits.mjs');
+  const draft = createEmptyState();
+  draft.accounts['acc-1'] = {
+    id: 'acc-1', revision: 0, channelId: 'telegram', label: 'TG', enabled: true,
+    notificationEnabled: true, controlEnabled: true, config: { outbound: {}, inbound: {} },
+    secrets: {}, policyRevision: 1, createdAt: 1, updatedAt: 1,
+  };
+  const base = { type: 'approval', sessionId: 's-1', hostRef: 'h-1', turnId: null, prompt: 'Allow?', choices: [] };
+  assert.throws(() => openInteraction(draft, { ...base, expiresAt: 100 }, { now: 200 }), (e) => e.code === 'EXPIRED');
+  const capped = openInteraction(draft, { ...base, expiresAt: 10_000_000 }, { now: 1_000 });
+  assert.equal(capped.expiresAt, 1_000 + LIMITS.INTERACTION_TTL_MS);
+  const shortened = openInteraction(draft, { ...base, expiresAt: 2_000 }, { now: 1_000 });
+  assert.equal(shortened.expiresAt, 2_000);
+  const defaulted = openInteraction(draft, base, { now: 1_000 });
+  assert.equal(defaulted.expiresAt, 1_000 + LIMITS.INTERACTION_TTL_MS);
+});

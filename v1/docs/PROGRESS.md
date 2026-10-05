@@ -60,7 +60,7 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 | T18 | WeChat | planned |
 | T19 | QQ | planned |
 | T20 | DingTalk | planned |
-| T21 | WxPusher | planned |
+| T21 | WxPusher | **implemented** |
 | T26 | DSH integration | planned |
 | T27 | RPC | planned |
 | T28 | CLI | planned |
@@ -105,13 +105,13 @@ the TASKS.csv phases above.
 | R04 | `controlEnabled` admission | **verified** (this commit) |
 | R05 | Telegram reliable offset | **verified** (this commit) |
 | R06 | background exit → real `degraded` health | **verified** (this commit) |
-| R07 | control-card `{label,token}` contract | required-not-run |
-| R09 | Telegram callback group type + ACK | required-not-run |
-| R10 | `/pair` injection + `/unpair` | required-not-run |
-| R11 | Host event return path | required-not-run |
-| R12 | media safely into the Host | required-not-run |
-| R13 | control-send idempotency + segmentation | required-not-run |
-| R14 | interaction TTL | required-not-run |
+| R07 | control-card `{label,token}` contract | **implemented** (uncommitted) |
+| R09 | Telegram callback group type + ACK | **implemented** (uncommitted) |
+| R10 | `/pair` injection + `/unpair` | **implemented** (uncommitted) |
+| R11 | Host event return path | **implemented** (uncommitted) |
+| R12 | media safely into the Host | **implemented** (uncommitted) |
+| R13 | control-send idempotency + segmentation | **implemented** (uncommitted) |
+| R14 | interaction TTL | **implemented** (uncommitted) |
 
 ## Notes
 

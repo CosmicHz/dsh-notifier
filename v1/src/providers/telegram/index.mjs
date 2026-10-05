@@ -57,14 +57,18 @@ async function send({ config, message, signal, network }) {
   return { status: 'accepted', providerMessageId };
 }
 
-function keyboardFor(actions, tokenById) {
+function keyboardFor(actions) {
   const rows = [];
   for (const action of actions) {
-    const label = str(action.label ?? action.id);
-    const raw = str(action.value ?? action.id);
-    const value = tokenById ? tokenById(action) : raw;
-    if (label === '' || value === '' || [...value].length > CALLBACK_DATA_LIMIT) continue;
-    rows.push([{ text: [...label].slice(0, 64).join(''), callback_data: value }]);
+    // Frozen contract: actions are {label, token}; the token is the opaque
+    // callback payload and must fit Telegram's 64-byte callback_data cap (R07).
+    const label = str(action?.label);
+    const token = str(action?.token);
+    if (label === '' || token === '') continue;
+    if (Buffer.byteLength(token, 'utf8') > CALLBACK_DATA_LIMIT) {
+      throw new ProviderError('ENCODE_ERROR', `telegram 按钮 callback_data 超过 ${CALLBACK_DATA_LIMIT} 字节`, token);
+    }
+    rows.push([{ text: [...label].slice(0, 64).join(''), callback_data: token }]);
   }
   return rows.length > 0 ? { inline_keyboard: rows } : null;
 }
@@ -75,14 +79,32 @@ async function sendControlReply({ account, replyContext, content, signal, networ
   if (chatId === '') throw new ProviderError('NOT_CONFIGURED', 'telegram 控制回复缺少 chatId');
   const text = controlText(content);
   const keyboard = keyboardFor(controlActions(content));
+  const chunks = chunkText(text, TEXT_LIMIT);
+  const segments = [];
   let providerMessageId = null;
-  for (const chunk of chunkText(text, TEXT_LIMIT)) {
+  for (let index = 0; index < chunks.length; index++) {
+    const chunk = chunks[index];
     const body = { chat_id: chatId, text: chunk === '' ? '(empty)' : chunk };
     if (keyboard !== null) body.reply_markup = keyboard;
-    const result = await callApi(network, botToken, 'sendMessage', body, { signal });
-    if (result && result.message_id !== undefined) providerMessageId = String(result.message_id);
+    try {
+      const result = await callApi(network, botToken, 'sendMessage', body, { signal });
+      const messageId = result && result.message_id !== undefined ? String(result.message_id) : null;
+      if (messageId !== null) providerMessageId = messageId;
+      segments.push({ index, status: 'accepted', providerMessageId: messageId, errorCode: null });
+    } catch (error) {
+      const status = error?.uncertain === true ? 'uncertain' : error?.code === 'CANCELLED' ? 'cancelled' : 'failed';
+      segments.push({ index, status, providerMessageId: null, errorCode: typeof error?.code === 'string' ? error.code : 'INTERNAL' });
+      // A later segment must never invalidate an earlier accepted one; stop and
+      // report partial evidence instead of throwing the whole reply away (R13).
+      const delivery = segments.some((s) => s.status === 'accepted') ? 'partial' : 'none';
+      const failed = error instanceof Error ? error : new ProviderError('API_ERROR', 'telegram 控制回复失败');
+      failed.segments = segments;
+      failed.delivery = delivery;
+      throw failed;
+    }
   }
-  return { status: 'confirmed', providerMessageId };
+  // A JSON 200 only proves the platform accepted the message, never delivery.
+  return { status: 'accepted', providerMessageId, delivery: 'complete', segments };
 }
 
 async function updateControlMessage({ account, replyContext, messageId, content, signal, network }) {
@@ -93,7 +115,7 @@ async function updateControlMessage({ account, replyContext, messageId, content,
     message_id: toInt(messageId, 0),
     text: controlText(content) || '(empty)',
   }, { signal });
-  return { status: 'confirmed', providerMessageId: str(messageId) };
+  return { status: 'accepted', providerMessageId: str(messageId) };
 }
 
 async function mediaAttachment(network, token, fileId, { name = '', mime = '', size = null, signal } = {}) {
@@ -119,11 +141,16 @@ async function updateToEnvelope({ account, epoch, update, token, network, signal
     const query = update.callback_query;
     const chatId = str(query.message?.chat?.id ?? query.from?.id);
     const userId = str(query.from?.id);
+    // R09: classify from the real chat type so a group button press is never
+    // mistaken for a private control message; anything not explicitly private is
+    // treated as group (fail closed at the control entry).
+    const chatType = query.message?.chat?.type === 'private' ? 'private' : 'group';
     const parsed = tryParseJson(str(query.data)) ?? {};
     const token = str(parsed.t ?? query.data);
     if (token === '') return null;
     return at(userId, chatId, {
       eventId: `tg:${update.update_id}`,
+      chatType,
       kind: 'callback',
       callback: { token, providerCallbackId: str(query.id) },
     });
@@ -157,6 +184,17 @@ async function updateToEnvelope({ account, epoch, update, token, network, signal
     text,
     attachments,
   });
+}
+
+async function answerCallback(network, token, callbackQueryId, { signal } = {}) {
+  if (str(callbackQueryId) === '') return;
+  try {
+    await callApi(network, token, 'answerCallbackQuery', { callback_query_id: callbackQueryId }, { signal });
+  } catch {
+    // ACK is a UI hint only: it stops the client spinner and never means the
+    // interaction was approved. A failed ACK must not invalidate the reliable
+    // receipt (the update stays accepted and deduped by eventId) (R09).
+  }
 }
 
 async function runLoop({ account, epoch, emit, signal, network, cursorStore, reconnectMs = RECONNECT_MS }, inner) {
@@ -207,7 +245,12 @@ async function runLoop({ account, epoch, emit, signal, network, cursorStore, rec
       }
       const outcome = await emit(envelope);
       if (outcome?.accepted === true || outcome?.code === 'DUPLICATE') {
-        // Accepted or already deduplicated: safe to advance offset.
+        // Accepted or already deduplicated: safe to advance offset. ACK a button
+        // press only AFTER the reliable receipt, so an ACK can never be the sole
+        // evidence that a control action happened (R09).
+        if (update.callback_query) {
+          await answerCallback(network, botToken, update.callback_query.id, { signal: stopSignal });
+        }
         nextOffset = Math.max(nextOffset, updateId + 1);
       } else {
         // Any other rejection (STALE_EPOCH, NO_CONNECTION, FORBIDDEN): stop this

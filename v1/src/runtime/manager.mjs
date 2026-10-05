@@ -27,6 +27,8 @@ import {
   receiveInbound, claimInbound, completeInbound, markInboundUncertain, advanceCursor, pruneInbox,
 } from '../services/inbox.mjs';
 import { handleInbound as defaultHandleInbound } from '../services/conversation.mjs';
+import { redeemPairing as defaultRedeemPairing } from '../services/pairing.mjs';
+import { createHostReturn } from './host-return.mjs';
 import { sendControlReply as defaultControlReply } from '../services/control-replies.mjs';
 import { notify as defaultNotify } from '../services/notifications.mjs';
 import { createCallbackMount } from '../host/callbacks.mjs';
@@ -57,6 +59,7 @@ function defaultSleep(ms) {
  * @param {Function} [options.handleInbound]
  * @param {Function} [options.controlReplySender]
  * @param {Function} [options.notifySender]
+ * @param {Function} [options.redeemPairing] Pairing redemption (store, input, ctx) -> principal
  * @param {object|null} [options.network]
  * @param {number} [options.eventBufferCapacity]
  * @param {number} [options.stopWaitMs]
@@ -71,6 +74,7 @@ export function createRuntimeManager({
   handleInbound = defaultHandleInbound,
   controlReplySender = defaultControlReply,
   notifySender = defaultNotify,
+  redeemPairing = defaultRedeemPairing,
   network = null,
   limiter = null,
   eventBufferCapacity = 256,
@@ -170,6 +174,9 @@ export function createRuntimeManager({
         signal: controller.signal,
         arbiterFor: (sessionId) => arbiters.for(sessionId),
         controlReply: (input) => controlReply(input, { signal: controller.signal }),
+        // R10: pairing redemption is the runtime's composition-root
+        // responsibility; the service stays free of concrete pairing wiring.
+        redeemPairing: (input) => redeemPairing(store, input, { now: at }),
       });
     } catch (error) {
       const code = typeof error?.code === 'string' ? error.code : 'INTERNAL';
@@ -226,6 +233,15 @@ export function createRuntimeManager({
 
   const controlReplyPort = Object.freeze({
     controlReply: (input) => controlReply(input),
+  });
+
+  // R11: Host event -> correlation/Interaction -> control reply (18 链4/链5).
+  const hostReturn = createHostReturn({
+    store,
+    controlReply: (input) => controlReply(input),
+    now,
+    newId,
+    logger,
   });
 
   // -------------------------------------------------------------------------
@@ -389,19 +405,14 @@ export function createRuntimeManager({
         projection?.invalidate?.('capabilities');
         return;
       }
-      if (event.type === 'session.closed') {
-        const { cancelInteractionsForTurn } = await import('../services/interactions.mjs');
-        const at = nowOf(clock);
-        await commit(store, null, (draft) => {
-          cancelInteractionsForTurn(draft, { sessionId: event.sessionId, turnId: null, now: at });
-          return null;
-        });
-        projection?.invalidate?.('session-closed');
+      // Turn output/completion and opened interactions are business events: the
+      // return path turns them into a control reply (R11).
+      if (event.type === 'turn.output' || event.type === 'turn.completed' || event.type === 'turn.failed'
+        || event.type === 'interaction.opened' || event.type === 'session.closed') {
+        await hostReturn.handle(event);
+        projection?.invalidate?.(event.type);
         return;
       }
-      // turn.output/turn.completed/turn.failed and interaction.opened are handled
-      // by the conversation/interaction layer once the platform providers land;
-      // capability and lifecycle facts are the runtime's own responsibility.
       projection?.invalidate?.(event.type);
     } catch (error) {
       warn(`host event ${event?.type ?? 'unknown'} failed: ${error?.code ?? error?.message ?? 'error'}`);
@@ -480,6 +491,7 @@ export function createRuntimeManager({
     }
     arbiters.dispose();
     bus.dispose();
+    hostReturn.dispose();
     inFlight.clear();
     state = 'stopped';
     setHealth('stopped', null, null);

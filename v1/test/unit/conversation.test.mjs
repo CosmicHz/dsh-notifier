@@ -87,6 +87,8 @@ test('W15 the command permission table fails closed by role', () => {
   assert.equal(authorizeCommand(member, 'route'), 'member');
   assert.throws(() => authorizeCommand(member, 'quiet'), (e) => e.code === 'FORBIDDEN');
   assert.throws(() => authorizeCommand(member, 'pair'), (e) => e.code === 'FORBIDDEN');
+  assert.equal(authorizeCommand(member, 'unpair'), 'member');
+  assert.throws(() => authorizeCommand(null, 'unpair'), (e) => e.code === 'FORBIDDEN');
   // owner
   assert.equal(authorizeCommand(owner, 'quiet'), 'owner');
   // unknown
