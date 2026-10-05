@@ -181,6 +181,18 @@ export class Store {
   }
 }
 
+/**
+ * Run a transaction and resolve with the mutator's return value only.
+ * Service callers return domain views; the RPC layer owns the revision envelope.
+ * @param {Store} store
+ * @param {number|null} expectedGlobalRevision
+ * @param {(draft:object)=>unknown} mutator
+ * @returns {Promise<unknown>}
+ */
+export function commit(store, expectedGlobalRevision, mutator) {
+  return store.transact(expectedGlobalRevision, mutator).then((result) => result.value);
+}
+
 async function cleanupTemp(dir) {
   try {
     for (const name of await readdir(dir)) {

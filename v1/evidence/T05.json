@@ -1,0 +1,29 @@
+{
+  "task": "T05",
+  "title": "Accounts",
+  "commit": null,
+  "sourceId": "d52624485fe487d0457f53e1b1ecc4d384346ad4eeb156d56258d32a551b570a",
+  "files": [
+    "src/services/accounts.mjs",
+    "src/services/destinations.mjs",
+    "src/services/connections.mjs",
+    "test/unit/accounts.test.mjs",
+    "test/unit/destinations.test.mjs",
+    "test/unit/connections.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "135 unit tests pass; accounts/destinations/connections suites cover A01/A02/A04/A05, target contract, reference cleanup and connection atomicity" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (22 source files)" }
+  ],
+  "tests": [
+    "A01 credential rotation keeps the account id and only bumps revisions",
+    "A02 a flag patch preserves label/config/secrets/createdAt",
+    "A04 deleting an account removes destinations, principals, pairing, refs, cursors and route/settings references in one commit",
+    "A05 account and destination views expose secret paths but never secret values",
+    "destination target requires declared fields and defaults the kind",
+    "secret destination target fields are captured into destination.secrets",
+    "connections.create commits account + first destination together with no orphan on failure",
+    "makeDefault appends and advances settings.revision once"
+  ],
+  "remaining": []
+}

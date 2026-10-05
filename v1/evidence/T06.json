@@ -1,0 +1,27 @@
+{
+  "task": "T06",
+  "title": "Identity",
+  "commit": null,
+  "sourceId": "9a772fe1e7bea443caaa996ec3031063b8e929db09636b60f0e753567e1c8964",
+  "files": [
+    "src/services/principals.mjs",
+    "src/services/pairing.mjs",
+    "test/unit/principals.test.mjs",
+    "test/unit/pairing.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "135 unit tests pass; pairing/principals suites cover P01-P04 and A03" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (22 source files)" }
+  ],
+  "tests": [
+    "P01 concurrent redemption of one code yields exactly one principal",
+    "P02 cross-account, expired and locked-out pairing attempts are rejected and do not consume the code",
+    "P03 a redemption failure leaves the pairing active and creates no principal",
+    "P04 disabling a principal revokes bindings and outstanding reply refs",
+    "A03 the same userId on two accounts resolves to isolated principals",
+    "a permission patch advances the owning account policyRevision",
+    "only one enabled owner is allowed per account",
+    "plaintext pairing code is never stored; views hide the code hash"
+  ],
+  "remaining": []
+}

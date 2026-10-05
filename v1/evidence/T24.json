@@ -1,0 +1,23 @@
+{
+  "task": "T24",
+  "title": "Local adapters",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/providers/bell/index.mjs",
+    "src/providers/desktop/index.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:protocol", "exitCode": 0, "report": "52 protocol tests pass; local-adapters.test.mjs covers bell and desktop" }
+  ],
+  "tests": [
+    "bell rings once per count in a single write; count clamps 1..5",
+    "bell silent never rings; closed stdout is not fatal",
+    "desktop macOS osascript argv with quote escaping and level-driven sound",
+    "desktop linux notify-send argv with urgency + -- separator",
+    "desktop Windows BurntToast probe, single -Command argv, -SuppressSound",
+    "hostile metacharacters stay inert (argv only, never shell:true)",
+    "non-zero exit -> API_ERROR; missing binary -> NOT_CONFIGURED; silent short-circuits before spawn"
+  ],
+  "remaining": []
+}

@@ -1,7 +1,10 @@
 # Integration guide
 
-> Status: **integration surface not implemented**. Only the Phase 1 foundation
-> (schema, store, security, Host port, descriptors, activity/diagnostics) exists; the
+> Status: **integration surface not implemented**. The Phase 1 foundation (schema,
+> store, security, Host port, descriptors, activity/diagnostics), the Phase 2 core
+> entity services (accounts, destinations, connections, principals, pairing, routes,
+> settings) and the Phase 3 outbound layer (provider registry, 23 adapters,
+> notifications, messages/media/replies, importer) exist as tested library code; the
 > plugin, RPC, CLI and client described below are frozen by the contract in
 > `docs/developer/v1-flash-v3/` (03, 05, 18) but have no runtime yet.
 

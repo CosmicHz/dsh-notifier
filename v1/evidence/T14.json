@@ -1,0 +1,20 @@
+{
+  "task": "T14",
+  "title": "Notifications",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/notifications.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "173 unit tests pass; notifications.test.mjs covers D01-D03" }
+  ],
+  "tests": [
+    "D01 a partially-sent message stops and never resends accepted segments",
+    "D02 retry policy is level-scoped with bounded attempts/backoff",
+    "D03 evidence layering: accepted vs confirmed, providerMessageIds collected only when returned",
+    "segmentation of long text with sentence-boundary preference",
+    "uncertain/timeout outcomes are never auto-replayed"
+  ],
+  "remaining": []
+}

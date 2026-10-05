@@ -1,10 +1,15 @@
 # Architecture
 
 > Status: **partially implemented**. The `domain/`, `storage/` and `security/`
-> foundations plus `services/activity` and `services/diagnostics` are implemented and
-> unit-tested (Phase 1). `providers/`, `host/dsh`, the remaining `services/`,
-> `runtime/`, `rpc/`, `cli/` and `ui/` are still design targets frozen by
-> `docs/developer/v1-flash-v3/18-WIRING.md`, 02 (data) and 03 (services/RPC).
+> foundations, `services/activity` + `services/diagnostics` (Phase 1), the core entity
+> services `accounts`, `destinations`, `connections`, `principals`, `pairing`, `routes`
+> and `settings` (Phase 2), and the outbound layer — `providers/registry` + `http` +
+> `specs` with 23 wired adapters, `services/notifications`, `services/messages`/`replies`/
+> `media` and `services/import` (Phase 3) — are implemented and tested. `host/dsh`, the
+> inbound `services/` (`effects`, `inbox`, `reply-*`, `control-replies`,
+> `correlations`, `interactions`, `conversation`), `runtime/`, `rpc/`, `cli/` and `ui/`
+> are still design targets frozen by `docs/developer/v1-flash-v3/18-WIRING.md`, 02
+> (data) and 03 (services/RPC).
 
 ## Layers
 
@@ -40,6 +45,9 @@ ui/         entry, controller, rpc, strings, theme, components, pages, field-cop
 - Global revision increments once per commit; every record also has its own
   `revision` for optimistic concurrency. Views are produced only by the single
   serializer, which strips secrets.
+- Service async wrappers call `commit(store, expected, mutator)`, which resolves with
+  the mutator's return value (a domain view such as `AccountView`). The RPC layer, not
+  the service, wraps that value in the `{data, storeRevision, surfaceVersion}` envelope.
 
 ## Lifecycle
 

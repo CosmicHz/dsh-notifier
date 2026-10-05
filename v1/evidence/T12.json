@@ -1,0 +1,23 @@
+{
+  "task": "T12",
+  "title": "Messages",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/domain/messages.mjs",
+    "src/services/media.mjs",
+    "src/services/replies.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "173 unit tests pass; messages.test.mjs covers inbound normalization, reply resolution and inbound media admission" }
+  ],
+  "tests": [
+    "inbound envelope normalization with text/attachment caps",
+    "reply reference resolved from a complete payload, a provider lookup, or an unavailable reason",
+    "reply scope is pinned to account+chat",
+    "inbound media downloaded through the network policy (never relaxing it) and saved into the Host store",
+    "an oversize/unavailable/unsupported attachment never falls back to the remote URL",
+    "cancellation propagates as CANCELLED"
+  ],
+  "remaining": []
+}

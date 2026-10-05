@@ -1,0 +1,27 @@
+{
+  "task": "T07",
+  "title": "Routes",
+  "commit": null,
+  "sourceId": "4ac6a9425fd8138f1dbc3a1ff8ee419914e453b3ee101e689c4d414b850f6d73",
+  "files": [
+    "src/services/routes.mjs",
+    "src/services/settings.mjs",
+    "test/unit/routes.test.mjs",
+    "test/unit/settings.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "135 unit tests pass; routes/settings suites cover priority, quiet inheritance, validation, binding ambiguity and settings concurrency" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (22 source files)" }
+  ],
+  "tests": [
+    "resolution priority session > agent > workspace > global > settings for destinations and quiet independently",
+    "an empty destination array is an explicit stop and does not fall back to settings",
+    "saveRoute enforces scope/scopeId, declared destinations and uniqueness",
+    "route update requires expectedRevision and rejects both-null fields",
+    "session binding prefers an explicit binding, otherwise a single authorized session, and refuses ambiguity",
+    "settings.revision is a separate optimistic counter",
+    "defaultDestinationIds must reference existing destinations",
+    "activityRetentionDays is bounded and non-writable fields are rejected"
+  ],
+  "remaining": []
+}

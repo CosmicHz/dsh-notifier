@@ -1,0 +1,23 @@
+{
+  "task": "T13",
+  "title": "Provider registry",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/providers/registry.mjs",
+    "src/providers/http.mjs",
+    "src/providers/specs.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "173 unit tests pass; registry.test.mjs asserts the registry covers all 29 descriptors / 28 outbound " },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (54 source files)" }
+  ],
+  "tests": [
+    "registry ids equal the frozen descriptors exactly (29 total, 28 outbound)",
+    "23 wired outbound providers agree with their descriptor capability",
+    "all 16 declarative channels resolve through the spec compiler",
+    "a channel without an implementation raises typed UNSUPPORTED (telegram/feishu/qq-bot/dingtalk/wxpusher/wechat-ilink), never a fake success",
+    "constructing the registry opens no transport; entries and WIRED_PROVIDERS are frozen"
+  ],
+  "remaining": []
+}

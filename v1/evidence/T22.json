@@ -1,0 +1,25 @@
+{
+  "task": "T22",
+  "title": "Remaining code adapters",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/providers/bark/index.mjs",
+    "src/providers/pushplus/index.mjs",
+    "src/providers/serverchan/index.mjs",
+    "src/providers/webhook/index.mjs",
+    "src/providers/wecom-app/index.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:protocol", "exitCode": 0, "report": "52 protocol tests pass; code-adapters.test.mjs covers the 5 code adapters" }
+  ],
+  "tests": [
+    "bark URL/JSON body, barkUrl precedence, code=200, platform error, missing key, malformed body",
+    "pushplus fixed endpoint/body, config-time enum validation, platform error",
+    "serverchan Turbo/SC3 endpoint derivation from SENDKEY, form body, code=0",
+    "webhook JSON body, custom scalar headers, non-2xx retryable HTTP_ERROR",
+    "wecom-app gettoken then message/send, token invalidation refresh once, agentid hint",
+    "timeout/cancellation map to typed TIMEOUT/CANCELLED"
+  ],
+  "remaining": []
+}

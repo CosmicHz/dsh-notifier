@@ -23,21 +23,21 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 
 | id | title | status |
 |---|---|---|
-| T05 | Accounts | planned |
-| T06 | Identity | planned |
-| T07 | Routes | planned |
+| T05 | Accounts | **verified** |
+| T06 | Identity | **verified** |
+| T07 | Routes | **verified** |
 
 ## Phase 3 — Outbound providers
 
 | id | title | status |
 |---|---|---|
-| T13 | Provider registry | planned |
-| T14 | Notifications | planned |
-| T12 | Messages | planned |
-| T22 | Remaining code adapters | planned |
-| T23 | Spec adapters | planned |
-| T24 | Local adapters | planned |
-| T29 | Importer | planned |
+| T13 | Provider registry | **verified** |
+| T14 | Notifications | **verified** |
+| T12 | Messages | **verified** |
+| T22 | Remaining code adapters | **verified** |
+| T23 | Spec adapters | **verified** |
+| T24 | Local adapters | **verified** |
+| T29 | Importer | **verified** |
 
 ## Phase 4 — Inbound, effects, interactions
 

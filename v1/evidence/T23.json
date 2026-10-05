@@ -1,0 +1,43 @@
+{
+  "task": "T23",
+  "title": "Spec adapters",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/providers/specs.mjs",
+    "src/providers/slack/index.mjs",
+    "src/providers/discord/index.mjs",
+    "src/providers/wecom/index.mjs",
+    "src/providers/mattermost/index.mjs",
+    "src/providers/gchat/index.mjs",
+    "src/providers/teams/index.mjs",
+    "src/providers/ntfy/index.mjs",
+    "src/providers/gotify/index.mjs",
+    "src/providers/pushover/index.mjs",
+    "src/providers/chanify/index.mjs",
+    "src/providers/pushdeer/index.mjs",
+    "src/providers/xizhi/index.mjs",
+    "src/providers/qmsg/index.mjs",
+    "src/providers/igot/index.mjs",
+    "src/providers/onebot/index.mjs",
+    "src/providers/wps-bot/index.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:protocol", "exitCode": 0, "report": "52 protocol tests pass; spec-adapters.test.mjs covers all 16 declarative channels" }
+  ],
+  "tests": [
+    "slack official-host guard, {text} body, 200-only success, 403 hint",
+    "discord {content} body, 2000-char cap refused before any request",
+    "wecom key->qyapi URL, errcode=0, 93100 hint, webhook/key required",
+    "mattermost server+hookId URL, group-required validation",
+    "gchat {text}; teams AdaptiveCard with optional title block",
+    "ntfy priority mapping incl. silent, auth header, server-error message",
+    "gotify /message with x-gotify-key; pushover form + siren + joined errors",
+    "chanify /<token>; pushdeer /message/push code=0",
+    "xizhi /<key>.send code=200; igot ret=0",
+    "qmsg v3 form + legacy qq/bot refusal + type=group migration",
+    "onebot text segment + bearer auth + private-ok SSRF policy + group validation",
+    "wps-bot official-host normalization + text/markdown payloads + fail-closed host/msgtype"
+  ],
+  "remaining": []
+}

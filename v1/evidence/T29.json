@@ -1,0 +1,23 @@
+{
+  "task": "T29",
+  "title": "Importer",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/import.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:integration", "exitCode": 0, "report": "8 integration tests pass; import.test.mjs covers I01-I05 on a real temp Store and real files" }
+  ],
+  "tests": [
+    "I01 only channel:<type>:outbound records import; admin/account/route keys ignored",
+    "I01 imported accounts are notification-only (controlEnabled=false), views carry no secret values",
+    "I02 unreadable/bad-JSON/prototype-key/no-supported input is skipped with a reason and writes nothing",
+    "I02 incomplete records are skipped whole; unknown fields dropped and reported",
+    "I03 preview and apply leave the source file bytes unchanged",
+    "I04 identical re-import is idempotent (already-imported, no duplicate account)",
+    "I04 a changed file is a new fingerprint (possible-duplicate), never an overwrite",
+    "I05 hash mismatch/missing hash is CONFLICT/VALIDATION and never pollutes the new store"
+  ],
+  "remaining": []
+}

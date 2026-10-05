@@ -19,9 +19,22 @@ not import it and does not keep v0 compatibility.
   T02 store/lock, T03 backup, T04 secrets/redaction, T08 network, T09 Host ports,
   B00 static descriptors and T25 activity/diagnostics are implemented and pass
   `npm run test:unit`.
-- **Phase 2 onward: planned.** Next is T05 Accounts/Destinations/Connections →
-  T06 Identity/Pairing → T07 Routes/Settings. See
-  [docs/PROGRESS.md](docs/PROGRESS.md) for the live status table.
+- **Phase 2 (Core entities & routing): verified.** T05 accounts/destinations/connections,
+  T06 principals/pairing and T07 routes/settings are implemented with `evidence/T05.json`
+  … `T07.json`; the unit suite now covers A01–A05, P01–P04 and route/settings resolution.
+- **Phase 3 (Outbound providers): verified.** T13 provider registry (29 frozen
+  descriptors, 23 wired outbound adapters, typed `UNSUPPORTED` for the rest),
+  T14 notifications (segmentation, level-scoped retry, accepted/confirmed/uncertain
+  evidence layering), T12 messages (inbound normalization, scoped reply resolution,
+  media admission into the Host store), T22 the five code adapters, T23 the 16
+  declarative spec adapters, T24 the local `bell`/`desktop` adapters and T29 the
+  best-effort importer are implemented with `evidence/T12.json` … `T29.json`.
+  Covered by `npm run test:unit`, `npm run test:protocol` and
+  `npm run test:integration`.
+- **Phase 4 onward: planned.** Next is B01 effect inbox / reply identity → B02
+  control reply → B03 login & read projection → B04 callbacks & host facts → T10
+  interactions → T11 conversation. See [docs/PROGRESS.md](docs/PROGRESS.md) for the
+  live status table.
 
 ## How to continue
 

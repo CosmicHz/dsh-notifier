@@ -1,7 +1,10 @@
 # Runbook
 
-> Status: **design target, not implemented**. Commands reflect the frozen contract
-> (05-HOST-CLI.md, 02-DATA.md) but do not run yet.
+> Status: **design target, not implemented**. The Phase 2 entity services
+> (accounts/destinations/connections/principals/pairing/routes/settings) and the Phase 3
+> outbound layer (provider registry, adapters, notifications, importer) are available as
+> tested library code, but the CLI and runtime below do not run yet. Commands reflect the
+> frozen contract (05-HOST-CLI.md, 02-DATA.md).
 
 Operations, recovery and troubleshooting for `dsh-notifier` v1.
 
