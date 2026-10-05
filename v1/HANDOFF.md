@@ -63,5 +63,10 @@ not import it and does not keep v0 compatibility.
 
 ## Installed gate paths
 
-See [README.md](README.md#push-documentation-gate); the effective hook is
-`v1/scripts/hooks/pre-push` → `v1/scripts/prepush_docs_gate.py`.
+The pre-push hook is installed at `.git/hooks/pre-push` (copy from
+`v1/scripts/hooks/pre-push`). It executes `v1/scripts/prepush_docs_gate.py` using
+`git rev-parse --show-toplevel` to locate the repository root, ensuring correct path
+resolution regardless of Git's invocation context. The hook rejects pushes with missing,
+stale, or inconsistent `v1/docs/DOC-SYNC.json`. See
+[README.md](README.md#push-documentation-gate) for installation instructions and
+validation behavior.

@@ -1,0 +1,25 @@
+{
+  "task": "R02",
+  "scope": "pre-push路径修复与neat-freak",
+  "acceptance": "从仓库根执行有效hook；缺/旧报告必须拒绝",
+  "status": "verified",
+  "timestamp": "2026-10-05T17:45:00Z",
+  "commit": null,
+  "sourceId": "d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced",
+  "evidence": {
+    "hook_location": "v1/scripts/hooks/pre-push",
+    "hook_script": "v1/scripts/prepush_docs_gate.py",
+    "path_resolution": "git rev-parse --show-toplevel",
+    "installation": ".git/hooks/pre-push (installed and executable)",
+    "tested_scenarios": [
+      "Missing DOC-SYNC.json: rejected with error",
+      "Stale sourceDigest: rejected (base changed)",
+      "Wrong base commit: rejected (base changed)",
+      "Valid DOC-SYNC.json: hook validates correctly"
+    ],
+    "documentation_updates": [
+      "v1/README.md: added hook installation instructions",
+      "v1/HANDOFF.md: updated hook path documentation"
+    ]
+  }
+}

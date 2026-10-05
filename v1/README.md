@@ -41,11 +41,27 @@ verify:pack → verify:release`) is defined in
 
 ## Push documentation gate
 
-`scripts/hooks/pre-push` calls `scripts/prepush_docs_gate.py`. Before any push to
-`dev`, run the full neat-freak sync described in
+`scripts/hooks/pre-push` calls `scripts/prepush_docs_gate.py` to verify documentation
+consistency before any push to `dev`. The hook uses `git rev-parse --show-toplevel` to
+locate the repository root, ensuring it works regardless of where Git invokes it.
+
+To install the hook:
+
+```sh
+cp v1/scripts/hooks/pre-push .git/hooks/pre-push
+chmod +x .git/hooks/pre-push
+```
+
+Before any push to `dev`, run the full neat-freak sync described in
 [v1/AGENTS.md](AGENTS.md) and
 [docs/developer/v1-flash-v3/22-DOC-SYNC-AND-PUSH.md](../docs/developer/v1-flash-v3/22-DOC-SYNC-AND-PUSH.md),
-and commit `docs/DOC-SYNC.json`. This task package does not authorize a push.
+and commit `docs/DOC-SYNC.json`. The hook will reject pushes with:
+- Missing or stale `DOC-SYNC.json`
+- Mismatched sourceDigest
+- Incorrect base commit
+- Code changes without accompanying documentation updates
+
+This task package does not authorize a push.
 
 ## Docs
 
