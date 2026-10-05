@@ -1,0 +1,16 @@
+{
+  "task": "B00",
+  "title": "Static descriptors",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/domain/descriptors.mjs",
+    "src/domain/descriptor-data.mjs",
+    "src/ui/field-copy.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; descriptors.test.mjs checks all 29 channels and frozen EDITOR-FIELDS" }
+  ],
+  "tests": ["29 descriptors (28 outbound/6 inbound)", "all editor fields with conditional visibility/requirement", "no IO or adapter dependency"],
+  "remaining": []
+}

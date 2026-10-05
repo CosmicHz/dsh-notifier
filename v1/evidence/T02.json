@@ -1,0 +1,15 @@
+{
+  "task": "T02",
+  "title": "Store lock",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/storage/lock.mjs",
+    "src/storage/store.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; store.test.mjs covers S01-S04, atomic commit and second-instance refusal" }
+  ],
+  "tests": ["S01-S04", "commit atomicity", "second instance refused", "0600 permissions", "FIFO transactions"],
+  "remaining": []
+}

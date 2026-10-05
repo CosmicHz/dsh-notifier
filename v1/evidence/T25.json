@@ -1,0 +1,18 @@
+{
+  "task": "T25",
+  "title": "Activity diagnostics",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/activity.mjs",
+    "src/services/diagnostics.mjs",
+    "test/unit/activity.test.mjs",
+    "test/unit/diagnostics.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; activity/diagnostics suites cover cap, TTL, redaction and log rotation" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (15 source files)" }
+  ],
+  "tests": ["retention TTL prunes old rows", "hard cap keeps newest 10000", "metadata-only rows drop body/secret fields", "diagnostics export redacts secrets and caps recent errors at 100", "JSONL log rotates at 5MB x 3"],
+  "remaining": []
+}

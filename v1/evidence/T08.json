@@ -1,0 +1,14 @@
+{
+  "task": "T08",
+  "title": "Network",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/security/network.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; network.test.mjs covers N01-N06" }
+  ],
+  "tests": ["N01-N06", "DNS pinning", "private/reserved IP blocking", "redirect policy", "stream size cap"],
+  "remaining": []
+}

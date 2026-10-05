@@ -1,0 +1,14 @@
+{
+  "task": "T03",
+  "title": "Backup",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/storage/backup.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; backup.test.mjs covers S05, corrupt-backup rejection and source protection" }
+  ],
+  "tests": ["S05", "corrupt backup rejected", "original files preserved"],
+  "remaining": []
+}

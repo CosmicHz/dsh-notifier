@@ -10,14 +10,14 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 | id | title | status |
 |---|---|---|
 | T00 | Bootstrap | **verified** |
-| T01 | Schema | planned |
-| T02 | Store lock | planned |
-| T03 | Backup | planned |
-| T04 | Secrets | planned |
-| T08 | Network | planned |
-| T09 | Host ports | planned |
-| B00 | Static descriptors | planned |
-| T25 | Activity diagnostics | planned |
+| T01 | Schema | **verified** |
+| T02 | Store lock | **verified** |
+| T03 | Backup | **verified** |
+| T04 | Secrets | **verified** |
+| T08 | Network | **verified** |
+| T09 | Host ports | **verified** |
+| B00 | Static descriptors | **verified** |
+| T25 | Activity diagnostics | **verified** |
 
 ## Phase 2 — Core entities & routing
 

@@ -1,7 +1,7 @@
 {
   "task": "T00",
   "title": "Bootstrap",
-  "commit": "PENDING_LOCAL_COMMIT",
+  "commit": "bc4237b1387e1cce06f5057a8895309c01559975",
   "sourceId": null,
   "files": [
     "package.json",

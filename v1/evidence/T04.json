@@ -1,0 +1,15 @@
+{
+  "task": "T04",
+  "title": "Secrets",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/security/secrets.mjs",
+    "src/security/redact.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; secrets.test.mjs covers A05, env resolution without persistence and keep/set/clear" }
+  ],
+  "tests": ["A05", "env values never persisted", "keep/set/clear semantics", "view/log redaction"],
+  "remaining": []
+}

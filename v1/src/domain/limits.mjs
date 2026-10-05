@@ -1,0 +1,80 @@
+// Fixed caps and retention windows (02-DATA.md "限额与保留").
+export const LIMITS = Object.freeze({
+  // entity counts
+  MAX_ACCOUNTS: 100,
+  MAX_DESTINATIONS: 500,
+  MAX_PRINCIPALS: 1000,
+  MAX_PENDING_INTERACTIONS: 100,
+
+  // rolling caps per window
+  INBOX_PER_ACCOUNT: 2048,
+  INBOX_WINDOW_MS: 24 * 60 * 60 * 1000,
+  MAX_REQUESTS: 10000,
+  MAX_EFFECTS: 20000,
+  MAX_RECEIPTS: 10000,
+  MAX_REPLY_REFS: 10000,
+  MAX_CORRELATIONS: 1000,
+  CORRELATION_TERMINAL_RETENTION_MS: 24 * 60 * 60 * 1000,
+  MAX_ACTIVITY: 10000,
+  MAX_TERMINAL_INTERACTIONS: 1000,
+  TERMINAL_INTERACTION_RETENTION_MS: 24 * 60 * 60 * 1000,
+
+  // per-principal / per-account context caches
+  REPLY_CONTEXT_PER_PRINCIPAL: 1,
+  REPLY_CONTEXT_PER_ACCOUNT: 64,
+  REPLY_CONTEXT_WINDOW_MS: 5 * 60 * 1000,
+  REF_CACHE_PER_ACCOUNT: 256,
+  REF_CACHE_WINDOW_MS: 10 * 60 * 1000,
+
+  // bytes
+  MAX_STATE_BYTES: 32 * 1024 * 1024,
+  MAX_RPC_BYTES: 1024 * 1024,
+  MAX_ATTACHMENT_BYTES: 10 * 1024 * 1024,
+  MAX_ATTACHMENT_TOTAL_BYTES: 40 * 1024 * 1024,
+  MAX_ATTACHMENTS: 4,
+  REPLY_CONTEXT_MAX_BYTES: 16 * 1024,
+  CURSOR_MAX_BYTES: 16 * 1024,
+
+  // text
+  MAX_MESSAGE_CODEPOINTS: 20000,
+  MAX_ANSWER_CODEPOINTS: 4000,
+  MAX_NAME_CODEPOINTS: 80,
+  MAX_ID_LENGTH: 128,
+  MAX_FIELD_BYTES: 8 * 1024,
+  MAX_DEPTH: 16,
+
+  // networking
+  NETWORK_TIMEOUT_MS: 10000,
+  NETWORK_CONCURRENCY_PER_ACCOUNT: 4,
+  NETWORK_CONCURRENCY_GLOBAL: 16,
+  SEND_QUEUE_MAX: 256,
+
+  // time-to-live
+  PAIRING_TTL_MS: 5 * 60 * 1000,
+  PAIRING_FAILURE_LIMIT: 5,
+  PAIRING_LOCKOUT_MS: 15 * 60 * 1000,
+  INTERACTION_TTL_MS: 15 * 60 * 1000,
+  REQUEST_TTL_MS: 24 * 60 * 60 * 1000,
+  EFFECT_STARTED_GRACE_MS: 10000,
+  SURFACE_WAIT_TIMEOUT_MS: 25000,
+
+  // retention settings
+  ACTIVITY_RETENTION_MIN_DAYS: 1,
+  ACTIVITY_RETENTION_MAX_DAYS: 30,
+  ACTIVITY_RETENTION_DEFAULT_DAYS: 7,
+
+  // backups
+  MAX_BACKUPS: 10,
+
+  // log rotation
+  LOG_MAX_BYTES: 5 * 1024 * 1024,
+  LOG_MAX_FILES: 3,
+});
+
+export function codepointLength(value) {
+  return typeof value === 'string' ? [...value].length : 0;
+}
+
+export function byteLength(value) {
+  return Buffer.byteLength(typeof value === 'string' ? value : JSON.stringify(value), 'utf8');
+}

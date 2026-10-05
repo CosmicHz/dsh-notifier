@@ -1,0 +1,16 @@
+{
+  "task": "T01",
+  "title": "Schema",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/domain/schema.mjs",
+    "src/domain/errors.mjs",
+    "src/domain/limits.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; schema.test.mjs covers valid/unknown-field/foreign-key/limit cases" }
+  ],
+  "tests": ["valid state accepted", "unknown fields rejected", "foreign keys rejected", "entity/pending limits enforced"],
+  "remaining": []
+}

@@ -1,0 +1,15 @@
+{
+  "task": "T09",
+  "title": "Host ports",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/host/port.mjs",
+    "test/fixtures/host.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "96 unit tests pass; host-port.test.mjs covers every HostPort method shape and typed UNSUPPORTED" }
+  ],
+  "tests": ["strict shape for every HostPort method", "no default fake success", "capability gating returns UNSUPPORTED"],
+  "remaining": []
+}
