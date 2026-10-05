@@ -13,9 +13,14 @@ import webhook from './webhook/index.mjs';
 import wecomApp from './wecom-app/index.mjs';
 import bell from './bell/index.mjs';
 import desktop from './desktop/index.mjs';
+import telegram from './telegram/index.mjs';
 
-/** Concrete outbound providers implemented so far, keyed by channel id. */
-export const WIRED_PROVIDERS = Object.freeze({
+/**
+ * Every implemented platform channel, including inbound-only channels that have
+ * no outbound `send` (e.g. WeChat iLink). `getChannelProvider` is what the
+ * runtime resolves inbound connections through.
+ */
+export const CHANNEL_IMPLEMENTATIONS = Object.freeze({
   ...specProviders,
   bark,
   pushplus,
@@ -24,7 +29,20 @@ export const WIRED_PROVIDERS = Object.freeze({
   'wecom-app': wecomApp,
   bell,
   desktop,
+  telegram,
 });
+
+/** Concrete outbound providers, keyed by channel id (capability.outbound === true). */
+export const WIRED_PROVIDERS = Object.freeze(
+  Object.fromEntries(Object.entries(CHANNEL_IMPLEMENTATIONS).filter(([, p]) => p.capabilities?.outbound === true)),
+);
+
+/** Any implementation for a channel (outbound or inbound-only), or null. */
+export function getChannelProvider(channelId) {
+  return Object.prototype.hasOwnProperty.call(CHANNEL_IMPLEMENTATIONS, channelId)
+    ? CHANNEL_IMPLEMENTATIONS[channelId]
+    : null;
+}
 
 export function hasProvider(channelId) {
   return Object.prototype.hasOwnProperty.call(WIRED_PROVIDERS, channelId);

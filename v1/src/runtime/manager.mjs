@@ -30,7 +30,7 @@ import { handleInbound as defaultHandleInbound } from '../services/conversation.
 import { sendControlReply as defaultControlReply } from '../services/control-replies.mjs';
 import { notify as defaultNotify } from '../services/notifications.mjs';
 import { createCallbackMount } from '../host/callbacks.mjs';
-import { getProvider, hasProvider } from '../providers/registry.mjs';
+import { getChannelProvider } from '../providers/registry.mjs';
 
 export const RUNTIME_STATES = Object.freeze(['created', 'starting', 'running', 'stopping', 'stopped']);
 export const CONNECTION_STATES = Object.freeze(['connecting', 'ready', 'degraded', 'outbound', 'stopped']);
@@ -498,5 +498,7 @@ export function createRuntimeManager({
 }
 
 function defaultResolveProvider(channelId) {
-  return hasProvider(channelId) ? getProvider(channelId) : null;
+  // Resolve any implementation (outbound or inbound-only); null is an honest
+  // "not implemented" that degrades the connection instead of faking success.
+  return getChannelProvider(channelId);
 }

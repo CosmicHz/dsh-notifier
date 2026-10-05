@@ -1,0 +1,25 @@
+{
+  "task": "T16",
+  "title": "Telegram",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/providers/telegram/index.mjs",
+    "src/providers/platform.mjs",
+    "test/protocol/telegram.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:protocol", "exitCode": 0, "report": "59 protocol tests pass; telegram covers outbound/control reply/inbound long-poll/media/reconnect/stale epoch" },
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass (registry now includes the telegram outbound provider)" }
+  ],
+  "tests": [
+    "telegram: outbound sendMessage URL/body and silent flag",
+    "telegram: missing credentials are NOT_CONFIGURED; failure and malformed are typed",
+    "telegram: control reply uses inline keyboard and reports the message id",
+    "telegram: inbound long-poll emits message + callback and commits the cursor",
+    "telegram: a transient poll failure reconnects without losing the cursor",
+    "telegram: a stale-epoch cursor stop ends the loop",
+    "telegram: a photo is resolved to a downloadable file URL"
+  ],
+  "remaining": []
+}

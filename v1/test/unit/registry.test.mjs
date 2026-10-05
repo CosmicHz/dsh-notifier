@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { descriptors } from '../../src/domain/descriptors.mjs';
 import { specProviders } from '../../src/providers/specs.mjs';
 import {
-  WIRED_PROVIDERS, hasProvider, getProvider, registryEntries, assertRegistryConsistent,
+  WIRED_PROVIDERS, hasProvider, getProvider, getChannelProvider, registryEntries, assertRegistryConsistent,
 } from '../../src/providers/registry.mjs';
 
 test('registry enumerates exactly the frozen descriptors with no missing/extra ids', () => {
@@ -22,7 +22,7 @@ test('registry enumerates exactly the frozen descriptors with no missing/extra i
 
 test('every wired outbound adapter is present and agrees with its descriptor capability', () => {
   const wired = registryEntries().filter((e) => e.wired);
-  assert.equal(wired.length, 23);
+  assert.equal(wired.length, Object.keys(WIRED_PROVIDERS).length);
   for (const entry of wired) {
     const provider = getProvider(entry.id);
     assert.equal(provider.id, entry.id, entry.id);
@@ -30,6 +30,12 @@ test('every wired outbound adapter is present and agrees with its descriptor cap
     assert.equal(typeof provider.send, 'function', `${entry.id} send`);
     assert.equal(provider.capabilities.outbound, entry.capabilities.outbound, entry.id);
   }
+  // A wired entry is exactly an outbound-capable channel; nothing inbound-only is
+  // listed as an outbound provider.
+  for (const entry of wired) assert.equal(entry.capabilities.outbound, true, entry.id);
+  // Telegram (T16) is an outbound platform channel.
+  assert.equal(hasProvider('telegram'), true);
+  assert.equal(getProvider('telegram').id, 'telegram');
 });
 
 test('the 16 declarative channels are all wired through the spec compiler', () => {
@@ -42,13 +48,14 @@ test('the 16 declarative channels are all wired through the spec compiler', () =
   assert.equal(WIRED_PROVIDERS['wecom-app'].id, 'wecom-app');
 });
 
-test('a channel without an implementation raises UNSUPPORTED instead of a fake success', () => {
-  for (const id of ['telegram', 'feishu', 'qq-bot', 'dingtalk', 'wxpusher']) {
-    assert.equal(hasProvider(id), false, id);
-    assert.throws(() => getProvider(id), (e) => e.code === 'UNSUPPORTED', id);
-  }
-  // wechat-ilink is an inbound/control channel with no outbound provider yet.
+test('an outbound channel without an implementation raises UNSUPPORTED instead of a fake success', () => {
+  // wechat-ilink is inbound/control only: it has no outbound `send`, so asking
+  // for it as an outbound provider must fail even though a channel implementation
+  // exists for the runtime.
+  assert.equal(hasProvider('wechat-ilink'), false);
   assert.throws(() => getProvider('wechat-ilink'), (e) => e.code === 'UNSUPPORTED');
+  // A channel with no implementation at all is null via the runtime resolver.
+  assert.equal(getChannelProvider('nope'), null);
   assert.throws(() => getProvider('nope'), (e) => e.code === 'UNSUPPORTED');
 });
 
