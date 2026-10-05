@@ -14,6 +14,7 @@ import wecomApp from './wecom-app/index.mjs';
 import bell from './bell/index.mjs';
 import desktop from './desktop/index.mjs';
 import telegram from './telegram/index.mjs';
+import wxpusher from './wxpusher/index.mjs';
 
 /**
  * Every implemented platform channel, including inbound-only channels that have
@@ -30,6 +31,7 @@ export const CHANNEL_IMPLEMENTATIONS = Object.freeze({
   bell,
   desktop,
   telegram,
+  wxpusher,
 });
 
 /** Concrete outbound providers, keyed by channel id (capability.outbound === true). */
