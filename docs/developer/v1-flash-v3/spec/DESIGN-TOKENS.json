@@ -1,0 +1,75 @@
+{
+  "space": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48
+  ],
+  "radius": {
+    "badge": 6,
+    "control": 8,
+    "panel": 12,
+    "dialog": 16
+  },
+  "type": {
+    "title": {
+      "size": 20,
+      "line": 28,
+      "weight": 500
+    },
+    "section": {
+      "size": 14,
+      "line": 22,
+      "weight": 500
+    },
+    "body": {
+      "size": 14,
+      "line": 22,
+      "weight": 400
+    },
+    "meta": {
+      "size": 12,
+      "line": 18,
+      "weight": 400
+    }
+  },
+  "minTouch": 44,
+  "maxContentWidth": 1120,
+  "durationsMs": {
+    "press": 120,
+    "state": 160,
+    "panel": 220
+  },
+  "light": {
+    "base": "#ffffff",
+    "surface": "#f7f8fa",
+    "text": "#1f2329",
+    "secondary": "#535b66",
+    "border": "#d5dae1",
+    "accent": "#4058d6",
+    "successText": "#17643b",
+    "successBg": "#eaf6ef",
+    "warningText": "#795006",
+    "warningBg": "#fff5d6",
+    "errorText": "#a32332",
+    "errorBg": "#ffedf0"
+  },
+  "dark": {
+    "base": "#151517",
+    "surface": "#202024",
+    "text": "#f2f3f5",
+    "secondary": "#b1b5be",
+    "border": "#46464f",
+    "accent": "#a5b2ff",
+    "successText": "#86deb0",
+    "successBg": "#143127",
+    "warningText": "#f4d382",
+    "warningBg": "#352b17",
+    "errorText": "#ffabb4",
+    "errorBg": "#3c2029"
+  },
+  "source": "DSH host-first; CSS fallbacks generated from this file"
+}

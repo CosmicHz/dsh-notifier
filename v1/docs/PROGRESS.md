@@ -1,0 +1,97 @@
+# Task progress
+
+Source of truth: [TASKS.csv](../../docs/developer/v1-flash-v3/TASKS.csv). Ship only
+when every row is `verified` and no blocker remains (08-EXECUTION.md).
+
+Status values: `planned` → `in_progress` → `verified` (or `blocked`).
+
+## Phase 1 — Bootstrap & foundation
+
+| id | title | status |
+|---|---|---|
+| T00 | Bootstrap | **verified** |
+| T01 | Schema | planned |
+| T02 | Store lock | planned |
+| T03 | Backup | planned |
+| T04 | Secrets | planned |
+| T08 | Network | planned |
+| T09 | Host ports | planned |
+| B00 | Static descriptors | planned |
+| T25 | Activity diagnostics | planned |
+
+## Phase 2 — Core entities & routing
+
+| id | title | status |
+|---|---|---|
+| T05 | Accounts | planned |
+| T06 | Identity | planned |
+| T07 | Routes | planned |
+
+## Phase 3 — Outbound providers
+
+| id | title | status |
+|---|---|---|
+| T13 | Provider registry | planned |
+| T14 | Notifications | planned |
+| T12 | Messages | planned |
+| T22 | Remaining code adapters | planned |
+| T23 | Spec adapters | planned |
+| T24 | Local adapters | planned |
+| T29 | Importer | planned |
+
+## Phase 4 — Inbound, effects, interactions
+
+| id | title | status |
+|---|---|---|
+| B01 | Effect inbox and reply identity | planned |
+| B02 | Control reply and correlation | planned |
+| B03 | Login and read projection | planned |
+| B04 | Callbacks and host facts | planned |
+| T10 | Interactions | planned |
+| T11 | Conversation | planned |
+
+## Phase 5 — Runtime, platform providers, integration
+
+| id | title | status |
+|---|---|---|
+| T15 | Runtime | planned |
+| T16 | Telegram | planned |
+| T17 | Feishu | planned |
+| T18 | WeChat | planned |
+| T19 | QQ | planned |
+| T20 | DingTalk | planned |
+| T21 | WxPusher | planned |
+| T26 | DSH integration | planned |
+| T27 | RPC | planned |
+| T28 | CLI | planned |
+
+## Phase 6 — UI
+
+| id | title | status |
+|---|---|---|
+| UX00 | Design contract fixtures | planned |
+| T30 | UI foundation | planned |
+| UX01 | R1 visual prototype review | planned |
+| T31 | Overview notifications UI | planned |
+| T32 | Private chat UI | planned |
+| T33 | Pending settings UI | planned |
+| UX02 | R2 full UX review | planned |
+| UX03 | Fix reviewed UX defects | planned |
+| UX04 | R3 visual and accessibility review | planned |
+| UX05 | UX quality gate | planned |
+
+## Phase 7 — Acceptance
+
+| id | title | status |
+|---|---|---|
+| T34 | Full journeys | planned |
+| T35 | Coverage fault injection | planned |
+| T36 | Performance soak | planned |
+| T37 | Packaging | planned |
+| T38 | Docs release gates | planned |
+| T39 | Final verification | planned |
+
+## Notes
+
+- Evidence files live in `evidence/<task>.json` and are produced by the task itself.
+- Phase boundaries trigger a neat-freak documentation sync even when no push happens.

@@ -1,0 +1,313 @@
+[
+  {
+    "id": "telegram",
+    "outbound": true,
+    "inbound": true,
+    "targetFields": [
+      "chatId"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/telegram.mjs",
+    "inboundSource": "src/inbound/telegram-bot.mjs",
+    "outputFile": "src/providers/telegram/index.mjs"
+  },
+  {
+    "id": "dingtalk",
+    "outbound": true,
+    "inbound": true,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/dingtalk.mjs",
+    "inboundSource": "src/inbound/dingtalk-stream.mjs",
+    "outputFile": "src/providers/dingtalk/index.mjs"
+  },
+  {
+    "id": "feishu",
+    "outbound": true,
+    "inbound": true,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/feishu.mjs",
+    "inboundSource": "src/inbound/feishu-bot.mjs",
+    "outputFile": "src/providers/feishu/index.mjs"
+  },
+  {
+    "id": "wxpusher",
+    "outbound": true,
+    "inbound": true,
+    "targetFields": [
+      "uids",
+      "topicIds"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/wxpusher.mjs",
+    "inboundSource": "src/inbound/wxpusher-callback.mjs",
+    "outputFile": "src/providers/wxpusher/index.mjs"
+  },
+  {
+    "id": "pushplus",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/pushplus.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/pushplus/index.mjs"
+  },
+  {
+    "id": "serverchan",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/serverchan.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/serverchan/index.mjs"
+  },
+  {
+    "id": "bark",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/bark.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/bark/index.mjs"
+  },
+  {
+    "id": "webhook",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/webhook.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/webhook/index.mjs"
+  },
+  {
+    "id": "bell",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "local",
+    "outboundSource": "src/adapters/bell.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/bell/index.mjs"
+  },
+  {
+    "id": "desktop",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "local",
+    "outboundSource": "src/adapters/desktop.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/desktop/index.mjs"
+  },
+  {
+    "id": "slack",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/slack/index.mjs"
+  },
+  {
+    "id": "discord",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/discord/index.mjs"
+  },
+  {
+    "id": "wecom",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/wecom/index.mjs"
+  },
+  {
+    "id": "mattermost",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/mattermost/index.mjs"
+  },
+  {
+    "id": "gchat",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/gchat/index.mjs"
+  },
+  {
+    "id": "teams",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/teams/index.mjs"
+  },
+  {
+    "id": "ntfy",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [
+      "topic"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/ntfy/index.mjs"
+  },
+  {
+    "id": "gotify",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/gotify/index.mjs"
+  },
+  {
+    "id": "pushover",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [
+      "user"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/pushover/index.mjs"
+  },
+  {
+    "id": "chanify",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/chanify/index.mjs"
+  },
+  {
+    "id": "pushdeer",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/pushdeer/index.mjs"
+  },
+  {
+    "id": "xizhi",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/xizhi/index.mjs"
+  },
+  {
+    "id": "qmsg",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [
+      "group"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/qmsg/index.mjs"
+  },
+  {
+    "id": "igot",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/igot/index.mjs"
+  },
+  {
+    "id": "onebot",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [
+      "messageType",
+      "userId",
+      "groupId"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/onebot/index.mjs"
+  },
+  {
+    "id": "wps-bot",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [],
+    "defaultDestinationKind": "endpoint",
+    "outboundSource": "src/adapters/spec-channels.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/wps-bot/index.mjs"
+  },
+  {
+    "id": "qq-bot",
+    "outbound": true,
+    "inbound": true,
+    "targetFields": [
+      "targetType",
+      "userId",
+      "groupId"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/qq-bot.mjs",
+    "inboundSource": "src/inbound/qq-gw.mjs",
+    "outputFile": "src/providers/qq-bot/index.mjs"
+  },
+  {
+    "id": "wecom-app",
+    "outbound": true,
+    "inbound": false,
+    "targetFields": [
+      "toUser"
+    ],
+    "defaultDestinationKind": "private",
+    "outboundSource": "src/adapters/wecom-app.mjs",
+    "inboundSource": null,
+    "outputFile": "src/providers/wecom-app/index.mjs"
+  },
+  {
+    "id": "wechat-ilink",
+    "outbound": false,
+    "inbound": true,
+    "targetFields": [],
+    "defaultDestinationKind": "private",
+    "outboundSource": null,
+    "inboundSource": "src/channels/wechat-ilink/legacy-core.mjs",
+    "outputFile": "src/providers/wechat-ilink/index.mjs"
+  }
+]

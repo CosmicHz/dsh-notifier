@@ -1,0 +1,80 @@
+{
+  "name": "dsh-notifier",
+  "version": "1.0.0-dev.0",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "src/plugin-entry.mjs",
+  "exports": {
+    ".": "./src/plugin-entry.mjs",
+    "./types": {
+      "types": "./types/index.d.ts",
+      "default": "./types/index.d.ts"
+    },
+    "./package.json": "./package.json",
+    "./client": "./dist/client.js"
+  },
+  "bin": {
+    "dsh-notifier": "./src/cli/main.mjs"
+  },
+  "files": [
+    "src",
+    "dist/client.js",
+    "client.js",
+    "types",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "test": "node scripts/test.mjs unit integration protocol",
+    "test:unit": "node scripts/test.mjs unit",
+    "test:integration": "node scripts/test.mjs integration",
+    "test:protocol": "node scripts/test.mjs protocol",
+    "build": "node scripts/build.mjs",
+    "test:e2e": "playwright test",
+    "test:coverage": "node scripts/coverage.mjs",
+    "test:soak": "node scripts/soak.mjs --minutes 120",
+    "verify:release": "node scripts/verify-release.mjs",
+    "verify:pack": "node scripts/verify-pack.mjs",
+    "verify:ux": "node scripts/verify-ux.mjs"
+  },
+  "optionalDependencies": {
+    "@larksuiteoapi/node-sdk": "1.73.0",
+    "qrcode-terminal": "0.12.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "@playwright/test": "1.55.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-session": "0.1.7-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-session": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-plugin-manager"
+      ]
+    }
+  }
+}

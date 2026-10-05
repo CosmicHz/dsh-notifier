@@ -1,0 +1,3 @@
+#!/bin/sh
+# Install into the effective repository hooks path; preserve other checks.
+exec python3 scripts/prepush_docs_gate.py

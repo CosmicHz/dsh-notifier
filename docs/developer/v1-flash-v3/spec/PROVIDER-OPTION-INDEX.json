@@ -1,0 +1,69 @@
+{
+  "telegram": [
+    "apiBase",
+    "botToken",
+    "chatId",
+    "timeoutMs"
+  ],
+  "dingtalk": [
+    "atAllOnTimeSensitive",
+    "secret",
+    "timeoutMs",
+    "webhook"
+  ],
+  "feishu": [
+    "atOpenId",
+    "secret",
+    "timeoutMs",
+    "webhook"
+  ],
+  "wxpusher": [
+    "appToken",
+    "timeoutMs",
+    "topicIds",
+    "uids"
+  ],
+  "pushplus": [
+    "channel",
+    "option",
+    "template",
+    "timeoutMs",
+    "token",
+    "topic"
+  ],
+  "serverchan": [
+    "sct",
+    "sctKey",
+    "sendKey",
+    "timeoutMs"
+  ],
+  "bark": [
+    "device",
+    "timeoutMs"
+  ],
+  "webhook": [
+    "allowPrivateNetwork",
+    "headers",
+    "timeoutMs",
+    "url"
+  ],
+  "bell": [],
+  "desktop": [],
+  "qq-bot": [
+    "apiBase",
+    "appId",
+    "appSecret",
+    "groupId",
+    "markdown",
+    "rateMs",
+    "targetType",
+    "timeoutMs",
+    "userId"
+  ],
+  "wecom-app": [
+    "corpid",
+    "msgtype",
+    "secret",
+    "timeoutMs"
+  ]
+}

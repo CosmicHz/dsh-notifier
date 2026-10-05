@@ -1,0 +1,22 @@
+# dsh-notifier v1 实施硬约束
+
+- 本任务是v1独立重写：只在仓库`dev`分支增量实现`v1/`，保留已有用户成果；不改旧根运行时代码，不做向后兼容或强制迁移。
+- 开始前读`00-START.md`和`TASKS.csv`。将本包放`docs/developer/v1-flash-v3/`，本规则安装到`v1/AGENTS.md`；根AGENTS只合并本任务入口与推送门槛，不覆盖无关规则。
+- 用户已明确本v1任务不执行历史repair/S0–S4旧产品计划。旧根AGENTS中的旧任务范围不用于把本v1改回原Store/API；分支、秘密保护和普通fast-forward规则仍保留。
+- 逐项按TASKS依赖实施。不得削减28通知/6控制渠道、五页Native、UI异常态、权限/耐久性/协议验收。禁止“TODO成功”、空测试PASS、只改文档冒充代码完成。
+- 02/03/04/05/18/20分别约束数据、RPC、provider、Host、装配及真实协议映射；archive只作历史证据。禁止新增第二Store/权限/路由真相，禁止legacy/reference运行时import。
+- 前端严格使用11/12/15/19和spec机器字段、tokens以及design布局；不重选风格或让用户回答实现细节。示例数据/演示toast不能进入生产逻辑。
+- 每个业务动作都必须有认证、服务调用、事务/副作用边界、结果、刷新、取消/恢复。UI禁止直接写Store或调用SDK。
+- 外部未知结果保持unknown/uncertain；不自动重放批准/不明发送，不伪造宿主、平台、真机或视觉验证证据。
+- 真机/真实账号不在本轮验收；实施后的本地模拟协议、真实业务后端E2E与三轮UX自审必须完成。
+- **每次推送之前，必须完整执行`.agents/skills/neat-freak/SKILL.md`，同步全部受影响文档；不是只在最终交付时同步。**
+- 必查AGENTS、README中英、docs/API、architecture、runbook、CHANGELOG、HANDOFF、任务进度、存在的项目记忆；适用项实际修改，不适用逐项给理由。无独立记忆系统则明确not-applicable，不造假。
+- **代码/接口/配置/命令/用户行为变更与文档同步进入同一次待推送提交范围。缺同步记录、过期记录、文档仍矛盾或门槛失败，禁止push。**
+- T00安装`templates/pre-push`和`templates/prepush_docs_gate.py`到仓库`scripts/hooks/`与`scripts/`，合并现有hook，禁止覆盖既有检查；有效pre-push必须调用门槛。禁止`--no-verify`、临时关hook或空报告绕过。
+- 每次push前更新`v1/docs/DOC-SYNC.json`，格式见22；门槛检查实际待推送diff、sourceDigest、完整盘点、docs变更与未关闭冲突。机械通过不等于内容正确，必须读文档做neat-freak审查。
+- 只允许授权后的普通fast-forward推送到`dev`；本任务包本身不授权推送。禁止force/main/tag/Release/npm publish；fetch后核对远端SHA再推，推后读远端SHA确认。
+- 本地提交author/committer沿用仓库约定`THEWOLFWALKER <3622976831@qq.com>`；只设仓库局部配置，不改全局身份。
+- 凭据/真实状态/聊天内容/node_modules/生成测试日志不得提交；证据只提交脱敏摘要与必要可审阅设计素材，不提交敏感截图。
+- 结束阶段和换会话也执行neat-freak。AGENTS是规则手册，不追加历史流水账；<=300行，机制写docs，历史写CHANGELOG。
+- 实际冲突按08记录BLOCKERS，继续独立任务；不得让旧skill通用建议推翻本用户“不兼容、不真机、既定宿主风格”的明确范围。
+- 完成声明必须对应实际任务/源摘要/命令证据。没有本地最终门槛证据不得说“完整实现”。

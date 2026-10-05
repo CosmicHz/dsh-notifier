@@ -1,0 +1,256 @@
+{
+  "date": "2026-10-05",
+  "scope": "planning-package-only",
+  "skill": ".agents/skills/neat-freak/SKILL.md",
+  "independentMemory": "not-applicable: no task-specific independent memory used",
+  "inventory": [
+    {
+      "path": ".agents/skills/neat-freak/SKILL.md",
+      "disposition": "reviewed-no-change",
+      "reason": "dev原版skill与参考资料，按原字节保留，PROVENANCE记录来源。",
+      "lines": 202
+    },
+    {
+      "path": ".agents/skills/neat-freak/references/agent-paths.md",
+      "disposition": "reviewed-no-change",
+      "reason": "dev原版skill与参考资料，按原字节保留，PROVENANCE记录来源。",
+      "lines": 68
+    },
+    {
+      "path": ".agents/skills/neat-freak/references/sync-matrix.md",
+      "disposition": "reviewed-no-change",
+      "reason": "dev原版skill与参考资料，按原字节保留，PROVENANCE记录来源。",
+      "lines": 65
+    },
+    {
+      "path": "00-START.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 19
+    },
+    {
+      "path": "01-DECISIONS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 30
+    },
+    {
+      "path": "02-DATA.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 52
+    },
+    {
+      "path": "03-SERVICES-RPC.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 76
+    },
+    {
+      "path": "04-PROVIDERS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 48
+    },
+    {
+      "path": "05-HOST-CLI.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 40
+    },
+    {
+      "path": "06-UI.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 26
+    },
+    {
+      "path": "07-ACCEPTANCE.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 42
+    },
+    {
+      "path": "08-EXECUTION.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 19
+    },
+    {
+      "path": "09-IMPORT.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 15
+    },
+    {
+      "path": "11-UX-FLOWS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 55
+    },
+    {
+      "path": "12-VISUAL-DIRECTION.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 35
+    },
+    {
+      "path": "13-QUALITY-LOOP.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 39
+    },
+    {
+      "path": "14-UX-API-ADDENDUM.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 2
+    },
+    {
+      "path": "15-FIELD-COPY.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 8
+    },
+    {
+      "path": "18-WIRING.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 50
+    },
+    {
+      "path": "19-UI-WIRING.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 46
+    },
+    {
+      "path": "20-HOST-PROTOCOL-MAP.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 39
+    },
+    {
+      "path": "21-REVIEW-CLOSURE.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 41
+    },
+    {
+      "path": "22-DOC-SYNC-AND-PUSH.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 26
+    },
+    {
+      "path": "AGENTS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 22
+    },
+    {
+      "path": "DELIVERY-NOTES.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 10
+    },
+    {
+      "path": "README.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 13
+    },
+    {
+      "path": "archive/10-UX-AUDIT.md",
+      "disposition": "not-applicable",
+      "reason": "历史审查/旧合同，已隔离为非执行资料。",
+      "lines": 31
+    },
+    {
+      "path": "archive/ARCHITECTURE.md",
+      "disposition": "not-applicable",
+      "reason": "历史审查/旧合同，已隔离为非执行资料。",
+      "lines": 326
+    },
+    {
+      "path": "archive/REVIEW.md",
+      "disposition": "not-applicable",
+      "reason": "历史审查/旧合同，已隔离为非执行资料。",
+      "lines": 14
+    },
+    {
+      "path": "archive/WIRING-REVIEW-v2.1.md",
+      "disposition": "not-applicable",
+      "reason": "历史审查/旧合同，已隔离为非执行资料。",
+      "lines": 191
+    },
+    {
+      "path": "design/README.md",
+      "disposition": "reviewed-no-change",
+      "reason": "当前规格/入口/索引，已纳入本轮静态同步；产品实施状态仍为planned。",
+      "lines": 7
+    },
+    {
+      "path": "reference/README.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 1
+    },
+    {
+      "path": "reference/source/ADAPTER.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 100
+    },
+    {
+      "path": "reference/source/PLUGINS.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 188
+    },
+    {
+      "path": "reference/source/THIRD_PARTY_NOTICES.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 79
+    },
+    {
+      "path": "reference/source/docs/protocol-preflight/README.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 22
+    },
+    {
+      "path": "reference/source/docs/protocol-preflight/dingtalk.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 77
+    },
+    {
+      "path": "reference/source/docs/protocol-preflight/feishu.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 50
+    },
+    {
+      "path": "reference/source/docs/protocol-preflight/qq-bot.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 56
+    },
+    {
+      "path": "reference/source/docs/protocol-preflight/telegram.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 48
+    },
+    {
+      "path": "reference/source/docs/protocol-preflight/wechat-ilink.md",
+      "disposition": "not-applicable",
+      "reason": "冻结协议源码配套文档，不修改历史证据。",
+      "lines": 39
+    }
+  ],
+  "unresolvedInternalDesignChoices": [],
+  "validation": "static-only; product runtime and visual checks not run"
+}

@@ -1,0 +1,34 @@
+{
+  "task": "T00",
+  "title": "Bootstrap",
+  "commit": "PENDING_LOCAL_COMMIT",
+  "sourceId": null,
+  "files": [
+    "package.json",
+    "scripts/test.mjs",
+    "scripts/check.mjs",
+    "scripts/build.mjs",
+    "scripts/prepush_docs_gate.py",
+    "scripts/hooks/pre-push",
+    "AGENTS.md",
+    "docs/PROGRESS.md",
+    "README.md",
+    "README.zh-CN.md",
+    "CHANGELOG.md",
+    "HANDOFF.md",
+    "docs/integration-guide.md",
+    "docs/architecture.md",
+    "docs/runbook.md",
+    "cordis.patch.yml"
+  ],
+  "commands": [
+    { "command": "node --check scripts/test.mjs", "exitCode": 0, "report": "syntax ok" },
+    { "command": "node --check scripts/check.mjs", "exitCode": 0, "report": "syntax ok" },
+    { "command": "node --check scripts/build.mjs", "exitCode": 0, "report": "syntax ok" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (0 source files)" },
+    { "command": "node scripts/test.mjs unit", "exitCode": 1, "report": "no test files found -> non-zero as required" },
+    { "command": "node scripts/build.mjs", "exitCode": 1, "report": "entry not implemented -> non-zero as required" }
+  ],
+  "tests": ["unimplemented checks return non-zero", "test.mjs enumerates real files only"],
+  "remaining": []
+}

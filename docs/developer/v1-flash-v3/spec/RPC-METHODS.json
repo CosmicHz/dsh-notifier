@@ -1,0 +1,360 @@
+{
+  "native": [
+    "surface.home",
+    "surface.wait",
+    "channels.list",
+    "accounts.list",
+    "accounts.get",
+    "accounts.create",
+    "accounts.update",
+    "accounts.remove",
+    "accounts.restart",
+    "destinations.list",
+    "destinations.create",
+    "destinations.update",
+    "destinations.remove",
+    "notifications.test",
+    "principals.list",
+    "principals.update",
+    "principals.remove",
+    "pairing.issue",
+    "pairing.revoke",
+    "interactions.list",
+    "interactions.settle",
+    "tasks.list",
+    "sessions.list",
+    "bindings.set",
+    "routes.list",
+    "routes.save",
+    "routes.remove",
+    "activity.list",
+    "settings.get",
+    "settings.update",
+    "diagnostics.export",
+    "login.start",
+    "login.status",
+    "login.cancel",
+    "connections.create",
+    "accounts.health"
+  ],
+  "localOnly": [
+    "backup.create",
+    "import.preview",
+    "import.apply"
+  ],
+  "version": 3,
+  "methods": [
+    {
+      "name": "surface.home",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "surface.wait",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "channels.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.get",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.create",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.update",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.remove",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.restart",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "destinations.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "destinations.create",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "destinations.update",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "destinations.remove",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "notifications.test",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "principals.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "principals.update",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "principals.remove",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "pairing.issue",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "pairing.revoke",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "interactions.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "interactions.settle",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "tasks.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "sessions.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "bindings.set",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "routes.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "routes.save",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "routes.remove",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "activity.list",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "settings.get",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "settings.update",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "diagnostics.export",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "login.start",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "login.status",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "login.cancel",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "connections.create",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "accounts.health",
+      "access": "local-owner",
+      "transport": "native-and-local",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "backup.create",
+      "access": "local-owner",
+      "transport": "local-only",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "import.preview",
+      "access": "local-owner",
+      "transport": "local-only",
+      "write": false,
+      "requestIdRequired": false,
+      "contract": "03-SERVICES-RPC.md"
+    },
+    {
+      "name": "import.apply",
+      "access": "local-owner",
+      "transport": "local-only",
+      "write": true,
+      "requestIdRequired": true,
+      "contract": "03-SERVICES-RPC.md"
+    }
+  ]
+}

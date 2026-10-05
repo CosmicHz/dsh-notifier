@@ -1,0 +1,569 @@
+{
+  "baseline": "9d69dd7a8908fcfec6e20d92d56509764a8f23ec",
+  "outbound": [
+    {
+      "id": "telegram",
+      "fields": {
+        "botToken": {
+          "required": true,
+          "secret": true,
+          "desc": "Telegram Bot Token（@BotFather 获取）",
+          "exposure": "secret"
+        },
+        "chatId": {
+          "required": true,
+          "secret": false,
+          "exposure": "public",
+          "desc": "接收者的 chat id（可向 @userinfobot 查询）"
+        }
+      }
+    },
+    {
+      "id": "dingtalk",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "钉钉群自定义机器人完整地址",
+          "exposure": "secret"
+        },
+        "secret": {
+          "required": false,
+          "secret": true,
+          "desc": "加签密钥（机器人安全设置选「加签」时填）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "feishu",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "飞书群自定义机器人完整地址",
+          "exposure": "secret"
+        },
+        "secret": {
+          "required": false,
+          "secret": true,
+          "desc": "加签密钥（机器人安全设置选「签名校验」时填）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "wxpusher",
+      "fields": {
+        "appToken": {
+          "required": true,
+          "secret": true,
+          "desc": "WxPusher 应用 APP_TOKEN（wxpusher.zjiecode.com）",
+          "exposure": "secret"
+        },
+        "accountId": {
+          "required": false,
+          "secret": false,
+          "desc": "本地账号标识（多账号/多应用时建议填写；不要填 APP_TOKEN）",
+          "exposure": "public"
+        },
+        "uids": {
+          "required": false,
+          "secret": true,
+          "desc": "接收者 UID 数组，如 [\"UID_xxx\"]（与 topicIds 至少一项）",
+          "exposure": "secret"
+        },
+        "topicIds": {
+          "required": false,
+          "secret": false,
+          "desc": "主题 ID 数组（群发用）",
+          "exposure": "public"
+        }
+      }
+    },
+    {
+      "id": "pushplus",
+      "fields": {
+        "token": {
+          "required": true,
+          "secret": true,
+          "desc": "pushplus token（www.pushplus.plus）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "serverchan",
+      "fields": {
+        "sct": {
+          "required": true,
+          "secret": true,
+          "desc": "Server酱 SENDKEY（sct.ftqq.com；SC3 企业版 sctp 前缀自动走 <数字>.push.ft07.com）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "bark",
+      "fields": {
+        "key": {
+          "required": true,
+          "secret": true,
+          "desc": "Bark 设备 key（App 内复制）",
+          "exposure": "secret"
+        },
+        "barkUrl": {
+          "required": false,
+          "secret": true,
+          "desc": "自建 Bark 服务地址（默认官方）",
+          "exposure": "secret"
+        },
+        "device": {
+          "required": false,
+          "secret": false,
+          "desc": "设备名（多设备时指定）",
+          "exposure": "public"
+        }
+      }
+    },
+    {
+      "id": "webhook",
+      "fields": {
+        "url": {
+          "required": true,
+          "secret": true,
+          "desc": "接收 POST JSON 的 webhook 地址",
+          "exposure": "secret"
+        },
+        "headers": {
+          "required": false,
+          "secret": true,
+          "desc": "附加请求头对象，如 {\"Authorization\": \"...\"}",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "bell",
+      "fields": {
+        "count": {
+          "required": false,
+          "secret": false,
+          "desc": "响铃次数 1-5（默认 1）",
+          "exposure": "public"
+        }
+      }
+    },
+    {
+      "id": "desktop",
+      "fields": {
+        "sound": {
+          "required": false,
+          "secret": false,
+          "desc": "提示音：auto（默认，仅紧急级）/ always / never",
+          "exposure": "public"
+        }
+      }
+    },
+    {
+      "id": "slack",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "Slack Incoming Webhook 完整地址：api.slack.com/apps → 你的 App → Incoming Webhooks → 添加到工作区后复制",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "discord",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "Discord Webhook 完整地址：服务器设置 → 整合 → Webhook → 新建后复制",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "wecom",
+      "fields": {
+        "webhook": {
+          "secret": true,
+          "desc": "机器人完整 webhook 地址（与 key 二选一）：企业微信群 → 群设置 → 添加群机器人 → 复制 webhook",
+          "exposure": "secret"
+        },
+        "key": {
+          "secret": true,
+          "desc": "机器人 key（webhook 地址 ?key= 后面的部分，与 webhook 二选一）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "mattermost",
+      "fields": {
+        "server": {
+          "desc": "Mattermost 服务器地址（与 webhook 二选一时给全地址可省略），如 https://mm.example.com",
+          "exposure": "secret"
+        },
+        "hookId": {
+          "secret": true,
+          "desc": "Incoming Webhook 的 id：Mattermost → 集成 → Incoming Webhook 复制地址末段",
+          "exposure": "secret"
+        },
+        "webhook": {
+          "secret": true,
+          "desc": "Incoming Webhook 完整地址（与 server+hookId 二选一）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "gchat",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "Google Chat 空间 Incoming Webhook：空间名旁 ▾ → 应用和集成 → Webhook → 复制",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "teams",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "Teams Workflows Incoming Webhook URL：团队频道 → 管理 → 连接器/工作流 → 「将 webhook 请求发布到频道」创建后复制",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "ntfy",
+      "fields": {
+        "server": {
+          "default": "https://ntfy.sh",
+          "desc": "ntfy 服务器地址，默认公共站 ntfy.sh，自托管填自己的地址",
+          "exposure": "secret"
+        },
+        "topic": {
+          "required": true,
+          "desc": "订阅 topic 名（手机 App 里订阅同名 topic 即可收到；自建服务器建议配 auth）",
+          "exposure": "secret"
+        },
+        "auth": {
+          "secret": true,
+          "desc": "可选鉴权头原值，如 \"Basic dXNlcjpwYXNz\" 或 \"Bearer tk_...\"（自托管保护 topic 时用）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "gotify",
+      "fields": {
+        "server": {
+          "required": true,
+          "desc": "Gotify 服务器地址，如 https://gotify.example.com（自托管，官方演示站 gotify.net 亦可）",
+          "exposure": "secret"
+        },
+        "appToken": {
+          "required": true,
+          "secret": true,
+          "desc": "应用 token：Gotify Web → APPS → CREATE APPLICATION 后复制",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "pushover",
+      "fields": {
+        "token": {
+          "required": true,
+          "secret": true,
+          "desc": "应用 API token：pushover.net → Your Applications → Create 复制",
+          "exposure": "secret"
+        },
+        "user": {
+          "required": true,
+          "secret": true,
+          "desc": "用户/群组 key：pushover.net 首页右上角复制（发送到群组则填群组 key）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "chanify",
+      "fields": {
+        "baseUrl": {
+          "default": "https://api.chanify.net/v1/sender",
+          "desc": "Chanify 服务地址，默认公共服务，自托管填自己的",
+          "exposure": "secret"
+        },
+        "token": {
+          "required": true,
+          "secret": true,
+          "desc": "设备 token：Chanify iOS App → 通道 → 复制 Send Token",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "pushdeer",
+      "fields": {
+        "pushKey": {
+          "required": true,
+          "secret": true,
+          "desc": "PushKey：PushDeer App → Key 页复制（自建服务配合 endpoint 使用）",
+          "exposure": "secret"
+        },
+        "endpoint": {
+          "default": "https://api2.pushdeer.com",
+          "desc": "服务地址，默认官方，自建填自己的",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "xizhi",
+      "fields": {
+        "key": {
+          "required": true,
+          "secret": true,
+          "desc": "息知 key：xizhi.qqoq.net 微信扫码登录后复制",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "qmsg",
+      "fields": {
+        "key": {
+          "required": true,
+          "secret": true,
+          "desc": "Qmsg key：qmsg.zendee.cn QQ 登录后复制",
+          "exposure": "secret"
+        },
+        "group": {
+          "desc": "群推送的群号（留空=单聊，目标由 Qmsg 控制台绑定的机器人好友决定）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "igot",
+      "fields": {
+        "key": {
+          "required": true,
+          "secret": true,
+          "desc": "iGot key：push.hellyw.com 微信扫码获取",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "onebot",
+      "fields": {
+        "baseUrl": {
+          "required": true,
+          "desc": "OneBot 实现（NapCat/LLOneBot/go-cqhttp）的 HTTP 服务地址，如 http://127.0.0.1:3000",
+          "exposure": "secret"
+        },
+        "accessToken": {
+          "secret": true,
+          "desc": "可选 access token（OneBot 配置里设置的鉴权 token）",
+          "exposure": "secret"
+        },
+        "messageType": {
+          "default": "private",
+          "desc": "private=私聊（默认）/ group=群聊",
+          "exposure": "secret"
+        },
+        "userId": {
+          "desc": "私聊目标 QQ 号（messageType: private 时必填）",
+          "type": "number",
+          "exposure": "secret"
+        },
+        "groupId": {
+          "desc": "群号（messageType: group 时必填）",
+          "type": "number",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "wps-bot",
+      "fields": {
+        "webhook": {
+          "required": true,
+          "secret": true,
+          "desc": "WPS 协作群机器人完整 webhook 地址（含 ?key=）：在 WPS 协作群添加群机器人后复制，形如 https://365.kdocs.cn/woa/api/v1/webhook/send?key=<32 位 key>",
+          "exposure": "secret"
+        },
+        "msgtype": {
+          "default": "text",
+          "plain": true,
+          "desc": "消息类型：text（默认，标题+正文）或 markdown（富文本）",
+          "exposure": "public"
+        }
+      }
+    },
+    {
+      "id": "qq-bot",
+      "fields": {
+        "appId": {
+          "required": true,
+          "secret": true,
+          "desc": "QQ 开放平台开发者 ID（q.qq.com → 机器人开发设置）",
+          "exposure": "secret"
+        },
+        "appSecret": {
+          "required": true,
+          "secret": true,
+          "desc": "同页面 AppSecret",
+          "exposure": "secret"
+        },
+        "targetType": {
+          "required": false,
+          "secret": false,
+          "desc": "\"user\"（单聊，默认）或 \"group\"（群聊）",
+          "exposure": "public"
+        },
+        "userId": {
+          "required": false,
+          "secret": false,
+          "desc": "单聊目标用户 openid（targetType=user 时）",
+          "exposure": "public"
+        },
+        "groupId": {
+          "required": false,
+          "secret": false,
+          "desc": "群 open id（targetType=group 时）",
+          "exposure": "public"
+        },
+        "markdown": {
+          "required": false,
+          "secret": false,
+          "desc": "默认 markdown（msg_type=2）；填 false 回退纯文本（msg_type=0）",
+          "exposure": "public"
+        }
+      }
+    },
+    {
+      "id": "wecom-app",
+      "fields": {
+        "corpid": {
+          "required": true,
+          "secret": true,
+          "desc": "企业 ID（企业微信管理后台「我的企业」）",
+          "exposure": "secret"
+        },
+        "secret": {
+          "required": true,
+          "secret": true,
+          "desc": "应用 Secret（管理后台「应用管理」）",
+          "exposure": "secret"
+        },
+        "agentId": {
+          "required": true,
+          "secret": false,
+          "desc": "应用 AgentId（数字）",
+          "exposure": "public"
+        },
+        "toUser": {
+          "required": false,
+          "secret": false,
+          "desc": "接收成员账号，默认 \"@all\"",
+          "exposure": "public"
+        }
+      }
+    }
+  ],
+  "inbound": [
+    {
+      "id": "telegram",
+      "sourceId": "telegram",
+      "fields": {
+        "botToken": {
+          "required": true,
+          "desc": "Telegram Bot Token（与出站同域）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "feishu",
+      "sourceId": "feishu",
+      "fields": {
+        "appId": {
+          "required": true,
+          "desc": "飞书自建应用 App ID（扫码授权自动写入）",
+          "exposure": "secret"
+        },
+        "appSecret": {
+          "required": true,
+          "desc": "飞书自建应用 App Secret（扫码授权自动写入）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "qq-bot",
+      "sourceId": "qq",
+      "fields": {
+        "appId": {
+          "required": true,
+          "desc": "QQ 机器人 AppID（扫码授权自动写入）",
+          "exposure": "secret"
+        },
+        "appSecret": {
+          "required": true,
+          "desc": "QQ 机器人 AppSecret（扫码授权自动写入）",
+          "exposure": "secret"
+        }
+      }
+    },
+    {
+      "id": "wxpusher",
+      "sourceId": "wxpusher",
+      "fields": {
+        "appToken": {
+          "required": true,
+          "desc": "WxPusher 应用 APP_TOKEN（回调鉴权即凭证）",
+          "exposure": "secret"
+        },
+        "accountId": {
+          "required": false,
+          "secret": false,
+          "exposure": "public",
+          "desc": "本地账号标识（多账号/多应用时建议填写；不要填 APP_TOKEN）"
+        }
+      }
+    },
+    {
+      "id": "wechat-ilink",
+      "sourceId": "wechat",
+      "fields": {}
+    },
+    {
+      "id": "dingtalk",
+      "sourceId": "dingtalk",
+      "fields": {
+        "appKey": {
+          "required": true,
+          "desc": "钉钉企业内部应用 AppKey（扫码授权自动写入）",
+          "exposure": "secret"
+        },
+        "appSecret": {
+          "required": true,
+          "desc": "钉钉企业内部应用 AppSecret（扫码授权自动写入）",
+          "exposure": "secret"
+        }
+      }
+    }
+  ]
+}

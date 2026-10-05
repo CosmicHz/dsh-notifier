@@ -1,0 +1,28 @@
+{
+  "zh": {
+    "account": "连接",
+    "destination": "接收位置",
+    "routing": "通知发送规则",
+    "primarySetup": "设置通知",
+    "saveAndTest": "保存并测试",
+    "accepted": "平台已接受测试消息",
+    "confirmed": "平台已确认送达",
+    "uncertain": "暂时无法确认发送结果",
+    "savedTestFailed": "连接已保存，测试未成功",
+    "stale": "连接已断开，显示的是上次同步的数据。",
+    "migrationOptional": "导入是可选的，你可以直接开始新配置。"
+  },
+  "en": {
+    "account": "Connection",
+    "destination": "Destination",
+    "routing": "Notification rules",
+    "primarySetup": "Set up notifications",
+    "saveAndTest": "Save and test",
+    "accepted": "Accepted by the platform",
+    "confirmed": "Delivery confirmed by the platform",
+    "uncertain": "Unable to confirm the result yet",
+    "savedTestFailed": "Connection saved. Test unsuccessful.",
+    "stale": "Disconnected. Showing the last synced data.",
+    "migrationOptional": "Import is optional. You can start with a new setup."
+  }
+}

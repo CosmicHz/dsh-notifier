@@ -1,0 +1,1 @@
+只读协议/宿主/测试案例快照：THEWOLFWALKER/dsh-notifier main@9d69dd7a8908fcfec6e20d92d56509764a8f23ec。不是v1依赖，也不是可直接通过的v1实现；禁止从v1 import本目录。保留原许可证和THIRD_PARTY_NOTICES。

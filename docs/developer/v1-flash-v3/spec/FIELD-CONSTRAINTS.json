@@ -1,0 +1,41 @@
+{
+  "version": 3,
+  "rules": [
+    {
+      "channelId": "bark",
+      "direction": "outbound",
+      "rule": "exactlyOneNonempty",
+      "fields": [
+        "key",
+        "barkUrl"
+      ],
+      "detail": "server only applies with key; clearing one secret and setting the other is atomic"
+    },
+    {
+      "channelId": "wxpusher",
+      "direction": "outbound",
+      "rule": "atLeastOneNonempty",
+      "fields": [
+        "uids",
+        "topicIds"
+      ]
+    },
+    {
+      "channelId": "qq-bot",
+      "direction": "outbound",
+      "rule": "conditionalRecipient",
+      "selector": "targetType",
+      "branches": {
+        "user": "userId",
+        "group": "groupId"
+      }
+    }
+  ],
+  "removedAliases": [
+    "serverchan.sendKey",
+    "serverchan.sctKey",
+    "wxpusher.accountId"
+  ],
+  "secretSerialization": "JSON.stringify typed value into SecretValue.literal string; decode through descriptor type, never arbitrary eval",
+  "allUrls": "security NetworkPort policy applies at request time, not only frontend validation"
+}

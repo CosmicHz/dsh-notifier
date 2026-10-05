@@ -1,0 +1,486 @@
+[
+  {
+    "id": "W01",
+    "title": "入站接收 → 控制回复没有出口",
+    "specSections": [
+      "04",
+      "18"
+    ],
+    "tasks": [
+      "B02",
+      "T16",
+      "T18"
+    ],
+    "assertion": "保留 outbound 的“通知能力”语义，新增独立 `controlReply` 能力和 `sendControlReply({account,replyContext,content,signal})`。replyContext 仅由已鉴权入站生成并由服务保存，不接受 UI/模型任意 chatId。控制响应不查通知 route，不受通知 quiet 影响，但受账号启用、controlEnabled、身份与会话授权约束。平台实际回复能力按冻结协议实现，不以新增任意目的地模拟。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W02",
+    "title": "Host 提交 → 运行结果 → 原聊天缺少回程",
+    "specSections": [
+      "05",
+      "18",
+      "20"
+    ],
+    "tasks": [
+      "B02",
+      "T11",
+      "T26"
+    ],
+    "assertion": "定义 typed HostEvent（interaction.opened、interaction.closed、turn.output、turn.completed、turn.failed、session.closed、capabilities.changed）；每条含 eventId、sessionId，turn 事件含 turnId/hostRef。提交先持久化调用者/原聊天的 correlation，再执行 Host 提交；回程仅投递给仍有权限的原主体。输出适配沿用宿主已有事件事实，不能虚构事件名即可接通。输出无最终内容时必须有明确的读取结果 port 或报告能力缺失。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W03",
+    "title": "待办恢复依赖不存在的 HostPort",
+    "specSections": [
+      "02",
+      "05",
+      "20"
+    ],
+    "tasks": [
+      "B04",
+      "T10"
+    ],
+    "assertion": "新增 `getInteractionStatus(hostRef)` → pending/resolved/cancelled/unknown，以及订阅完成后的初始对账。unknown 不等于 cancelled：显示“无法确认”，禁止执行，保留原记录等待对账或到期。Host 不支持查询时不得声称具备可恢复待办能力。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W04",
+    "title": "平台按钮 → 交互实体 → Host 结算缺少凭证模型",
+    "specSections": [
+      "02",
+      "04",
+      "18"
+    ],
+    "tasks": [
+      "B01",
+      "T10"
+    ],
+    "assertion": "入站改成 message/callback 两种判别联合；持久化 replyReference 与 callback token 哈希映射。映射绑定 accountId、chatId、interactionId、动作、expiry、policyRevision；实际主体必须在结算事务内授权。token 使用随机不透明值，明文只出现在发送卡片时；重启可验证，终态/过期失效。平台需 ACK 的回调先按协议完成接收 ACK，业务成功必须等 Host 结算结果。卡片编辑是可选展示优化，失败不得回滚已完成审批。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W05",
+    "title": "runtime 健康状态 → UI 刷新断线",
+    "specSections": [
+      "03",
+      "18"
+    ],
+    "tasks": [
+      "B03",
+      "T30"
+    ],
+    "assertion": "分开 `storeRevision` 与进程内 `surfaceVersion={bootId,sequence}`。账号健康、登录、Host 能力、Store 提交统一通知只读投影；wait 使用 surfaceVersion，bootId 不同立即要求刷新。订阅与检查 version 必须原子衔接，避免丢唤醒。健康事件不为刷新而写 state.json。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W06",
+    "title": "公开 callback 没有实际挂载边界",
+    "specSections": [
+      "04",
+      "05",
+      "20"
+    ],
+    "tasks": [
+      "B04",
+      "T21"
+    ],
+    "assertion": "由 Host adapter 提供独立 callback mount port；路由 `/dsh-notifier-v1/callback/:channelId/:accountId`，实际支持渠道才注册。适配器取得有限长 raw body 和 headers 验证平台协议后形成 envelope；鉴权成功前不进入应用服务。关闭时卸载路由。宿主没有公网可达路由时将该账号标记 callback-unavailable，并给出配置原因；不得把 loopback 管理口开放到公网补洞。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W07",
+    "title": "大依赖袋造成全服务相互耦合",
+    "specSections": [
+      "18"
+    ],
+    "tasks": [
+      "T26"
+    ],
+    "assertion": "按最小 port 注入；配置服务只需 Store/descriptor/secret codec；权限服务只需 Store/clock；编排服务依赖精简 Host/消息端口。audit 在同一事务追加 metadata，不能再调用一个会重入 Store 的独立写服务。禁止 service locator 和服务通过 runtime 反查其他服务。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W08",
+    "title": "启动顺序与构造依赖相反",
+    "specSections": [
+      "18"
+    ],
+    "tasks": [
+      "T26"
+    ],
+    "assertion": "区分 construct 与 start。先创建无副作用 ports/descriptors，再开 Store、构造 services/runtime；安装 Host 订阅缓冲，完成恢复对账，再开放 intake、工具与 RPC；最后 reconcile 账号。失败按已注册 disposer 逆序清理。storage-degraded 只装诊断，不能创建半可用业务服务。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W09",
+    "title": "Provider registry 同时承担字段规范和运行实例",
+    "specSections": [
+      "15",
+      "18"
+    ],
+    "tasks": [
+      "B00",
+      "T13"
+    ],
+    "assertion": "T01 后增加纯静态 descriptor 任务，仅依赖 domain。字段验证/表单/import 使用它；provider factories 是另一份显式注册表，composition root 才实例化。不让 schema import transport，也不让 adapter 回调 registry 取服务。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W10",
+    "title": "全局 requestId 不能隔离调用者与方法",
+    "specSections": [
+      "02",
+      "03"
+    ],
+    "tasks": [
+      "B01",
+      "T27"
+    ],
+    "assertion": "幂等键为规范编码的 `[actorKind,actorId,method,requestId]`，hash 包含完整规范化业务输入；每次重放仍重新认证与检查可见权限。跨方法或跨主体不得读取别人的结果。撤权后的原成功响应不能绕过新权限继续返回敏感内容。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W11",
+    "title": "效果 intent 粒度太粗",
+    "specSections": [
+      "02",
+      "18"
+    ],
+    "tasks": [
+      "B01",
+      "T14"
+    ],
+    "assertion": "父 request 下固定 effectId、destinationId、segmentIndex、attempt、开始/结束证据。崩溃只将执行已开始而无结果的叶子效果置 uncertain；未开始的工作不得冒充已发送。accepted 部分不重发；部分结果须能在返回值和活动中表达。HTTP 失败不等于业务未接受。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W12",
+    "title": "删除与外部副作用存在竞态",
+    "specSections": [
+      "02",
+      "18"
+    ],
+    "tasks": [
+      "T05",
+      "T15"
+    ],
+    "assertion": "明确线性化点：撤权/删除提交之前已 claim 的外部操作可能完成，不能承诺可撤回。禁止再 claim，abort 尚未提交的调用；已发出的效果继续记终态或 uncertain。epoch 用于拒绝旧入站/状态回调，不能丢弃已经发生的发送证据。UI 删除确认需说明已提交操作可能完成。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W13",
+    "title": "外键校验与历史记录保留互相冲突",
+    "specSections": [
+      "02"
+    ],
+    "tasks": [
+      "T01",
+      "T05"
+    ],
+    "assertion": "活跃关系强外键；历史 Receipt/Activity 引用定义为可悬空历史 ID 与脱敏 label snapshot，不再 join 已删除凭据。删除原子清理 binding/pairing/route/default references，取消未 claim 的相关交互目标。终态交互使用独立 schema，允许正文清理后字段缺席。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W14",
+    "title": "Native 身份来源与 trusted facade 没有明确界线",
+    "specSections": [
+      "03",
+      "05",
+      "18"
+    ],
+    "tasks": [
+      "T26",
+      "T27"
+    ],
+    "assertion": "Native local-owner 必须由宿主 admission 产生，不接收客户端声明角色。CLI 由本机 token 产生。Host facade 是仅供可信宿主插件的进程内能力，不注册到 IM；工具调用使用 Host 提供的可信调用上下文绑定 session，而不是模型提供 sessionId 获得权限。context 缺失的工具调用拒绝。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W15",
+    "title": "“所有 IM 管理拒绝”与 /quiet、/route 冲突",
+    "specSections": [
+      "18"
+    ],
+    "tasks": [
+      "T11"
+    ],
+    "assertion": "区分全局配置管理与受限会话控制。`/route` 固定只读查询当前绑定会话有效通知路径；`/quiet`、`/unquiet` 仅 IM owner 对当前绑定且授权的会话设置 quiet override，禁止改目的地和全局设置。Native/CLI 才可 routes.save。建立按入口/动作权限表，不能仅靠“危险方法”这个未枚举词。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W16",
+    "title": "policyRevision 粒度与撤权后 pending 的处理不完整",
+    "specSections": [
+      "02",
+      "18"
+    ],
+    "tasks": [
+      "T06",
+      "T10"
+    ],
+    "assertion": "保留账号级 revision 作为失效标志；结算时重读最新主体权限。仍被授权的目标需重新签发交互引用并更新目标版本，已撤权目标取消；不得简单让同账号所有人的待办永久不可回答。对话回程、附件下载和回复查询也要在执行前重新检查当前授权。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W17",
+    "title": "扫码开户与必填凭据形成死锁",
+    "specSections": [
+      "02",
+      "19"
+    ],
+    "tasks": [
+      "B03",
+      "T32"
+    ],
+    "assertion": "允许显式创建 enabled=false 的扫码草稿，controlEnabled=false；login 独立于接收 runtime 启动。成功在一次事务中写凭据并启用 control；取消/超时保留可删除草稿。登录 session 绑定账号配置 revision；编辑、删除、重新扫码使旧 session 失效；迟到结果不得覆盖新凭据。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W18",
+    "title": "登录生命周期没有负责模块",
+    "specSections": [
+      "18",
+      "20"
+    ],
+    "tasks": [
+      "B03",
+      "T32"
+    ],
+    "assertion": "新增 runtime/login-manager，内存保存 session、deadline、abort/disposer；不持久化 QR 原文和 SDK 对象。进程重启旧 loginId 返回 EXPIRED，UI 可重新开始。成功凭据提交由 Account service 执行，SDK 不直接写 Store；每账号同时一个 session，替换时先取消旧 session。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W19",
+    "title": "统一 HTTP 网络 port 与 WS/SDK 不匹配",
+    "specSections": [
+      "04"
+    ],
+    "tasks": [
+      "T08",
+      "T17"
+    ],
+    "assertion": "NetworkPort 明确 request、openWebSocket 两类；SDK 注入受控 transport 或通过 SDK 已公开的代理/连接选项满足同样策略。若冻结 SDK 没有可注入路径，该适配为明确阻断，不能偷偷绕过网络限制或声称已满足。协议测试用注入 NetworkPort 的 fixture，不为测试开放生产任意内网。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W20",
+    "title": "入站去重与游标提交没有可恢复语义",
+    "specSections": [
+      "02",
+      "04"
+    ],
+    "tasks": [
+      "B01",
+      "T15"
+    ],
+    "assertion": "新增有界 inbox，键为规范编码的 accountId+eventId，记录 received/claimed/done/uncertain 与去重期限。先持久接收，再按平台要求 ACK；游标推进到连续已可靠接收的水位，不越过未持久化事件。外部调用前记录 claim，重启不重放不明效果。不能以“去重 exactly once”声称宿主和平台具备分布式事务。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W21",
+    "title": "目的地敏感字段可能绕过 View 脱敏",
+    "specSections": [
+      "02",
+      "15"
+    ],
+    "tasks": [
+      "T04",
+      "B00"
+    ],
+    "assertion": "字段分配先看 exposure 再看所属实体；敏感 target 存独立 secret 引用，DestinationView 返回 configured 标记；所有 list/get/幂等结果/诊断共用 DTO serializer。不能把目标字段一律当公开字符串。编辑使用 keep/set/clear，不回传密钥再保存。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W22",
+    "title": "开户 secrets 输入没有统一形状",
+    "specSections": [
+      "02",
+      "03",
+      "15"
+    ],
+    "tasks": [
+      "T05",
+      "T27"
+    ],
+    "assertion": "所有写接口使用 `secretChanges:[{path,op,value?}]`；create 只允许 set，update 允许 set/clear；存储 map 仅内部。向导、导入都调用同一命令规范化函数，禁止把表单字段直接 spread 到 Account。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W23",
+    "title": "备份与损坏存储恢复入口互斥",
+    "specSections": [
+      "02",
+      "05"
+    ],
+    "tasks": [
+      "T02",
+      "T03"
+    ],
+    "assertion": "统一 tagged union。损坏态诊断不调用 snapshot；原文件保全由独立 BackupPort 原样复制并标记 invalid，不能作为可恢复有效备份展示。正常在线备份在 Store 队列取得已提交快照；restore/unlock 只离线，使用独立排他锁防启动竞态。只提供恢复指引不等于已有可用业务服务。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W24",
+    "title": "settings 默认目标更新的并发含义不清",
+    "specSections": [
+      "03"
+    ],
+    "tasks": [
+      "T05",
+      "T07"
+    ],
+    "assertion": "makeDefault=true 固定为事务内按 ID 去重追加，不替换已有默认目标；settings.revision 增加一次。设置页替换整个列表仍需 expectedRevision。连接创建幂等重试不得再次追加或推进 revision。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W25",
+    "title": "Host tools 与 ask_user 等待生命周期未定义",
+    "specSections": [
+      "05",
+      "20"
+    ],
+    "tasks": [
+      "T26"
+    ],
+    "assertion": "单独定义三个 Tool DTO。ask_user 建立 Interaction 并等待 arbiter 的终态，Host取消使未 claim 交互取消；超时不得返回批准。通知返回 receipts 分层语义。Host adapter 只转换工具协议，不另写一套权限/结算逻辑。Native 和 IM 都调用同一个 settle command。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W26",
+    "title": "媒体与引用只定义输入，没有资源归属",
+    "specSections": [
+      "05",
+      "18"
+    ],
+    "tasks": [
+      "T12"
+    ],
+    "assertion": "MediaService 独占下载和临时资源；解析引用受 account/chat 范围约束；Host adapter 独占 attachmentId 转换。取消、撤权、会话关闭清理未移交资源；移交 Host 后由 Host负责存活。回程附件使用受控内容句柄，禁止把宿主任意路径或远程 URL 直接交给 provider 读取。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W27",
+    "title": "任务表语法无环，实际完成依赖有环",
+    "specSections": [
+      "TASKS.csv"
+    ],
+    "tasks": [
+      "T29",
+      "T27",
+      "T26"
+    ],
+    "assertion": "Importer service 在 RPC 前，只依赖 descriptor/Store/account command；CLI 最后接线。Host adapter 与最终 composition 分任务，最终 composition 依赖所有 factories。每阶段门槛仅运行该阶段已要求的测试；最终门槛负责全覆盖，不能让早期任务靠未实现 stub 满足全局 protocol 命令。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W28",
+    "title": "Host能力变化没有传播到 UI 和待办",
+    "specSections": [
+      "03",
+      "05",
+      "19"
+    ],
+    "tasks": [
+      "B03",
+      "T30"
+    ],
+    "assertion": "Host能力改变进入 typed event → runtime projection → surfaceVersion。UI 使用能力+当前授权决定按钮是否可执行，显示具体禁用原因；后端始终再验证。功能不可用不能用空列表表现成“没有任务”，也不能只靠前端禁用。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W29",
+    "title": "通用分页假设不适用于全部数据",
+    "specSections": [
+      "03"
+    ],
+    "tasks": [
+      "T27"
+    ],
+    "assertion": "每个列表声明排序键；Activity time/id；Interaction expiresAt/createdAt/id；Host Task/Session 固定 id 排序并使用带快照版本的 cursor，版本失效返回 CONFLICT 重新读取。cursor 包含过滤条件指纹，不能跨过滤器复用。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W30",
+    "title": "首页“完成配置”过度依赖通知目标",
+    "specSections": [
+      "03",
+      "19"
+    ],
+    "tasks": [
+      "T31",
+      "T32"
+    ],
+    "assertion": "分别暴露 notificationSetup 与 controlSetup，状态为 not-started/incomplete/ready；总首次使用态按 accounts 为空判断。ready 表示配置与授权完成，不表示平台已收取每次消息。首页同时显示两条独立能力，不强迫控制用户配通知。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W31",
+    "title": "复合键拼接可能混淆 opaque ID",
+    "specSections": [
+      "02"
+    ],
+    "tasks": [
+      "T01",
+      "T06"
+    ],
+    "assertion": "所有多字段 key 用 JSON.stringify 的字符串元组统一编码；不拆分平台 ID。配对 hash 也采用明确的版本化结构序列化，不依赖分隔符约定。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W32",
+    "title": "全量 state 改写与高频事件生命周期耦合",
+    "specSections": [
+      "02",
+      "18"
+    ],
+    "tasks": [
+      "T02",
+      "T36"
+    ],
+    "assertion": "本轮不因此改数据库架构；合并同一业务事件的 inbox/receipt/activity/request/cursor 提交为一个事务，运行时 health 不落盘；清扫仅实际变化才提交，队列有界背压。已有性能门槛仍需后续实施验证，此处不能断言全量 JSON 必然达标或必然失败。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W33",
+    "title": "导入虽然可跳过，也需要输入资源边界",
+    "specSections": [
+      "09"
+    ],
+    "tasks": [
+      "T29"
+    ],
+    "assertion": "按32MiB上限先有限读取，同一缓冲计算 hash/解析，深度16；超过范围返回 skipped+明确原因。preview列出“文件变更可能新建重复连接”，apply只按该缓冲 sourceHash提交。导入失败不阻碍全新使用，不引入旧格式兼容层。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W34",
+    "title": "前端设计稿与生产合同并非同一权威",
+    "specSections": [
+      "12",
+      "15",
+      "19"
+    ],
+    "tasks": [
+      "B00",
+      "T30",
+      "UX04"
+    ],
+    "assertion": "宿主标题20/28、weight500为主，产品交互命中区域至少44px；tokens只有一份机器源生成 CSS。预览是布局/视觉参考，生产表单只能由 descriptor 驱动。新增渠道切换必须清除不适用字段与错误，保留通用名称；不能将 Telegram botToken/chatId 硬套其他渠道。不得将预览 toast 视作实际接线验收。",
+    "status": "required-not-run"
+  },
+  {
+    "id": "W35",
+    "title": "包版本、文档优先级与校验器已经漂移",
+    "specSections": [
+      "00",
+      "08"
+    ],
+    "tasks": [
+      "T39"
+    ],
+    "assertion": "下一版合并合同，单个接口只保留一处权威定义；机器 RPC清单与DTO对应；TASKS显式topological order和唯一ID。重新生成 manifest/ZIP后才能标记可交付；仅文件hash通过也不证明合同闭合。本次只出审查包，不将未完成同步的执行包冒充修订完成。",
+    "status": "required-not-run"
+  }
+]

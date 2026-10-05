@@ -1,0 +1,6 @@
+{
+  "keyPattern": "^channel:([a-z0-9-]+):outbound$",
+  "source": "reference/source/src/assembly/outbound.mjs",
+  "supportedSchema": "flat object containing canonical outbound records",
+  "otherFormats": "skip"
+}

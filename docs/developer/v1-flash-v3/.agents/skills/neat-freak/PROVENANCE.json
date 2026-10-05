@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/THEWOLFWALKER/dsh-notifier",
+  "branch": "dev",
+  "commit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
+  "files": [
+    ".agents/skills/neat-freak/SKILL.md",
+    ".agents/skills/neat-freak/references/agent-paths.md",
+    ".agents/skills/neat-freak/references/sync-matrix.md"
+  ],
+  "note": "Original SKILL and reference files preserved byte-for-byte."
+}

@@ -1,0 +1,14 @@
+{
+  "node": ">=22",
+  "hostSession": "0.1.7-rc.2",
+  "optionalDependencies": {
+    "@larksuiteoapi/node-sdk": "1.73.0",
+    "qrcode-terminal": "0.12.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "@playwright/test": "1.55.1"
+  },
+  "packageName": "dsh-notifier",
+  "packageVersion": "1.0.0-dev.0"
+}

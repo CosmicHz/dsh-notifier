@@ -1,0 +1,2 @@
+STATIC PACKAGE OK: 51 tasks, 89 editor fields, 35 design review mappings. No product tests performed.
+Python pre-push template: AST parsed only; not installed or executed. No product/browser/device checks.
