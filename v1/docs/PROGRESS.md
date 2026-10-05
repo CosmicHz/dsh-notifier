@@ -43,18 +43,18 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 
 | id | title | status |
 |---|---|---|
-| B01 | Effect inbox and reply identity | planned |
-| B02 | Control reply and correlation | planned |
-| B03 | Login and read projection | planned |
-| B04 | Callbacks and host facts | planned |
-| T10 | Interactions | planned |
-| T11 | Conversation | planned |
+| B01 | Effect inbox and reply identity | **verified** |
+| B02 | Control reply and correlation | **verified** |
+| B03 | Login and read projection | **verified** |
+| B04 | Callbacks and host facts | **verified** |
+| T10 | Interactions | **verified** |
+| T11 | Conversation | **verified** |
 
 ## Phase 5 — Runtime, platform providers, integration
 
 | id | title | status |
 |---|---|---|
-| T15 | Runtime | planned |
+| T15 | Runtime | **verified** |
 | T16 | Telegram | planned |
 | T17 | Feishu | planned |
 | T18 | WeChat | planned |

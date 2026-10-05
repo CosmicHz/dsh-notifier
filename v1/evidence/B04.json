@@ -1,0 +1,29 @@
+{
+  "task": "B04",
+  "title": "Callbacks and host facts",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/host/callbacks.mjs",
+    "src/host/waiters.mjs",
+    "src/host/event-map.mjs",
+    "test/unit/host-facts.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; host-facts.test.mjs covers W03/W06/W25" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+  ],
+  "tests": [
+    "hostRefs embed the boot id and parse without splitting platform ids",
+    "W03 a live waiter is pending, a settled one keeps its terminal status",
+    "W03 an unresolved waiter from a previous boot is cancelled, a foreign ref unknown",
+    "W03 dispose cancels every live waiter and is idempotent",
+    "W25 assistant/message maps to turn.output with joined text blocks",
+    "W25 turn/end maps known kinds and never infers success for an unknown reason",
+    "W06 a verified callback is durably received before the ack is returned",
+    "W06 a rejected signature never reaches the store",
+    "W06 an oversized body is 413 before any provider verification",
+    "W06 a host without callback mount reports CALLBACK_UNAVAILABLE"
+  ],
+  "remaining": []
+}

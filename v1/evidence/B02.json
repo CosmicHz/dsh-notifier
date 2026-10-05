@@ -1,0 +1,28 @@
+{
+  "task": "B02",
+  "title": "Control reply and correlation",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/control-replies.mjs",
+    "src/services/correlations.mjs",
+    "test/unit/control-replies.test.mjs",
+    "test/unit/correlations.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; control-replies/correlations suites cover W01/W02/W12/W16" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+  ],
+  "tests": [
+    "W01 a control reply ignores route/quiet and lands on the inbound channel",
+    "W01 control requires controlEnabled and a usable reply context",
+    "W01 an expired reply context reports CONTEXT_EXPIRED instead of guessing",
+    "W01 an uncertain send records an uncertain-effect receipt and never claims success",
+    "a channel without controlReply capability is UNSUPPORTED, not a fake send",
+    "W02 a correlation is reserved before submit and binds to the started turn",
+    "W02 two principals cannot share one session reply path",
+    "W02 restart cancels a reserved correlation and marks an active one uncertain",
+    "W16 revoking a principal cancels only that principal live correlations"
+  ],
+  "remaining": []
+}

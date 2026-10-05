@@ -1,0 +1,23 @@
+{
+  "task": "T15",
+  "title": "Runtime",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/runtime/manager.mjs",
+    "src/runtime/event-bus.mjs",
+    "test/integration/runtime.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:integration", "exitCode": 0, "report": "integration suite passes; runtime.test.mjs covers D04/D05, epoch rejection, duplicate replay, idempotent lifecycle and bounded event buffer overflow" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (70 source files)" }
+  ],
+  "tests": [
+    "D04 a stale-epoch inbound is rejected before any durable inbox write",
+    "D04 a duplicate event is replayed, never handled twice",
+    "D05 a restart reconciles effects and correlations without replaying",
+    "lifecycle: start/stop/dispose are idempotent and stop is terminal",
+    "the bounded event buffer refuses on overflow and reports degraded"
+  ],
+  "remaining": []
+}

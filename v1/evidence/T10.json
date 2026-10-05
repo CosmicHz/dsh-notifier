@@ -1,0 +1,27 @@
+{
+  "task": "T10",
+  "title": "Interactions",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/interactions.mjs",
+    "src/runtime/arbiter.mjs",
+    "test/unit/interactions.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; interactions.test.mjs covers C01-C04" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+  ],
+  "tests": [
+    "C01 a claimed interaction rejects a second claim (one Host execution)",
+    "C01 Native and IM can both answer, but only one claim wins",
+    "C02 an expired interaction can never be claimed",
+    "C03 an uncertain Host result is unconfirmed and never replayed",
+    "C03 a Host already_handled is never upgraded into a success",
+    "C03 restart: pending is queried, a claimed settle becomes uncertain",
+    "C04 a stop cancels unclaimed interactions of the stopped turn",
+    "revision mismatch is a CONFLICT carrying only the current revision",
+    "pending interactions are capped and never evict active work"
+  ],
+  "remaining": []
+}

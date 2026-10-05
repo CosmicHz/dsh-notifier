@@ -1,0 +1,30 @@
+{
+  "task": "B01",
+  "title": "Effect inbox and reply identity",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/effects.mjs",
+    "src/services/inbox.mjs",
+    "src/services/reply-contexts.mjs",
+    "src/services/reply-refs.mjs",
+    "test/unit/effects.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; effects.test.mjs covers W10/W11/W20/W04" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+  ],
+  "tests": [
+    "W10 the idempotency key isolates actor, method and requestId",
+    "W10 same hash replays the stored result, a different payload is a CONFLICT",
+    "W10 one actor never reads another actor result for the same requestId",
+    "W11 an effect records segment, attempt and provider id per leaf",
+    "W11 restart marks started effects uncertain and planned effects cancelled, never replayed",
+    "W11 aggregate layering keeps accepted below confirmed and flags uncertainty",
+    "W20 a duplicate inbound event is not processed twice",
+    "W20 the cursor never advances past an in-flight event",
+    "a reply context is pinned to the principal and hides transport secrets from views",
+    "W04 a reply ref stores only the token hash and scopes lookup to account/chat"
+  ],
+  "remaining": []
+}

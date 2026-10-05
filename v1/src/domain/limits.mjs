@@ -50,6 +50,7 @@ export const LIMITS = Object.freeze({
   SEND_QUEUE_MAX: 256,
 
   // time-to-live
+  LOGIN_TTL_MS: 5 * 60 * 1000,
   PAIRING_TTL_MS: 5 * 60 * 1000,
   PAIRING_FAILURE_LIMIT: 5,
   PAIRING_LOCKOUT_MS: 15 * 60 * 1000,

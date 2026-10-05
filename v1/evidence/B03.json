@@ -1,0 +1,27 @@
+{
+  "task": "B03",
+  "title": "Login and read projection",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/runtime/login-manager.mjs",
+    "src/runtime/projection.mjs",
+    "test/unit/runtime-login.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; runtime-login.test.mjs covers W05/W17/W18/W28" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+  ],
+  "tests": [
+    "W05 surfaceVersion carries bootId+sequence and invalidate advances it",
+    "W05 wait wakes on a later invalidation without a lost wakeup",
+    "W05 wait returns immediately when the boot id differs",
+    "W05 a health change bumps the surface version without touching the store",
+    "W18 a successful login commits credentials and enables control in one transaction",
+    "W18 one session per account: a new scan cancels the old and its late result is ignored",
+    "W18 a loginId from a previous boot reports EXPIRED",
+    "W17 a late result never overwrites a newer account edit",
+    "a channel without login capability is UNSUPPORTED"
+  ],
+  "remaining": []
+}

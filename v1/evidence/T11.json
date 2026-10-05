@@ -1,0 +1,28 @@
+{
+  "task": "T11",
+  "title": "Conversation",
+  "commit": null,
+  "sourceId": null,
+  "files": [
+    "src/services/conversation.mjs",
+    "test/unit/conversation.test.mjs"
+  ],
+  "commands": [
+    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; conversation.test.mjs covers U05/W02/W15 and command authorization" },
+    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+  ],
+  "tests": [
+    "U05 an idle private message is a followup with a persisted correlation",
+    "U05 a steer uses the ! prefix and reuses the in-flight turn",
+    "U05 /use binds only an authorized session id",
+    "W02 a busy session without a unique live turn is a CONFLICT, never a guess",
+    "W02 another principal cannot attach to a session owned by someone else",
+    "C04 /stop wins and cancels later work on the same session",
+    "W15 the command permission table fails closed by role",
+    "W15 /quiet is owner-only and only sets quiet on the bound session",
+    "W15 /route is read-only and reports the bound session path",
+    "a group chat refuses every control path and sends no reply",
+    "an explicit /approve REF settles exactly one interaction (no free-text guessing)"
+  ],
+  "remaining": []
+}
