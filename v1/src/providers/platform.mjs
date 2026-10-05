@@ -12,12 +12,15 @@ export function inboundSecrets(account, spec) {
   const out = {};
   for (const [name, required] of Object.entries(spec)) {
     const secret = account?.secrets?.[`inbound.${name}`];
+    // resolveSecret now handles JSON decoding for literal secrets (R08 fix)
     const resolved = secret ? resolveSecret(secret) : null;
-    const value = resolved && resolved.ok ? str(resolved.value) : '';
-    if (required === true && value === '') {
+    const value = resolved && resolved.ok ? resolved.value : null;
+    // Coerce to string for backward compatibility with existing provider code
+    const stringValue = value !== null && value !== undefined ? String(value) : '';
+    if (required === true && stringValue === '') {
       throw new ProviderError('NOT_CONFIGURED', `${account?.channelId ?? 'channel'} 入站未配置：${name} 未填写`);
     }
-    out[name] = value;
+    out[name] = stringValue;
   }
   return out;
 }

@@ -46,7 +46,7 @@ function normalizeTarget(channelId, target) {
   for (const [key, value] of Object.entries(values)) {
     if (secretFields.has(key)) {
       if (typeof value !== 'string') errors.push(`target.${key}: expected string secret`);
-      else captured[`target.${key}`] = { kind: 'literal', value };
+      else captured[`target.${key}`] = { kind: 'literal', value: JSON.stringify(value) };
     } else {
       publicTarget[key] = value;
     }

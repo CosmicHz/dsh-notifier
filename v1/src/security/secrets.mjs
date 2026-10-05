@@ -92,34 +92,62 @@ export function applySecretChanges(base, changes, { creating = false } = {}) {
 
 /**
  * Resolve a secret envelope to its plaintext value.
- * Literal values are returned from state; env values are read from the environment
- * and are never persisted.
- * @returns {{ok:true,value:string}|{ok:false,reason:'MISSING'|'INVALID'}}
+ * Literal values are decoded from JSON-encoded strings; env values are read from
+ * the environment and decoded according to the field descriptor type.
+ * @param {object} secret - the secret envelope {kind:'literal'|'env', value?:string, name?:string}
+ * @param {object} [env] - environment map (default process.env)
+ * @param {object} [descriptor] - optional field descriptor with type for typed decoding
+ * @returns {{ok:true,value:any}|{ok:false,reason:'MISSING'|'INVALID'}}
  */
-export function resolveSecret(secret, env = process.env) {
+export function resolveSecret(secret, env = process.env, descriptor = null) {
   if (secret === null || typeof secret !== 'object') return { ok: false, reason: 'INVALID' };
+
   if (secret.kind === 'literal') {
-    return typeof secret.value === 'string' ? { ok: true, value: secret.value } : { ok: false, reason: 'INVALID' };
+    if (typeof secret.value !== 'string') return { ok: false, reason: 'INVALID' };
+    // Literal secrets are stored as JSON-encoded typed values (02-DATA.md, 15-FIELD-COPY.md).
+    // String values are JSON-encoded, non-string values are also JSON-encoded.
+    try {
+      const decoded = JSON.parse(secret.value);
+      return { ok: true, value: decoded };
+    } catch {
+      return { ok: false, reason: 'INVALID' };
+    }
   }
+
   if (secret.kind === 'env') {
     if (typeof secret.name !== 'string' || !ENV_RE.test(secret.name)) return { ok: false, reason: 'INVALID' };
-    const value = env[secret.name];
-    if (typeof value !== 'string' || value.length === 0) return { ok: false, reason: 'MISSING' };
-    return { ok: true, value };
+    const raw = env[secret.name];
+    if (typeof raw !== 'string' || raw.length === 0) return { ok: false, reason: 'MISSING' };
+
+    // Env values: for string-typed fields, use as-is; for non-string, parse JSON (15-FIELD-COPY.md).
+    if (!descriptor || descriptor.type === 'string') {
+      return { ok: true, value: raw };
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      return { ok: true, value: parsed };
+    } catch {
+      return { ok: false, reason: 'INVALID' };
+    }
   }
+
   return { ok: false, reason: 'INVALID' };
 }
 
 /**
  * Resolve a whole secrets map. Missing/invalid entries are reported by path.
- * @returns {{values:Record<string,string>, missing:string[], invalid:string[]}}
+ * @param {object} secrets - map of secret envelopes
+ * @param {object} [env] - environment map
+ * @param {object} [descriptorMap] - optional map of path->descriptor for typed decoding
+ * @returns {{values:Record<string,any>, missing:string[], invalid:string[]}}
  */
-export function resolveSecrets(secrets, env = process.env) {
+export function resolveSecrets(secrets, env = process.env, descriptorMap = null) {
   const values = {};
   const missing = [];
   const invalid = [];
   for (const [path, secret] of Object.entries(secrets ?? {})) {
-    const resolved = resolveSecret(secret, env);
+    const descriptor = descriptorMap?.[path] ?? null;
+    const resolved = resolveSecret(secret, env, descriptor);
     if (resolved.ok) values[path] = resolved.value;
     else if (resolved.reason === 'MISSING') missing.push(path);
     else invalid.push(path);

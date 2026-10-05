@@ -23,7 +23,7 @@ async function accountWithDestinations(store, count = 2) {
     channelId: 'telegram',
     label: 'TG',
     config: { outbound: {} },
-    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }],
+    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }],
     notificationEnabled: true,
   }, { now: 100 });
   const ids = [];

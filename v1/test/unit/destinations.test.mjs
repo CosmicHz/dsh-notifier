@@ -23,7 +23,7 @@ async function telegramAccount(store, overrides = {}) {
     channelId: 'telegram',
     label: 'TG',
     config: { outbound: {} },
-    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }],
+    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }],
     notificationEnabled: true,
     ...overrides,
   }, { now: 100 });
@@ -34,7 +34,7 @@ async function onebotAccount(store) {
     channelId: 'onebot',
     label: 'OB',
     config: { outbound: {} },
-    secretChanges: [{ path: 'outbound.baseUrl', op: 'set', value: { kind: 'literal', value: 'http://127.0.0.1:3000' } }],
+    secretChanges: [{ path: 'outbound.baseUrl', op: 'set', value: { kind: 'literal', value: '"http://127.0.0.1:3000"' } }],
     notificationEnabled: true,
   }, { now: 100 });
 }
@@ -91,7 +91,7 @@ test('secret destination target fields are captured, not exposed as public targe
   assert.equal(JSON.stringify(view).includes('u-secret-777'), false, 'secret value leaked into the view');
   const stored = store.snapshot().destinations[view.id];
   assert.equal('userId' in stored.target, false, 'secret target field must not be stored publicly');
-  assert.deepEqual(stored.secrets['target.userId'], { kind: 'literal', value: 'u-secret-777' });
+  assert.deepEqual(stored.secrets['target.userId'], { kind: 'literal', value: '"u-secret-777"' });
 });
 
 test('destination patch validates target and uses optimistic concurrency', async () => {

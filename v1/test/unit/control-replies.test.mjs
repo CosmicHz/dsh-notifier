@@ -23,7 +23,7 @@ async function accountWithContext(store, { controlEnabled = true } = {}) {
     channelId: 'telegram',
     label: 'TG',
     config: { outbound: {}, inbound: {} },
-    secretChanges: [{ path: 'inbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }],
+    secretChanges: [{ path: 'inbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }],
     notificationEnabled: false,
     controlEnabled,
   }, { now: 100 });

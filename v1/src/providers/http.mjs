@@ -91,10 +91,9 @@ export function assembleProviderConfig(account, destination = null, { env = proc
       if (field.exposure !== 'secret') continue;
       const secret = owner === 'account' ? account.secrets?.[field.path] : destination?.secrets?.[field.path];
       if (secret === undefined || secret === null) continue;
-      const resolved = resolveSecret(secret, env);
-      // Non-string secret types are stored as JSON.stringify'd literals; decode to
-      // the descriptor's declared shape (spec/FIELD-CONSTRAINTS.json secretSerialization).
-      if (resolved.ok) config[field.field] = field.type === 'string' ? resolved.value : decodeJsonValue(resolved.value);
+      // Pass field descriptor for typed decoding (R08 fix)
+      const resolved = resolveSecret(secret, env, field);
+      if (resolved.ok) config[field.field] = resolved.value;
     }
   }
   return config;

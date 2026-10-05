@@ -9,7 +9,8 @@ const account = {
   id: 'acc-tg',
   channelId: 'telegram',
   config: { inbound: {}, outbound: {} },
-  secrets: { 'inbound.botToken': { kind: 'literal', value: 'TOK' } },
+  // Literal secrets are JSON-encoded (R08 fix)
+  secrets: { 'inbound.botToken': { kind: 'literal', value: '"TOK"' } },
 };
 
 const msg = (over = {}) => ({ title: 'T', content: 'C', level: 'active', ...over });

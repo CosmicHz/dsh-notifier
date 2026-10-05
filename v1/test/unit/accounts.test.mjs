@@ -23,7 +23,7 @@ function telegramAccount(overrides = {}) {
     channelId: 'telegram',
     label: 'TG',
     config: { outbound: {} },
-    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }],
+    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }],
     notificationEnabled: true,
     ...overrides,
   };
@@ -64,7 +64,7 @@ test('A01: rotating a credential keeps the account id and only bumps revisions',
     id: created.id,
     expectedRevision: created.revision,
     patch: {},
-    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-2' } }],
+    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-2"' } }],
   }, { now: 200 });
   assert.equal(rotated.id, created.id);
   assert.equal(rotated.revision, 1);
@@ -178,6 +178,6 @@ test('A04: deleting an account atomically removes its strong references', async 
 
 test('directionComplete tracks required account fields', () => {
   assert.equal(directionComplete('telegram', 'outbound', {}, {}), false);
-  assert.equal(directionComplete('telegram', 'outbound', {}, { 'outbound.botToken': { kind: 'literal', value: 'x' } }), true);
+  assert.equal(directionComplete('telegram', 'outbound', {}, { 'outbound.botToken': { kind: 'literal', value: '\"x\"' } }), true);
   assert.equal(directionComplete('bark', 'outbound', {}, {}), true, 'bark has no required outbound credential');
 });

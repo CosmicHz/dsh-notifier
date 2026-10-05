@@ -1,3 +1,4 @@
 #!/bin/sh
 # Install into the effective repository hooks path; preserve other checks.
-exec python3 scripts/prepush_docs_gate.py
+REPO_ROOT=$(git rev-parse --show-toplevel)
+exec python3 "$REPO_ROOT/v1/scripts/prepush_docs_gate.py"

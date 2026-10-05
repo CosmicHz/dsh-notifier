@@ -22,7 +22,7 @@ async function telegramAccount(store, label) {
     channelId: 'telegram',
     label,
     config: { outbound: {} },
-    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }],
+    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }],
     notificationEnabled: true,
   }, { now: 100 });
 }

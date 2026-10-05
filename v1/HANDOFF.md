@@ -31,10 +31,19 @@ not import it and does not keep v0 compatibility.
   best-effort importer are implemented with `evidence/T12.json` … `T29.json`.
   Covered by `npm run test:unit`, `npm run test:protocol` and
   `npm run test:integration`.
-- **Phase 4 onward: planned.** Next is B01 effect inbox / reply identity → B02
-  control reply → B03 login & read projection → B04 callbacks & host facts → T10
-  interactions → T11 conversation. See [docs/PROGRESS.md](docs/PROGRESS.md) for the
-  live status table.
+- **Phase 4 (Inbound, effects, interactions): implemented, requires revalidation.**
+  B01 effect inbox / reply identity, B02 control reply, B03 login & read projection,
+  B04 callbacks & host facts, T10 interactions, T11 conversation are implemented with
+  code committed. Unit and integration tests were reported passing by the previous
+  agent but have not been re-run in the current handoff session.
+- **Phase 5 (Runtime & Telegram): implemented, requires revalidation.** T15 runtime
+  and T16 Telegram are implemented with code committed at 737d09c and 24404fb.
+  Protocol tests were reported passing by the previous agent but have not been re-run
+  in the current handoff session.
+- **Phase 5 (remaining providers) onward: planned.** T17 Feishu, T18 WeChat, T19 QQ,
+  T20 DingTalk, T21 WxPusher, T26 DSH integration, T27 RPC, T28 CLI and all UI/UX
+  phases remain planned. See [docs/PROGRESS.md](docs/PROGRESS.md) for the live status
+  table.
 
 ## How to continue
 

@@ -97,7 +97,7 @@ async function until(fn, timeoutMs = 500) {
   }
 }
 
-const LOGIN_SECRETS = [{ path: 'inbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }];
+const LOGIN_SECRETS = [{ path: 'inbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }];
 
 test('W18 a successful login commits credentials and enables control in one transaction', async () => {
   const { store, account } = await draftStore();

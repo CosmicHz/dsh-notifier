@@ -20,7 +20,7 @@ function telegramConnection(overrides = {}) {
     channelId: 'telegram',
     label: 'TG',
     config: { outbound: {} },
-    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: 'tok-1' } }],
+    secretChanges: [{ path: 'outbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }],
     notificationEnabled: true,
     destination: { label: 'chat', target: { chatId: '42' } },
     ...overrides,

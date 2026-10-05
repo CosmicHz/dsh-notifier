@@ -9,20 +9,20 @@ import { DomainError } from '../../src/domain/errors.mjs';
 
 test('A05: keep / set / clear semantics', () => {
   const base = {
-    'outbound.token': { kind: 'literal', value: 'old' },
+    'outbound.token': { kind: 'literal', value: '"old"' },
     'outbound.secret': { kind: 'env', name: 'KEEP_ME' },
   };
   const next = applySecretChanges(base, [
-    { path: 'outbound.token', op: 'set', value: { kind: 'literal', value: 'new' } },
+    { path: 'outbound.token', op: 'set', value: { kind: 'literal', value: '"new"' } },
     { path: 'outbound.secret', op: 'clear' },
     { path: 'inbound.webhook', op: 'set', value: { kind: 'env', name: 'HOOK' } },
   ]);
   assert.deepEqual(next, {
-    'outbound.token': { kind: 'literal', value: 'new' },
+    'outbound.token': { kind: 'literal', value: '"new"' },
     'inbound.webhook': { kind: 'env', name: 'HOOK' },
   });
   // Absent paths are kept untouched.
-  assert.equal(base['outbound.token'].value, 'old', 'base is not mutated');
+  assert.equal(base['outbound.token'].value, '"old"', 'base is not mutated');
 });
 
 test('create forbids clear', () => {
@@ -61,13 +61,16 @@ test('env resolution reads the environment and never persists the value', () => 
 });
 
 test('literal resolution returns the stored value', () => {
-  assert.deepEqual(resolveSecret({ kind: 'literal', value: 'abc' }), { ok: true, value: 'abc' });
+  // Literal secrets are JSON-encoded (02-DATA.md, 15-FIELD-COPY.md, R08 fix)
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '"abc"' }), { ok: true, value: 'abc' });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '123' }), { ok: true, value: 123 });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '{"key":"val"}' }), { ok: true, value: { key: 'val' } });
 });
 
 test('resolveSecrets partitions values / missing / invalid', () => {
   const out = resolveSecrets(
     {
-      'outbound.a': { kind: 'literal', value: 'v' },
+      'outbound.a': { kind: 'literal', value: '"v"' },
       'outbound.b': { kind: 'env', name: 'PRESENT' },
       'outbound.c': { kind: 'env', name: 'ABSENT' },
       'outbound.d': { kind: 'nope' },
@@ -80,7 +83,7 @@ test('resolveSecrets partitions values / missing / invalid', () => {
 });
 
 test('secretFieldStatus lists configured paths only (no values)', () => {
-  const status = secretFieldStatus({ 'outbound.token': { kind: 'literal', value: 'x' } });
+  const status = secretFieldStatus({ 'outbound.token': { kind: 'literal', value: '"x"' } });
   assert.deepEqual(status, [{ path: 'outbound.token', configured: true }]);
   assert.equal(JSON.stringify(status).includes('x'), false);
 });
@@ -89,7 +92,7 @@ test('redaction hides secrets in objects, views and text', () => {
   const record = {
     id: 'a1',
     label: 'Bot',
-    secrets: { 'outbound.token': { kind: 'literal', value: 'leak-me' } },
+    secrets: { 'outbound.token': { kind: 'literal', value: '"leak-me"' } },
     token: 'leak-me-too',
     nested: { apiKey: 'nope' },
   };

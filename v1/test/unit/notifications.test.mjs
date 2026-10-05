@@ -33,7 +33,8 @@ function slackConnection(overrides = {}) {
     label: 'SL',
     config: { outbound: {} },
     secretChanges: [
-      { path: 'outbound.webhook', op: 'set', value: { kind: 'literal', value: 'https://hooks.slack.com/services/T/B/X' } },
+      // Literal secrets are JSON-encoded (R08 fix)
+      { path: 'outbound.webhook', op: 'set', value: { kind: 'literal', value: '"https://hooks.slack.com/services/T/B/X"' } },
     ],
     notificationEnabled: true,
     destination: { label: 'chan', target: {} },
