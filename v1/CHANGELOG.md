@@ -67,6 +67,14 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- N01 (v4): closed the rest of R03. `/tasks` authorizes a TaskView by its
+  `sessionId` (never its own id, which may collide with a session id); the owner rule
+  is "authorized for every session" with an explicit binding that must still point at a
+  usable session; and `/use`, `/stop` and `converse` re-read the current Principal (and
+  Account) before any Host effect, so a revocation or disable while queued can no longer
+  reach the Host. `runtime/manager.mjs` now injects the current Host session set so an
+  owner with no declared scope resolves a single active session. Covered by
+  `test/unit/conversation-r03.test.mjs` and `test/integration/authorization-race.test.mjs`.
 - R08: inbound secret decoding now follows typed JSON encoding per spec/15. Descriptor-
   driven secret resolver implements literal JSON decoding and env resolution. Fixes issue
   where literal JSON-encoded tokens would carry quotes into URLs.

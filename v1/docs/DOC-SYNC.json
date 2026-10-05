@@ -3,40 +3,30 @@
   "generatedAt": "2026-10-05",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "7789fd5dba9643ea40f945ced43d957c7fdefdc2",
-  "sourceDigest": "a988e35c1433521e4f2820cb18ec72fed14c5445ffc060520d3489bd3a9d7432",
+  "base": "dd36cccc881291952a5dbbcf91961569cc2a166c",
+  "sourceDigest": "bfc031e1db949fdbd3846d4d95f4c1ad651d0b4a202902d64dfcd12a6a2628a5",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "G00 (v4 release authority): installed docs/developer/v1-release-v4/ with the v4 entry docs (00-START-HERE, 01-CURRENT-REVIEW, 02-RELEASE-DEFINITION, 03-EXECUTION-AND-DOC-SYNC, 04-LATEST-CONTRACT-FIXES, AGENTS) plus the machine lists (REMAINING-TASKS.csv, ORIGINAL-TASK-COVERAGE.csv, REQUIRED-ARTIFACTS.json, DOC-SYNC-INVENTORY.json, STATE.json, MANIFEST.json, history/v3-TASKS.csv). Repointed root AGENTS.md, v1/AGENTS.md, handoff/00-START-HERE.md and v1/HANDOFF.md to the v4 entry; regenerated v1/docs/PROGRESS.md from REMAINING-TASKS.csv; extended prepush_docs_gate.py required-inventory to cover the v4 directory. The goal is now the dsh-notifier 1.0.0 release-ready artifact. Already-landed items (R07/R09-R14 code, T17, T21) are recorded as implemented-needs-current-evidence. No product behavior changed. Verification: prepush_docs_gate.py compiles; npm run check + npm test unchanged (396 pass / 86 protocol). Real devices/accounts remain out of scope.",
+  "summary": "N01 (v4 follow-up): completed the rest of R03. /tasks now authorizes a TaskView by its sessionId (never its own id, which may collide with a session id); the owner rule is \"authorized for every session\" and an explicit binding wins only while it still points at a usable session; /use, /stop and converse re-read the current Principal (and Account) before any Host effect so a revocation or disable while queued cannot reach the Host. manager.ingest now injects the current Host session set so an owner with no declared scope resolves a single active session. Also: commit identity rule moved to the repository owner CosmicHz <xhz352010@163.com>; REMAINING-TASKS.csv status updated (G00/N01 verified, landed R07-R14/T17/T21 implemented) and PROGRESS regenerated from it. New tests: test/unit/conversation-r03.test.mjs (N01 cases) + test/integration/authorization-race.test.mjs. Verification: npm run check passes (75 source files); npm test 401 pass / 0 fail (86 protocol).",
   "unresolved": [],
   "changedPaths": [
     "AGENTS.md",
-    "docs/developer/v1-release-v4/00-START-HERE.md",
-    "docs/developer/v1-release-v4/01-CURRENT-REVIEW.md",
-    "docs/developer/v1-release-v4/02-RELEASE-DEFINITION.md",
-    "docs/developer/v1-release-v4/03-EXECUTION-AND-DOC-SYNC.md",
-    "docs/developer/v1-release-v4/04-LATEST-CONTRACT-FIXES.md",
-    "docs/developer/v1-release-v4/AGENTS.md",
-    "docs/developer/v1-release-v4/DOC-SYNC-INVENTORY.json",
-    "docs/developer/v1-release-v4/MANIFEST.json",
-    "docs/developer/v1-release-v4/ORIGINAL-TASK-COVERAGE.csv",
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
-    "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",
-    "docs/developer/v1-release-v4/STATE.json",
-    "docs/developer/v1-release-v4/history/v3-TASKS.csv",
-    "handoff/00-START-HERE.md",
     "v1/AGENTS.md",
     "v1/CHANGELOG.md",
     "v1/HANDOFF.md",
-    "v1/README.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/scripts/prepush_docs_gate.py"
+    "v1/src/runtime/manager.mjs",
+    "v1/src/services/conversation.mjs",
+    "v1/src/services/routes.mjs",
+    "v1/test/integration/authorization-race.test.mjs",
+    "v1/test/unit/conversation-r03.test.mjs"
   ],
   "inventory": [
     {
       "path": "AGENTS.md",
       "disposition": "updated",
-      "reason": "v1 entry repointed to docs/developer/v1-release-v4 (v4 authority); push-gate authorization wording updated."
+      "reason": "Commit identity rule now uses the repository owner CosmicHz <xhz352010@163.com>."
     },
     {
       "path": "docs/developer/v1-flash-v3/00-START.md",
@@ -166,17 +156,17 @@
     {
       "path": "v1/AGENTS.md",
       "disposition": "updated",
-      "reason": "v1 entry repointed to the v4 release package and the 1.0.0 goal."
+      "reason": "Commit identity rule now uses the repository owner CosmicHz."
     },
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the G00 v4-authority entry."
+      "reason": "Added the N01 (v4) fixed entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Authority note added: v4 entry is current, this file is v1 product status."
+      "reason": "Added the v4 N01-N04 follow-up table (N01 done) and refreshed the suite count to 401."
     },
     {
       "path": "v1/README.md",
@@ -196,7 +186,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated from docs/developer/v1-release-v4/REMAINING-TASKS.csv (single status source)."
+      "reason": "Regenerated: G00/N01 verified, already-landed items implemented (single status source)."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -306,7 +296,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "v4 release authority machine list (task state source)."
+      "reason": "Task status updated: G00/N01 verified, landed R07-R14/T17/T21 implemented."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",

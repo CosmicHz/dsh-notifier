@@ -15,7 +15,7 @@
 - T00安装`templates/pre-push`和`templates/prepush_docs_gate.py`到仓库`scripts/hooks/`与`scripts/`，合并现有hook，禁止覆盖既有检查；有效pre-push必须调用门槛。禁止`--no-verify`、临时关hook或空报告绕过。
 - 每次push前更新`v1/docs/DOC-SYNC.json`，格式见22；门槛检查实际待推送diff、sourceDigest、完整盘点、docs变更与未关闭冲突。机械通过不等于内容正确，必须读文档做neat-freak审查。
 - 只允许授权后的普通fast-forward推送到`dev`；本任务包本身不授权推送。禁止force/main/tag/Release/npm publish；fetch后核对远端SHA再推，推后读远端SHA确认。
-- 本地提交author/committer沿用仓库约定`THEWOLFWALKER <3622976831@qq.com>`；只设仓库局部配置，不改全局身份。
+- 本地提交author/committer用仓库所有者`CosmicHz <xhz352010@163.com>`；只设仓库局部配置，不改全局身份。
 - 凭据/真实状态/聊天内容/node_modules/生成测试日志不得提交；证据只提交脱敏摘要与必要可审阅设计素材，不提交敏感截图。
 - 结束阶段和换会话也执行neat-freak。AGENTS是规则手册，不追加历史流水账；<=300行，机制写docs，历史写CHANGELOG。
 - 实际冲突按08记录BLOCKERS，继续独立任务；不得让旧skill通用建议推翻本用户“不兼容、不真机、既定宿主风格”的明确范围。

@@ -73,6 +73,15 @@ A static review of baseline `24404fb` opened 14 recovery items. Current progress
 | R13 | control-send idempotency + segmentation | **done**, tests green, in this push |
 | R14 | interaction TTL (never extend a past deadline) | **done**, tests green, in this push |
 
+The v4 release package (`docs/developer/v1-release-v4/`) adds four follow-ups:
+
+| item | scope | status |
+|---|---|---|
+| N01 | R03 completion: task `sessionId` filter, owner session rule, execution-time re-auth | **done** (this push) |
+| N02 | typed secret validation after decoding (descriptor-driven) | open |
+| N03 | `onFatal` early arrival must not be overwritten by `ready`; late handle disposal | open |
+| N04 | login capability truth (only Feishu/WeChat scan) + capability→method→test mapping | open |
+
 R04/R05/R06 details this pass (all covered by `npm run test:unit` +
 `npm run test:integration`):
 
@@ -94,7 +103,7 @@ R04/R05/R06 details this pass (all covered by `npm run test:unit` +
   **wires `onFatal` into `provider.start`** and projects a real background exit to
   `connection.state='degraded'` + `health.degraded` (ignored for a superseded epoch).
 
-Current suite: **396 tests pass** (86 of them protocol), `npm run check` passes (75
+Current suite: **401 tests pass** (86 of them protocol), `npm run check` passes (75
 source files). Recovery items R07, R09–R12 (and the previously landed R01–R06, R08) are
 all closed; see the table above and `CHANGELOG.md` for scope and verification bounds.
 

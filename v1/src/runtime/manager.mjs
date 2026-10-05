@@ -167,10 +167,18 @@ export function createRuntimeManager({
     inFlight.add(controller);
     let outcome;
     try {
+      // N01: give the conversation policy the current Host session set so an
+      // owner with no declared scope can still resolve a single active session.
+      let activeSessionIds = null;
+      if (host && typeof host.listSessions === 'function') {
+        try { activeSessionIds = (await host.listSessions()).map((s) => s.id); }
+        catch { activeSessionIds = null; }
+      }
       outcome = await handleInbound(store, envelope, {
         host,
         network,
         now: at,
+        activeSessionIds,
         signal: controller.signal,
         arbiterFor: (sessionId) => arbiters.for(sessionId),
         controlReply: (input) => controlReply(input, { signal: controller.signal }),

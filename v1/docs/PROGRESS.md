@@ -1,30 +1,30 @@
 # Task progress (v4 release authority)
 
-Status source of truth: `docs/developer/v1-release-v4/REMAINING-TASKS.csv` (v4 release package, baseline `2eb91c9`). This file is generated from that list; do not hand-edit a second status. The frozen v3 task graph in `docs/developer/v1-flash-v3/TASKS.csv` and `handoff/` snapshots are history only.
+Status source of truth: `docs/developer/v1-release-v4/REMAINING-TASKS.csv` (v4 release package, baseline `2eb91c9`). This file is generated from that list; do not hand-edit a second status. The frozen v3 task graph in `docs/developer/v1-flash-v3/TASKS.csv` and the `handoff/` snapshots are history only.
 
-Status values: `required` -> `in_progress` -> `implemented` -> `verified`. `implemented — needs v4 current evidence` means the code and local tests already exist (pushed before this package) but the v4 `validation` file/command set has not yet been reconciled.
+Status values: `required` -> `in_progress` -> `implemented` -> `verified`. `implemented` means the code and local tests exist but the v4 `validation` file/command set has not yet been fully reconciled.
 
 Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITION.md).
 
 | id | title | status |
 |---|---|---|
-| G00 | 恢复唯一入口、保护当前工作树、同步新任务状态 | **done** (this commit) |
-| N01 | 补齐R03授权：Task.sessionId、owner路由、执行时重验 | required |
+| G00 | 恢复唯一入口、保护当前工作树、同步新任务状态 | verified |
+| N01 | 补齐R03授权：Task.sessionId、owner路由、执行时重验 | verified |
 | N02 | 秘密解码后按descriptor严格验证 | required |
 | N03 | 消除onFatal早到被ready覆盖与迟到句柄泄漏 | required |
 | N04 | 修正登录能力并建立capability方法证据映射 | required |
-| R07 | 控制卡片token合同 | **implemented** — needs v4 current evidence |
-| R09 | Telegram群callback拒绝与接收ACK | **implemented** — needs v4 current evidence |
-| R14 | 交互TTL与Host截止时间 | **implemented** — needs v4 current evidence |
-| R10 | 默认manager接入配对与本人撤销 | **implemented** — needs v4 current evidence |
-| R11 | Host事件到对话回程与待办投递 | **implemented** — needs v4 current evidence |
-| R12 | 媒体引用安全准入到Host AttachmentRef | **implemented** — needs v4 current evidence |
-| R13 | 控制发送幂等及逐段效果证据 | **implemented** — needs v4 current evidence |
-| T17 | Feishu | **implemented** — needs v4 current evidence |
+| R07 | 控制卡片token合同 | implemented |
+| R09 | Telegram群callback拒绝与接收ACK | implemented |
+| R14 | 交互TTL与Host截止时间 | implemented |
+| R10 | 默认manager接入配对与本人撤销 | implemented |
+| R11 | Host事件到对话回程与待办投递 | implemented |
+| R12 | 媒体引用安全准入到Host AttachmentRef | implemented |
+| R13 | 控制发送幂等及逐段效果证据 | implemented |
+| T17 | Feishu | implemented |
 | T18 | WeChat | required |
 | T19 | QQ | required |
 | T20 | DingTalk | required |
-| T21 | WxPusher | **implemented** — needs v4 current evidence |
+| T21 | WxPusher | implemented |
 | T26 | DSH integration | required |
 | T27 | RPC | required |
 | T28 | CLI | required |

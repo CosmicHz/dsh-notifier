@@ -185,3 +185,57 @@ test('R03: owner can /use any session', async () => {
   assert.equal(result.name, 'use');
   assert.match(replies[0], /bound session=s-2/);
 });
+
+// --- N01 additions -------------------------------------------------------
+
+test('N01: member /tasks filters by TaskView.sessionId, not the task id', async () => {
+  const store = memoryStore(baseState());
+  const host = {
+    async listSessions() { return [{ id: 's-1' }, { id: 's-2' }]; },
+    async listTasks() {
+      // t-1 belongs to the authorized s-1; the second task's *id* collides with
+      // s-1 but its sessionId (s-9) is not authorized — it must not leak.
+      return [{ id: 't-1', sessionId: 's-1' }, { id: 's-1', sessionId: 's-9' }];
+    },
+    async stop() { return { stopped: true }; },
+    async getSession(id) { return { id }; },
+  };
+  const { controlReply, replies } = collector();
+  await handleInbound(store, envelope({ text: '/tasks' }), { host, controlReply, now: 10 });
+  assert.match(replies[0], /t-1/);
+  assert.doesNotMatch(replies[0], /s-9/);
+  assert.doesNotMatch(replies[0], /s-1/, 'the colliding task id must not appear either');
+});
+
+test('N01: an owner with no declared scope resolves the single host session', async () => {
+  const state = baseState();
+  state.principals['p-owner'].sessionIds = [];
+  const store = memoryStore(state);
+  const submitted = [];
+  const host = {
+    async listSessions() { return [{ id: 's-only' }]; },
+    async getSession(id) { return { id, status: 'idle' }; },
+    async submit(x) { submitted.push(x); return { hostRef: 'h-1', turnId: 't-1' }; },
+    async stop() { return { stopped: true }; },
+  };
+  const { controlReply } = collector();
+  const result = await handleInbound(store, envelope({ userId: 'u-owner', chatId: 'c-owner', text: 'hello' }), {
+    host, controlReply, now: 10, activeSessionIds: ['s-only'],
+  });
+  assert.equal(result.kind, 'converse');
+  assert.equal(submitted[0].sessionId, 's-only');
+});
+
+test('N01: a disabled identity cannot /use, and re-enabling allows it', async () => {
+  const store = memoryStore(baseState());
+  const host = createFixtureHost();
+  const { controlReply } = collector();
+  await store.transact(null, (draft) => { draft.principals['p-member'].enabled = false; });
+  await assert.rejects(
+    () => handleInbound(store, envelope({ text: '/use s-1' }), { host, controlReply, now: 10 }),
+    (e) => e.code === 'FORBIDDEN' && /disabled/.test(e.message),
+  );
+  await store.transact(null, (draft) => { draft.principals['p-member'].enabled = true; });
+  const ok = await handleInbound(store, envelope({ text: '/use s-1' }), { host, controlReply, now: 10 });
+  assert.equal(ok.name, 'use');
+});

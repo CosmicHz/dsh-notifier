@@ -23,6 +23,6 @@
 
 ## 通用规则
 
-- 仅 `dev` 分支开发；提交 author/committer 沿用仓库约定 `THEWOLFWALKER <3622976831@qq.com>`，只设仓库局部配置。
+- 仅 `dev` 分支开发；提交 author/committer 用仓库所有者 `CosmicHz <xhz352010@163.com>`，只设仓库局部配置。
 - 凭据、真实状态、聊天内容、`node_modules/`、生成测试日志不得提交；证据只提交脱敏摘要与必要设计素材。
 - 根 AGENTS.md 是规则手册，不追加历史流水账；机制写 `docs/`，历史写 `CHANGELOG.md`。<=300 行。

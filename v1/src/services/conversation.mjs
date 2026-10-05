@@ -141,11 +141,13 @@ export function isSessionAuthorized(principal, sessionId) {
  * - owner: sees all
  * - member: sees only authorized sessions
  */
-export function filterByAuthorization(items, principal) {
+export function filterByAuthorization(items, principal, key = 'id') {
   if (!principal) return [];
   if (principal.role === 'owner') return items;
   const authorized = new Set(principal.sessionIds ?? []);
-  return items.filter((item) => authorized.has(item.id));
+  // N01: a TaskView is authorized by its `sessionId`, never by its own `id`
+  // (session and task id spaces are independent).
+  return items.filter((item) => authorized.has(item?.[key]));
 }
 
 // ---------------------------------------------------------------------------
@@ -237,8 +239,8 @@ async function runReadCommand(store, name, args, { principal, account, envelope 
       const host = ctx.host;
       if (!host) throw new DomainError('UNSUPPORTED', 'the host cannot list sessions');
       const list = name === 'sessions' ? await host.listSessions() : await host.listTasks();
-      // R03: filter by authorization before pagination
-      const filtered = filterByAuthorization(list, principal);
+      // R03/N01: filter by authorization before pagination; tasks authorize on sessionId.
+      const filtered = filterByAuthorization(list, principal, name === 'tasks' ? 'sessionId' : 'id');
       const page = pageArg(args);
       const rows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
       const label = rows.map((row) => row.id).join(' ');
@@ -313,18 +315,25 @@ async function runActionCommand(store, name, args, { principal, account, envelop
     return { reply: `interaction ${interactionId} ${result.state}` };
   }
   if (name === 'stop') {
-    // R03: check canConverse and session authorization
-    if (principal.canConverse !== true) {
-      throw forbidden('this identity may not stop sessions (canConverse=false)');
-    }
-    const sessionId = requireBinding(store.snapshot(), principal);
-    // R03: verify principal is authorized for this session
-    if (!isSessionAuthorized(principal, sessionId)) {
-      throw forbidden('this session is not authorized for you');
-    }
+    // N01: read the CURRENT principal before any Host effect (never the snapshot
+    // captured when the event was classified).
+    const current = store.snapshot().principals[principal.id];
+    if (!current || current.enabled !== true) throw forbidden('this identity is disabled');
+    if (current.canConverse !== true) throw forbidden('this identity may not stop sessions (canConverse=false)');
+    const sessionId = requireBinding(store.snapshot(), current);
+    if (!isSessionAuthorized(current, sessionId)) throw forbidden('this session is not authorized for you');
     const arbiter = ctx.arbiterFor ? ctx.arbiterFor(sessionId) : null;
     const requestId = requireRequestId(randomUUID());
-    const run = async () => ctx.host.stop({ sessionId, requestId, signal: ctx.signal ?? new AbortController().signal });
+    const run = async () => {
+      // Re-read right before the effect: a revocation while queued in the
+      // arbiter must not still reach the Host.
+      const latest = store.snapshot().principals[principal.id];
+      if (!latest || latest.enabled !== true || latest.canConverse !== true
+        || !isSessionAuthorized(latest, sessionId)) {
+        throw forbidden('this session is no longer authorized for you');
+      }
+      return ctx.host.stop({ sessionId, requestId, signal: ctx.signal ?? new AbortController().signal });
+    };
     const outcome = arbiter ? await arbiter.stop(run) : await run();
     return { reply: `session ${sessionId} stopped=${outcome?.stopped === true}` };
   }
@@ -333,12 +342,15 @@ async function runActionCommand(store, name, args, { principal, account, envelop
     if (sessionId === '') throw validationError('usage: /use <sessionId>');
     const session = ctx.host ? await ctx.host.getSession(sessionId) : null;
     if (ctx.host && !session) throw notFound('unknown session');
+    if (ctx.host && session && session.status === 'closed') throw conflict('that session is closed');
     return commit(store, null, (draft) => {
-      // R03: use unified authorization check
-      if (!isSessionAuthorized(principal, sessionId)) {
-        throw forbidden('this session is not authorized for you');
-      }
-      const binding = setBinding(draft, { principalId: principal.id, sessionId, now });
+      // N01: re-read the principal inside the transaction; a stale closure copy
+      // must not bind a session the identity no longer owns or may not converse on.
+      const current = draft.principals[principal.id];
+      if (!current || current.enabled !== true) throw forbidden('this identity is disabled');
+      if (current.canConverse !== true) throw forbidden('this identity may not bind a session');
+      if (!isSessionAuthorized(current, sessionId)) throw forbidden('this session is not authorized for you');
+      const binding = setBinding(draft, { principalId: current.id, sessionId, now });
       appendActivity(draft, { kind: 'conversation', accountId: account.id, sessionId, status: 'bound' }, { now });
       return { reply: `bound session=${binding.sessionId}` };
     });
@@ -433,7 +445,11 @@ async function admitDescriptors({ host, network, sessionId, requestId, descripto
 }
 
 async function converse(store, envelope, { account, principal }, ctx) {
-  if (principal.canConverse !== true) throw forbidden('this identity may not start conversations');
+  // N01: read the CURRENT principal before any Host effect (a revocation or
+  // disable after classification must not still start a turn).
+  const current = store.snapshot().principals[principal.id];
+  if (!current || current.enabled !== true) throw forbidden('this identity is disabled');
+  if (current.canConverse !== true) throw forbidden('this identity may not start conversations');
   const text = typeof envelope.text === 'string' ? envelope.text : '';
   if (codepointLength(text) > LIMITS.MAX_MESSAGE_CODEPOINTS) {
     throw validationError(`message exceeds ${LIMITS.MAX_MESSAGE_CODEPOINTS} codepoints`);
@@ -488,7 +504,7 @@ async function converse(store, envelope, { account, principal }, ctx) {
       const { correlation } = reserveCorrelation(draft, {
         accountId: account.id,
         principalId: principal.id,
-        replyContextId: principal.replyContextId,
+        replyContextId: current.replyContextId,
         sessionId,
         requestId,
       }, { now, newId: ctx.newId });

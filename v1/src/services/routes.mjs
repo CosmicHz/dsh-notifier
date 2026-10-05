@@ -143,19 +143,30 @@ export function resolveRouteTargets(state, { sessionId = null, agentId = null, w
  * Bind an inbound principal to exactly one session. Explicit binding wins; then a
  * single authorized active session; otherwise it refuses instead of guessing.
  */
-export function resolveSessionForPrincipal(state, principalId, { activeSessionIds = null } = {}) {
+export function resolveSessionForPrincipal(state, principalId, { activeSessionIds = null, requireEnabled = true } = {}) {
   requireId(principalId, 'principalId');
   const principal = state.principals?.[principalId];
   if (!principal) throw notFound('principal not found');
-  const active = activeSessionIds === null ? null : new Set(activeSessionIds);
-  const authorized = (principal.sessionIds ?? []).filter((id) => active === null || active.has(id));
+  // N01: read the CURRENT principal (never a closure copy) and fail closed on a
+  // disabled identity before any Host effect.
+  if (requireEnabled && principal.enabled !== true) throw new DomainError('FORBIDDEN', 'this identity is disabled');
+  const owner = principal.role === 'owner';
+  // An empty host list means "no usable information", not "no sessions", so a
+  // principal with an explicit scope can still resolve.
+  const active = activeSessionIds === null || activeSessionIds.length === 0 ? null : new Set(activeSessionIds);
+  // owner is authorized for every session; a member only within its sessionIds scope.
+  const isAuthorized = (id) => owner || (principal.sessionIds ?? []).includes(id);
+  const available = (id) => active === null || active.has(id);
   const binding = state.bindings?.[principalId];
-  if (binding && authorized.includes(binding.sessionId)) {
+  // An explicit binding wins only while it still points at an authorized, usable session.
+  if (binding && isAuthorized(binding.sessionId) && available(binding.sessionId)) {
     return { sessionId: binding.sessionId, source: 'binding' };
   }
-  if (authorized.length === 1) return { sessionId: authorized[0], source: 'only-session' };
-  if (authorized.length === 0) {
-    throw new DomainError('CONFLICT', 'no authorized session available');
-  }
+  // Without a usable binding, exactly one available authorized session is required.
+  const candidates = active !== null
+    ? [...active].filter(isAuthorized)
+    : [...(principal.sessionIds ?? [])];
+  if (candidates.length === 1) return { sessionId: candidates[0], source: 'only-session' };
+  if (candidates.length === 0) throw new DomainError('CONFLICT', 'no authorized session available');
   throw new DomainError('CONFLICT', 'multiple sessions are authorized; use /sessions then /use');
 }
