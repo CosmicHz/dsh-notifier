@@ -1,60 +1,68 @@
-# Handoff — dsh-notifier v1 recovery
+# Handoff — dsh-notifier v1 (authoritative entry)
 
-Point-in-time snapshot for the next agent. Read this first, then
-[REVIEW.md](REVIEW.md) (the original static review of baseline `24404fb`) and the
-live repo docs (`v1/HANDOFF.md`, `v1/docs/PROGRESS.md`).
+Read this file first. It is the single source of truth for the next agent; the other
+files in this directory are supporting snapshots (see the warning at the bottom).
 
-## Where things stand
+## TL;DR
 
-- Repo: `https://github.com/THEWOLFWALKER/dsh-notifier`, branch **dev**.
-- Reviewed baseline: `24404fbc940624e01004c95bad28d9bf4c26375e`.
-- Recovery items R01–R14 are tracked in `v1/REVIEW.md` and summarised in
-  `v1/docs/PROGRESS.md` (Recovery pass table) and `v1/HANDOFF.md`.
+- Repo `https://github.com/THEWOLFWALKER/dsh-notifier`, branch **dev**.
+- `dev` is an **orphan branch** (no common ancestor with `main`). `main` is the old
+  353-commit product; it is **not** a merge target and the v1 work does not touch the
+  old root `src/`. Everything for v1 lives under `v1/` plus this `handoff/` dir.
+- The v1 rewrite is **a library, not yet a runnable app**: `v1/package.json` declares
+  `main=src/plugin-entry.mjs` and a `dist/client.js` bundle, and **neither exists yet**.
+  No plugin entry, RPC server, CLI or UI is implemented.
 
-### Done and committed
+## State of the code (as of commit `3d7f6e7`)
 
-| item | commit |
-|---|---|
-| R08 typed secret decoding | `3308719` |
-| R01 docs / evidence consistency | `fb264a4` |
-| R02 effective pre-push gate path | `263671e` |
-| R03 session authorization | `8bbac37` |
-| R04 `controlEnabled` admission | (this handoff's commit) |
-| R05 Telegram reliable offset | (this handoff's commit) |
-| R06 background exit → `degraded` | (this handoff's commit) |
-
-R04/R05/R06 were adversarially re-verified before shipping; the fixes are in
-`v1/src/runtime/manager.mjs` and `v1/src/providers/telegram/index.mjs`, with new
-passing tests under `v1/test/unit/` and `v1/test/integration/`. See `v1/CHANGELOG.md`.
+Implemented and tested (`v1/docs/PROGRESS.md`): **T00–T16, T22–T25, T29, B00–B04**
+(schema, store, secrets, network, Host port, descriptors, accounts/identity/routes,
+provider registry + adapters, notifications, messages/media, import, effects, control
+reply, login, callbacks, interactions, conversation, runtime, Telegram) plus recovery
+items **R01, R02, R03, R04, R05, R06, R08**.
 
 Current suite: **356 tests pass**, `npm run check` passes (72 source files).
 
-### Remaining recovery items (not started)
+Still to do, in order:
 
-R07 (control-card `{label,token}` contract), R09 (Telegram callback group type +
-ACK), R10 (`/pair` injection + `/unpair`), R11 (Host event return path), R12 (media
-into the Host via `MediaService`), R13 (control-send idempotency + segmentation),
-R14 (interaction TTL). Details and file locations are in `v1/REVIEW.md`.
-
-### After recovery
-
-Continue the original task graph: T17 Feishu, T18 WeChat, T19 QQ, T20 DingTalk,
-T21 WxPusher, T26 DSH integration, T27 RPC, T28 CLI, then the UI/UX and quality
-phases. See `v1/docs/PROGRESS.md` and `docs/developer/v1-flash-v3/TASKS.csv`.
+1. **Recovery items** `R07, R09, R10, R11, R12, R13, R14` — see `REVIEW.md` for the
+   exact file/line for each.
+2. **Original task graph**: `T17` Feishu, `T18` WeChat, `T19` QQ, `T20` DingTalk,
+   `T21` WxPusher, `T26` DSH integration, `T27` RPC, `T28` CLI.
+3. **UI/UX + quality phases**: `UX00, T30–T33, UX01–UX05, T34–T39`.
 
 ## How to start
 
-1. `git clone` the repo, `git checkout dev`, read `v1/HANDOFF.md` and
-   `v1/REVIEW.md`.
-2. Follow `v1/AGENTS.md` and the root `AGENTS.md`: incremental edits to `v1/` only,
-   no rewrite, no legacy import, no real devices.
-3. **Before any push**, run the full neat-freak sync
+1. `git clone` the repo, `git checkout dev`.
+2. Read `v1/AGENTS.md` and the root `AGENTS.md` (rules), then
+   `docs/developer/v1-flash-v3/00-START.md`, `01-DECISIONS.md`, `18-WIRING.md`,
+   `TASKS.csv`, and `REVIEW.md` (this dir).
+3. Work incrementally on `v1/` only: no rewrite from T00, no legacy import, no
+   backward compatibility, no real devices/accounts.
+4. Per task: write the failing case first, fix, run the task's `command`, record
+   `v1/evidence/<task>.json`.
+5. **Before any push**: run the full neat-freak sync
    (`.agents/skills/neat-freak/SKILL.md`) and the pre-push gate
-   (`v1/scripts/prepush_docs_gate.py`); regenerate `v1/docs/DOC-SYNC.json`.
-4. This handoff does **not** grant push authorization.
+   (`v1/scripts/prepush_docs_gate.py`), regenerate `v1/docs/DOC-SYNC.json`.
+   This handoff does **not** grant push authorization.
+
+## Warning about the supporting snapshots in this directory
+
+`REVIEW.md`, `RECOVERY-TASKS.csv`, `STATUS.json` and `NEXT-AGENT-PROMPT.txt` are the
+**original static-review package** produced at baseline `24404fb`. They are frozen at
+that point in time and are now partly stale:
+
+- `STATUS.json` says all 14 recovery items are `required-not-run` and every task
+  evidence commit/sourceId is null — that was true at `24404fb`, **not now**.
+- `RECOVERY-TASKS.csv` likewise still marks R01–R14 `required-not-run`.
+- `NEXT-AGENT-PROMPT.txt` is the pre-recovery instruction ("base is `24404fb`, fix all
+  of R01–R14"); the first half is already done.
+
+**Trust `v1/docs/PROGRESS.md`, `v1/HANDOFF.md` and `v1/CHANGELOG.md` for live status**,
+and this file for orientation. Use `REVIEW.md` only for the per-item *problem
+description* of the still-open recovery items.
 
 ## Boundaries (unchanged)
 
-No backward compatibility, no real devices/accounts, no `main`/tag/npm publish, no
-bypassing the pre-push gate. Keep the frozen architecture, permissions and host
-visual style; do not re-select them.
+No `main`/tag/npm publish, no force push, no bypassing the pre-push gate, no real
+devices. Keep the frozen architecture, permission model and host visual style.

@@ -2,6 +2,10 @@
 
 Last updated: 2026-10-05.
 
+For a one-file orientation (branch topology, what exists, what is stale in the
+supporting review snapshots) see [../handoff/00-START-HERE.md](../handoff/00-START-HERE.md).
+This file is the live repo status; `handoff/` holds frozen point-in-time snapshots.
+
 ## What this is
 
 `dsh-notifier` v1 is an **independent rewrite** implemented under `v1/`. The frozen
