@@ -2,9 +2,11 @@
 
 Last updated: 2026-10-05.
 
-For a one-file orientation (branch topology, what exists, what is stale in the
-supporting review snapshots) see [../handoff/00-START-HERE.md](../handoff/00-START-HERE.md).
-This file is the live repo status; `handoff/` holds frozen point-in-time snapshots.
+> **Authority moved to the v4 release package.** The current execution entry is
+> [`../docs/developer/v1-release-v4/00-START-HERE.md`](../docs/developer/v1-release-v4/00-START-HERE.md)
+> with the task list [`REMAINING-TASKS.csv`](../docs/developer/v1-release-v4/REMAINING-TASKS.csv)
+> (goal: the dsh-notifier 1.0.0 release-ready artifact). This file remains the v1 product
+> status; `handoff/` holds frozen point-in-time snapshots.
 
 ## What this is
 

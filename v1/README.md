@@ -1,9 +1,11 @@
 # dsh-notifier v1
 
-> Status: **implementation in progress**. This is the v1 independent rewrite. It is
-> not yet a working release; see [HANDOFF.md](HANDOFF.md) and
-> [docs/PROGRESS.md](docs/PROGRESS.md) for the exact task state. Recovery items
-> R01–R14 from `REVIEW.md` are tracked in the same status table.
+> Status: **release work in progress (v4 authority)**. This is the v1 independent
+> rewrite; the goal is the dsh-notifier **1.0.0 release-ready artifact**. The authoritative
+> entry is
+> [`../docs/developer/v1-release-v4/00-START-HERE.md`](../docs/developer/v1-release-v4/00-START-HERE.md)
+> with the task list `REMAINING-TASKS.csv`; [`docs/PROGRESS.md`](docs/PROGRESS.md) is
+> generated from it. Recovery items R07/R09–R14 are implemented pending v4 evidence.
 
 `dsh-notifier` delivers task notifications to 28 outbound channels and lets a paired
 user control DSH from 6 inbound channels, from inside DSH 0.1.7-rc.2.

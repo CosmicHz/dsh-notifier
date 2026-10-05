@@ -1,0 +1,42 @@
+{
+  "package": "v4-release-authority",
+  "baseline": "2eb91c9284484fac11ed5dc8652f95dd56f74a1d",
+  "scope": "static-review-no-product-tests",
+  "sourceLines": 13928,
+  "generatedDescriptorLines": 2713,
+  "testLines": 6529,
+  "originalTasks": 51,
+  "remainingTasks": 40,
+  "reportedClosedRecovery": [
+    "R01",
+    "R02",
+    "R04",
+    "R05",
+    "R06",
+    "R08"
+  ],
+  "partiallyClosedRecovery": [
+    "R03"
+  ],
+  "newStaticFollowups": [
+    "N01",
+    "N02",
+    "N03",
+    "N04"
+  ],
+  "openRecovery": [
+    "R07",
+    "R09",
+    "R14",
+    "R10",
+    "R11",
+    "R12",
+    "R13"
+  ],
+  "sourceSnapshotFiles": 520,
+  "currentProductVersion": "1.0.0-dev.0",
+  "targetProductVersion": "1.0.0",
+  "releaseReadyNow": false,
+  "priorReportedTests": 356,
+  "priorReportedTestsReexecutedHere": false
+}

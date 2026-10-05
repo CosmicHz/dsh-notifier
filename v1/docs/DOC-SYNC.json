@@ -3,26 +3,40 @@
   "generatedAt": "2026-10-05",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "ca55a39aa133b9d03186c52b2b5b26e133323f3f",
-  "sourceDigest": "de612be7d87273e2f2b1d4b36def57bf54c18d99e6b0cf8329015cb8fe460fda",
+  "base": "7789fd5dba9643ea40f945ced43d957c7fdefdc2",
+  "sourceDigest": "a988e35c1433521e4f2820cb18ec72fed14c5445ffc060520d3489bd3a9d7432",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "T17 Feishu: new src/providers/feishu/index.mjs registered in the provider registry. Outbound is the custom-bot webhook with an interactive card and the official HMAC timestamp/sign body fields; inbound is the Lark SDK WebSocket long connection, loaded lazily (typed UNSUPPORTED when the optional SDK is absent), isolated with a per-client bounded HttpInstance (finite timeout, no shared-instance mutation) and a start/handshake deadline, with a no-op logger. Text events and card actions normalize to envelopes; non-text messages are acknowledged then dropped, never injected into the Host. Docs: CHANGELOG/HANDOFF/docs/PROGRESS.md/docs/architecture.md updated. Verification: npm run check passes (75 source files); npm test 396 pass / 0 fail (86 protocol). Real devices/accounts remain out of scope.",
+  "summary": "G00 (v4 release authority): installed docs/developer/v1-release-v4/ with the v4 entry docs (00-START-HERE, 01-CURRENT-REVIEW, 02-RELEASE-DEFINITION, 03-EXECUTION-AND-DOC-SYNC, 04-LATEST-CONTRACT-FIXES, AGENTS) plus the machine lists (REMAINING-TASKS.csv, ORIGINAL-TASK-COVERAGE.csv, REQUIRED-ARTIFACTS.json, DOC-SYNC-INVENTORY.json, STATE.json, MANIFEST.json, history/v3-TASKS.csv). Repointed root AGENTS.md, v1/AGENTS.md, handoff/00-START-HERE.md and v1/HANDOFF.md to the v4 entry; regenerated v1/docs/PROGRESS.md from REMAINING-TASKS.csv; extended prepush_docs_gate.py required-inventory to cover the v4 directory. The goal is now the dsh-notifier 1.0.0 release-ready artifact. Already-landed items (R07/R09-R14 code, T17, T21) are recorded as implemented-needs-current-evidence. No product behavior changed. Verification: prepush_docs_gate.py compiles; npm run check + npm test unchanged (396 pass / 86 protocol). Real devices/accounts remain out of scope.",
   "unresolved": [],
   "changedPaths": [
+    "AGENTS.md",
+    "docs/developer/v1-release-v4/00-START-HERE.md",
+    "docs/developer/v1-release-v4/01-CURRENT-REVIEW.md",
+    "docs/developer/v1-release-v4/02-RELEASE-DEFINITION.md",
+    "docs/developer/v1-release-v4/03-EXECUTION-AND-DOC-SYNC.md",
+    "docs/developer/v1-release-v4/04-LATEST-CONTRACT-FIXES.md",
+    "docs/developer/v1-release-v4/AGENTS.md",
+    "docs/developer/v1-release-v4/DOC-SYNC-INVENTORY.json",
+    "docs/developer/v1-release-v4/MANIFEST.json",
+    "docs/developer/v1-release-v4/ORIGINAL-TASK-COVERAGE.csv",
+    "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
+    "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",
+    "docs/developer/v1-release-v4/STATE.json",
+    "docs/developer/v1-release-v4/history/v3-TASKS.csv",
+    "handoff/00-START-HERE.md",
+    "v1/AGENTS.md",
     "v1/CHANGELOG.md",
     "v1/HANDOFF.md",
+    "v1/README.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/docs/architecture.md",
-    "v1/src/providers/feishu/index.mjs",
-    "v1/src/providers/registry.mjs",
-    "v1/test/protocol/feishu.test.mjs"
+    "v1/scripts/prepush_docs_gate.py"
   ],
   "inventory": [
     {
       "path": "AGENTS.md",
-      "disposition": "reviewed-no-change",
-      "reason": "Frozen v1 contract/reference docs; unaffected by these code changes."
+      "disposition": "updated",
+      "reason": "v1 entry repointed to docs/developer/v1-release-v4 (v4 authority); push-gate authorization wording updated."
     },
     {
       "path": "docs/developer/v1-flash-v3/00-START.md",
@@ -151,23 +165,23 @@
     },
     {
       "path": "v1/AGENTS.md",
-      "disposition": "reviewed-no-change",
-      "reason": "Frozen v1 contract/reference docs; unaffected by these code changes."
+      "disposition": "updated",
+      "reason": "v1 entry repointed to the v4 release package and the 1.0.0 goal."
     },
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the T17 Feishu entry and refreshed the remaining-work note."
+      "reason": "Added the G00 v4-authority entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Phase 5 channel status now lists Feishu; suite count updated to 396 tests / 75 source files."
+      "reason": "Authority note added: v4 entry is current, this file is v1 product status."
     },
     {
       "path": "v1/README.md",
       "disposition": "updated",
-      "reason": "Status line now points at the recovery items in the status table."
+      "reason": "Status now points at the v4 release entry and the 1.0.0 goal."
     },
     {
       "path": "v1/README.zh-CN.md",
@@ -182,7 +196,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Status table marks T17 Feishu implemented."
+      "reason": "Regenerated from docs/developer/v1-release-v4/REMAINING-TASKS.csv (single status source)."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -207,7 +221,7 @@
     {
       "path": "handoff/00-START-HERE.md",
       "disposition": "updated",
-      "reason": "handoff entry rewritten to add branch topology + stale-snapshot warning; package MANIFEST/README added."
+      "reason": "Marked SUPERSEDED by v4 and repointed to the v4 entry."
     },
     {
       "path": "handoff/REVIEW.md",
@@ -243,6 +257,71 @@
       "path": "v1/docs/DOC-SYNC.json",
       "disposition": "updated",
       "reason": "Regenerated for this push (base ca55a39)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/00-START-HERE.md",
+      "disposition": "updated",
+      "reason": "v4 release authority: installed as the active entry/contract for the 1.0.0 milestone."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/01-CURRENT-REVIEW.md",
+      "disposition": "updated",
+      "reason": "v4 release authority: installed as the active entry/contract for the 1.0.0 milestone."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/02-RELEASE-DEFINITION.md",
+      "disposition": "updated",
+      "reason": "v4 release authority: installed as the active entry/contract for the 1.0.0 milestone."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/03-EXECUTION-AND-DOC-SYNC.md",
+      "disposition": "updated",
+      "reason": "v4 release authority: installed as the active entry/contract for the 1.0.0 milestone."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/04-LATEST-CONTRACT-FIXES.md",
+      "disposition": "updated",
+      "reason": "v4 release authority: installed as the active entry/contract for the 1.0.0 milestone."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/AGENTS.md",
+      "disposition": "updated",
+      "reason": "v4 release authority: installed as the active entry/contract for the 1.0.0 milestone."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/DOC-SYNC-INVENTORY.json",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/MANIFEST.json",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/ORIGINAL-TASK-COVERAGE.csv",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/STATE.json",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "docs/developer/v1-release-v4/history/v3-TASKS.csv",
+      "disposition": "updated",
+      "reason": "v4 release authority machine list (task state source)."
     }
   ]
 }

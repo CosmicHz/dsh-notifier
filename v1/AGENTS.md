@@ -1,9 +1,9 @@
 # dsh-notifier v1 实施硬约束
 
-- 本任务是v1独立重写：只在仓库`dev`分支增量实现`v1/`，保留已有用户成果；不改旧根运行时代码，不做向后兼容或强制迁移。
-- 开始前读`00-START.md`和`TASKS.csv`。将本包放`docs/developer/v1-flash-v3/`，本规则安装到`v1/AGENTS.md`；根AGENTS只合并本任务入口与推送门槛，不覆盖无关规则。
+- 本任务是v1独立重写：只在仓库`dev`分支增量实现`v1/`，保留已有用户成果；不改旧根运行时代码，不做向后兼容或强制迁移。目标是**dsh-notifier 1.0.0 发行就绪产物**（tgz 与发行元数据，见 02-RELEASE-DEFINITION）。
+- 开始前读`docs/developer/v1-release-v4/00-START-HERE.md`、`01-CURRENT-REVIEW.md`、`02-RELEASE-DEFINITION.md`、`04-LATEST-CONTRACT-FIXES.md`，并按`REMAINING-TASKS.csv`行序执行。v4取代旧handoff/旧任务状态/旧提示词；`04`的明确修正覆盖旧冲突。v3冻结合同在`docs/developer/v1-flash-v3/`，不重写。
 - 用户已明确本v1任务不执行历史repair/S0–S4旧产品计划。旧根AGENTS中的旧任务范围不用于把本v1改回原Store/API；分支、秘密保护和普通fast-forward规则仍保留。
-- 逐项按TASKS依赖实施。不得削减28通知/6控制渠道、五页Native、UI异常态、权限/耐久性/协议验收。禁止“TODO成功”、空测试PASS、只改文档冒充代码完成。
+- 逐项按REMAINING-TASKS依赖实施。不得削减28通知/6控制渠道、五页Native、UI异常态、权限/耐久性/协议验收。禁止“TODO成功”、空测试PASS、只改文档冒充代码完成；不得把合同要求的capability改false逃避既定功能。
 - 02/03/04/05/18/20分别约束数据、RPC、provider、Host、装配及真实协议映射；archive只作历史证据。禁止新增第二Store/权限/路由真相，禁止legacy/reference运行时import。
 - 前端严格使用11/12/15/19和spec机器字段、tokens以及design布局；不重选风格或让用户回答实现细节。示例数据/演示toast不能进入生产逻辑。
 - 每个业务动作都必须有认证、服务调用、事务/副作用边界、结果、刷新、取消/恢复。UI禁止直接写Store或调用SDK。

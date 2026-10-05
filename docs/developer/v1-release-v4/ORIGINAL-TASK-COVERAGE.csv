@@ -1,0 +1,52 @@
+original_id,title,baseline_status,remaining_or_final_gate,note
+T00,Bootstrap,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T01,Schema,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T02,Store lock,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T03,Backup,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T04,Secrets,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T08,Network,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T09,Host ports,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T12,Messages,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T25,Activity diagnostics,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+B00,Static descriptors,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T05,Accounts,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T06,Identity,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T07,Routes,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T13,Provider registry,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T14,Notifications,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T22,Remaining code adapters,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T23,Spec adapters,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T24,Local adapters,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T29,Importer,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+B01,Effect inbox and reply identity,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+B02,Control reply and correlation,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+B03,Login and read projection,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+B04,Callbacks and host facts,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T10,Interactions,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T11,Conversation,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T15,Runtime,inherited-implemented-final-revalidation,T34;T35;T39,保留实现，不以旧verified豁免最终发行验收
+T16,Telegram,implemented-with-open-recovery,N02;N03;N04;R07;R09;R10;R11;R12;R13;T34;T39,保留实现，不以旧verified豁免最终发行验收
+T17,Feishu,remaining,T17,保留实现，不以旧verified豁免最终发行验收
+T18,WeChat,remaining,T18,保留实现，不以旧verified豁免最终发行验收
+T19,QQ,remaining,T19,保留实现，不以旧verified豁免最终发行验收
+T20,DingTalk,remaining,T20,保留实现，不以旧verified豁免最终发行验收
+T21,WxPusher,remaining,T21,保留实现，不以旧verified豁免最终发行验收
+T26,DSH integration,remaining,T26,保留实现，不以旧verified豁免最终发行验收
+T27,RPC,remaining,T27,保留实现，不以旧verified豁免最终发行验收
+T28,CLI,remaining,T28,保留实现，不以旧verified豁免最终发行验收
+UX00,Design contract fixtures,remaining,UX00,保留实现，不以旧verified豁免最终发行验收
+T30,UI foundation,remaining,T30,保留实现，不以旧verified豁免最终发行验收
+UX01,R1 visual prototype review,remaining,UX01,保留实现，不以旧verified豁免最终发行验收
+T31,Overview notifications UI,remaining,T31,保留实现，不以旧verified豁免最终发行验收
+T32,Private chat UI,remaining,T32,保留实现，不以旧verified豁免最终发行验收
+T33,Pending settings UI,remaining,T33,保留实现，不以旧verified豁免最终发行验收
+UX02,R2 full UX review,remaining,UX02,保留实现，不以旧verified豁免最终发行验收
+UX03,Fix reviewed UX defects,remaining,UX03,保留实现，不以旧verified豁免最终发行验收
+UX04,R3 visual and accessibility review,remaining,UX04,保留实现，不以旧verified豁免最终发行验收
+UX05,UX quality gate,remaining,UX05,保留实现，不以旧verified豁免最终发行验收
+T34,Full journeys,remaining,T34,保留实现，不以旧verified豁免最终发行验收
+T35,Coverage fault injection,remaining,T35,保留实现，不以旧verified豁免最终发行验收
+T36,Performance soak,remaining,T36,保留实现，不以旧verified豁免最终发行验收
+T37,Packaging,remaining,T37,保留实现，不以旧verified豁免最终发行验收
+T38,Docs release gates,remaining,T38,保留实现，不以旧verified豁免最终发行验收
+T39,Final verification,remaining,T39,保留实现，不以旧verified豁免最终发行验收

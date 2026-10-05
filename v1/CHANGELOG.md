@@ -6,6 +6,12 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Added
 
+- G00 (v4 release authority): the authoritative entry moved to
+  `docs/developer/v1-release-v4/` (`00-START-HERE.md` + `REMAINING-TASKS.csv`, baseline
+  `2eb91c9`). The root and `v1/AGENTS.md`, `handoff/00-START-HERE.md`, `v1/HANDOFF.md` and
+  `v1/docs/PROGRESS.md` were repointed, the pre-push doc inventory now also covers the v4
+  directory, and the goal is the **dsh-notifier 1.0.0 release-ready artifact** rather than
+  a library. v4 adds fixes N01-N04 to the open R07/R09-R14 set.
 - T00 bootstrap: independent `v1/` package (`dsh-notifier`, ESM, Node >= 22) with
   `check`/`test`/`build` scripts, the frozen design/task contract under
   `docs/developer/v1-flash-v3/`, root + `v1/AGENTS.md` rules, the neat-freak skill

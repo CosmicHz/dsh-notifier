@@ -1,0 +1,1866 @@
+{
+  "package": "release-handoff-v4",
+  "baseline": "2eb91c9284484fac11ed5dc8652f95dd56f74a1d",
+  "files": [
+    {
+      "path": ".agents/skills/neat-freak/PROVENANCE.json",
+      "bytes": 393,
+      "sha256": "f50cd5d5c3b8370124ac7f421ef69e04e23717654d2a519b6c3a0b9e9a8de001"
+    },
+    {
+      "path": ".agents/skills/neat-freak/SKILL.md",
+      "bytes": 14349,
+      "sha256": "ffaea79a9d29b1c2caf61256bd61fad81c358df8b1842eedd35e68ae87662214"
+    },
+    {
+      "path": ".agents/skills/neat-freak/references/agent-paths.md",
+      "bytes": 3200,
+      "sha256": "74eff376d1ccdfdbdc2057ae016d19977fe03095306dd9385f8f2f2f1a00269a"
+    },
+    {
+      "path": ".agents/skills/neat-freak/references/sync-matrix.md",
+      "bytes": 4134,
+      "sha256": "3fa069e34fae4043e5b4150957889953dfefeec0ac3fac33f8590356fafee3a5"
+    },
+    {
+      "path": "00-START-HERE.md",
+      "bytes": 2393,
+      "sha256": "56a27c45803a6c732a352cf4be1376c08476850831a5dbe36c369c2c143129a3"
+    },
+    {
+      "path": "01-CURRENT-REVIEW.md",
+      "bytes": 5474,
+      "sha256": "8c91111ad726de003e09ffe44c35ab680dcc82e0532efb4547343a57aac63d19"
+    },
+    {
+      "path": "02-RELEASE-DEFINITION.md",
+      "bytes": 4314,
+      "sha256": "86fc70970770d42e4e69ff3ecd0b5a5b18d168f4647d05ac5c73859ae72647e5"
+    },
+    {
+      "path": "03-EXECUTION-AND-DOC-SYNC.md",
+      "bytes": 2010,
+      "sha256": "eee82e3d6e082ededea02e2025eec6f40c3d181cc54d43b9e355fe89af6fe8ee"
+    },
+    {
+      "path": "04-LATEST-CONTRACT-FIXES.md",
+      "bytes": 1570,
+      "sha256": "f43d2da0aa7c2eff69ef8b1c027f4ff080e7de2958245fbc5afcfd91d590569c"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 3257,
+      "sha256": "390c7fde0dcbbb8c05d73db84bf16c0d228f513d5db560b226e7bb483a98b235"
+    },
+    {
+      "path": "DOC-SYNC-INVENTORY.json",
+      "bytes": 10888,
+      "sha256": "efa51dd1ff51442b63191e7382188e31f88bfb505ff8d699fed00c35272adbd1"
+    },
+    {
+      "path": "HANDOFF_PROMPT.txt",
+      "bytes": 663,
+      "sha256": "e87d3cfc8e9fbcc4e8af7efd535b09d755d573385edaee1d4e561b97822ae20c"
+    },
+    {
+      "path": "ORIGINAL-TASK-COVERAGE.csv",
+      "bytes": 5797,
+      "sha256": "c9662e730e140f2ed5ebf163dfe46f82f61e5e3d51bc1093562248d9742c3bf8"
+    },
+    {
+      "path": "README.md",
+      "bytes": 559,
+      "sha256": "7a3453da7c9c7d61a11724dea3ecb06427a7e1c2372f5426606080ba61ca9dea"
+    },
+    {
+      "path": "RELEASE-MATRIX.json",
+      "bytes": 1808,
+      "sha256": "1d4df41e78443b93a9df64668168d09aeed6900ad6a258b630803ce5acd438ed"
+    },
+    {
+      "path": "REMAINING-TASKS.csv",
+      "bytes": 15715,
+      "sha256": "6e59729a4a3b0c2646c44e410dd686fcf980c407d76c9107e3f10517922987cc"
+    },
+    {
+      "path": "REQUIRED-ARTIFACTS.json",
+      "bytes": 15627,
+      "sha256": "ee6f7e736e999c8569a73fe03184f989ab6fa9fd410998242855754f404ece62"
+    },
+    {
+      "path": "SOURCE-FILES.json",
+      "bytes": 102210,
+      "sha256": "1f62ec53313bbd93ccbcfb7784bd142e907ab7e11ce7227f8e9ede6aef0a927a"
+    },
+    {
+      "path": "STATE.json",
+      "bytes": 801,
+      "sha256": "94422f90f96b24043fc84527339132f2a3683a5e25922c021c37ac3d2663c8de"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/PROVENANCE.json",
+      "bytes": 393,
+      "sha256": "f50cd5d5c3b8370124ac7f421ef69e04e23717654d2a519b6c3a0b9e9a8de001"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/SKILL.md",
+      "bytes": 14349,
+      "sha256": "ffaea79a9d29b1c2caf61256bd61fad81c358df8b1842eedd35e68ae87662214"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/references/agent-paths.md",
+      "bytes": 3200,
+      "sha256": "74eff376d1ccdfdbdc2057ae016d19977fe03095306dd9385f8f2f2f1a00269a"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/references/sync-matrix.md",
+      "bytes": 4134,
+      "sha256": "3fa069e34fae4043e5b4150957889953dfefeec0ac3fac33f8590356fafee3a5"
+    },
+    {
+      "path": "contract/00-START.md",
+      "bytes": 187,
+      "sha256": "ec3d6f419489effa3afefdedd534d6165c4620c7f0d35673e7ffde325ae1365e"
+    },
+    {
+      "path": "contract/01-DECISIONS.md",
+      "bytes": 3249,
+      "sha256": "235b08429a8a8de79ac4b327630cdb9e7631cbd92c958333f9067c345bf2c76b"
+    },
+    {
+      "path": "contract/02-DATA.md",
+      "bytes": 10412,
+      "sha256": "f5bdd11751e25407e9da7d9767f6275ca4f028ee1d89ee6b3250d535ead0d58e"
+    },
+    {
+      "path": "contract/03-SERVICES-RPC.md",
+      "bytes": 9323,
+      "sha256": "dbbf802520c5263399984782a5a840b1f98e22698e041b6c74e74a76fa6b9e76"
+    },
+    {
+      "path": "contract/04-PROVIDERS.md",
+      "bytes": 8209,
+      "sha256": "12c2de8393640a40eb02e38653222c6621a045828729d117a8777c314c390a2f"
+    },
+    {
+      "path": "contract/05-HOST-CLI.md",
+      "bytes": 5932,
+      "sha256": "c1662cae7240cc42ce399d1c0ad40d4e11e41138e094200c214d4d3d8dd8f500"
+    },
+    {
+      "path": "contract/06-UI.md",
+      "bytes": 3967,
+      "sha256": "5c1886482b48431ff9189c50161d2d27fef2000a48c5108f887f173d8cc8502a"
+    },
+    {
+      "path": "contract/07-ACCEPTANCE.md",
+      "bytes": 5782,
+      "sha256": "7fb44efd037c72766f165ff16f743a80eeb40cb42f582b8ff37214e5c77036ab"
+    },
+    {
+      "path": "contract/08-EXECUTION.md",
+      "bytes": 2478,
+      "sha256": "d522ba4a040b22847fbc456281b905b34a2a22c09e9dbf8336a252ee9ae8e6ca"
+    },
+    {
+      "path": "contract/09-IMPORT.md",
+      "bytes": 2847,
+      "sha256": "eb13d10f4fcd50dc77cea115b9ac40f066a8cbe9174aaa2e2b5c886b5ab9166f"
+    },
+    {
+      "path": "contract/11-UX-FLOWS.md",
+      "bytes": 7416,
+      "sha256": "961f5e901f977e9e5ac26e134d083abf04722e7c523b18cfe94cb091faf64c34"
+    },
+    {
+      "path": "contract/12-VISUAL-DIRECTION.md",
+      "bytes": 3902,
+      "sha256": "cdfcb6191b530917105edab3e059954d0a5c78e47468bb6d66ef4f1c097ec823"
+    },
+    {
+      "path": "contract/13-QUALITY-LOOP.md",
+      "bytes": 3705,
+      "sha256": "fd1005484589da5ad3b244ad3398c7974b30a8a11e8c56767e42d5eacd9b56de"
+    },
+    {
+      "path": "contract/14-UX-API-ADDENDUM.md",
+      "bytes": 296,
+      "sha256": "e80542c3e3df23e69a8cc28ef937d90bf2909951d1c0863f03ced0075277b9ab"
+    },
+    {
+      "path": "contract/15-FIELD-COPY.md",
+      "bytes": 2069,
+      "sha256": "1caba3b9e6a67bcfa2a59b20f24c34510bfac3a491ead6a438a6e4c1cde8b347"
+    },
+    {
+      "path": "contract/18-WIRING.md",
+      "bytes": 6967,
+      "sha256": "75a1f363484f2da0d4e71c0dca151072cce1d75b4d6aa297d4380f22ea87b064"
+    },
+    {
+      "path": "contract/19-UI-WIRING.md",
+      "bytes": 6556,
+      "sha256": "a827932613c0e7af923173fe5f4c1a7ee6ee5a2d3727ff72fc62b1179bb64676"
+    },
+    {
+      "path": "contract/20-HOST-PROTOCOL-MAP.md",
+      "bytes": 5126,
+      "sha256": "27ffbcf7a1c453938809f3a3951e9b87497be95b454f9a536fd963403a939e5b"
+    },
+    {
+      "path": "contract/21-REVIEW-CLOSURE.md",
+      "bytes": 2559,
+      "sha256": "75acd300356d146c29145f47f38f5bc6e288f13b501ef301331bcba1c4fcb2fa"
+    },
+    {
+      "path": "contract/22-DOC-SYNC-AND-PUSH.md",
+      "bytes": 3686,
+      "sha256": "e370121b849689a60fc1f174dcf45a64959cae7b2a4f68ee37dc7b5807f21126"
+    },
+    {
+      "path": "contract/AGENTS.md",
+      "bytes": 187,
+      "sha256": "ec3d6f419489effa3afefdedd534d6165c4620c7f0d35673e7ffde325ae1365e"
+    },
+    {
+      "path": "contract/DELIVERY-NOTES.md",
+      "bytes": 1023,
+      "sha256": "931a813b8a263fa73b82ac9590b587f382792eb59f779b1f9d136745dfcf25cf"
+    },
+    {
+      "path": "contract/HANDOFF_PROMPT.txt",
+      "bytes": 187,
+      "sha256": "ec3d6f419489effa3afefdedd534d6165c4620c7f0d35673e7ffde325ae1365e"
+    },
+    {
+      "path": "contract/README.md",
+      "bytes": 452,
+      "sha256": "264f84c428c5dc4f5df738933aad7af471f49fa19614376875969cc013c085c1"
+    },
+    {
+      "path": "contract/archive/10-UX-AUDIT.md",
+      "bytes": 4238,
+      "sha256": "49b322aded735861ceefba3ecdf7567dab1b34fd9b5a118901666e18425d89ca"
+    },
+    {
+      "path": "contract/archive/ARCHITECTURE.md",
+      "bytes": 31190,
+      "sha256": "8b6f61026e65c7fd2471ede244558d6d8f8d097987cab1dfd9402d3eb0d9e0f5"
+    },
+    {
+      "path": "contract/archive/REVIEW.md",
+      "bytes": 1022,
+      "sha256": "18197a79dab9348c80e691127f3bd8704dbe4ffd56111dc2f305a2510922cfa2"
+    },
+    {
+      "path": "contract/archive/WIRING-REVIEW-v2.1.md",
+      "bytes": 22505,
+      "sha256": "3f96712540789c79fddd72630f3ec0658801d83384557efe2e28cb4310613f98"
+    },
+    {
+      "path": "contract/design/README.md",
+      "bytes": 725,
+      "sha256": "359e32b7b8fbc9bbbd3f96ad5ccbeb370fb4ae39f8c2fdab17bbfe7892e67f49"
+    },
+    {
+      "path": "contract/design/fields.js",
+      "bytes": 66422,
+      "sha256": "d6fbcf9117f3a09315976cf3c563a0d5a42a307eed9dc915b191cded269adaa0"
+    },
+    {
+      "path": "contract/design/generated-tokens.css",
+      "bytes": 1269,
+      "sha256": "cf641c0bb8d8014dc650605d2f80d37250bab23f1b264de672cc03a9c15014de"
+    },
+    {
+      "path": "contract/design/index.html",
+      "bytes": 1370,
+      "sha256": "b5dd9f58099aadf9c1255d756a89970c609e9b23845e13c7d6d8963cbe7a3159"
+    },
+    {
+      "path": "contract/design/preview.js",
+      "bytes": 20272,
+      "sha256": "52d5b2a7f41fc154078442009de6206749a28bb96a8810db908335e380a06f7a"
+    },
+    {
+      "path": "contract/design/tokens.css",
+      "bytes": 10461,
+      "sha256": "a60ae530789934927778d304829792083e1b595f79450507f6aed03735890860"
+    },
+    {
+      "path": "contract/evidence/R03-sessions-auth.md",
+      "bytes": 1067,
+      "sha256": "a28eec67b68163096e17c944cf3926278ca03545ff3715db187fb421190439c9"
+    },
+    {
+      "path": "contract/reference/README.md",
+      "bytes": 245,
+      "sha256": "fd26029c05661f34dac4c3c7fd1555717c80ed371dd2cf67e3cba9da839fbd64"
+    },
+    {
+      "path": "contract/reference/source/ADAPTER.md",
+      "bytes": 4797,
+      "sha256": "13100ee3828b8c5828a9d2ea63f6888dad7d06859fed34f50964ba342da951fc"
+    },
+    {
+      "path": "contract/reference/source/LICENSE",
+      "bytes": 1070,
+      "sha256": "dc550c74cd6d989afc77c9ac5501c720ca483f6da737175308358989ccc0a160"
+    },
+    {
+      "path": "contract/reference/source/PLUGINS.md",
+      "bytes": 11957,
+      "sha256": "7c9b7cd06bd610b4415614b921b27f11f30fea72f362e325dc756bde449c372a"
+    },
+    {
+      "path": "contract/reference/source/THIRD_PARTY_NOTICES.md",
+      "bytes": 4288,
+      "sha256": "071cb28f0fb925e6582eeb2051356b431db8b6fadc6e7feb7fe0afef92886d42"
+    },
+    {
+      "path": "contract/reference/source/client.js",
+      "bytes": 56072,
+      "sha256": "b1b943f2aea3bd40077057e48be690b51aeb3ae2a85738006544ff88486c107c"
+    },
+    {
+      "path": "contract/reference/source/cordis.patch.yml",
+      "bytes": 975,
+      "sha256": "a0b0d5b09592536e3d058942911f9280ca9c82ccc33d0f3875bdf3d5900a5d32"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/README.md",
+      "bytes": 3453,
+      "sha256": "a4c8bb50e33946c04bf599037e41c580920d9aaa59a11b153e161fa658581c18"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/dingtalk.md",
+      "bytes": 9197,
+      "sha256": "92c1cc3b61f38aa0096d6bd1bd0d206ef59604e216fc4de2e7229f0feadc103e"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/feishu.md",
+      "bytes": 5985,
+      "sha256": "9bfb47a15fa3e8c38db262de10f6f3d2767f8b3c9057551815c7dc989c06fb4f"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/qq-bot.md",
+      "bytes": 7238,
+      "sha256": "4f4b4241e9b6eb05ccc320f5a343df494bd8bb0b23d2b8ca4c9066d02173681f"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/telegram.md",
+      "bytes": 5752,
+      "sha256": "ebfdb4e83ec6f2b6e758ee2bc176dd339ebb9e04c2c6d1b8468cd2d4d0ef0c8f"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/wechat-ilink.md",
+      "bytes": 4417,
+      "sha256": "b31ace3ce7716e8a7b76ad30edf998a9f84f28db3907f21be220cc56b966dec0"
+    },
+    {
+      "path": "contract/reference/source/package.json",
+      "bytes": 4925,
+      "sha256": "80ab474ac72b0ca3df61570e79582aa486a1131ff19f14857617af20561c0c0a"
+    },
+    {
+      "path": "contract/reference/source/src/actions.mjs",
+      "bytes": 17544,
+      "sha256": "f80724de86e183adf90bb075ce5ce446386ac16f4b7c67de018d472b02e1f365"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/_engine.mjs",
+      "bytes": 8322,
+      "sha256": "43aa9e8ea807c823f088b69da3ef58f8e4a3631c5799760734f80c957a6ef949"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/_shared.mjs",
+      "bytes": 13811,
+      "sha256": "298d4d3cb6cf12bd234bc1344ad3cdfb996c77c314470853463ac55e15c38c1c"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/_tokens.mjs",
+      "bytes": 4080,
+      "sha256": "7c5919909f86efa053de3168c8b9a94f110060adeeb28913202ac6f5f0974385"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/_urlguard.mjs",
+      "bytes": 589,
+      "sha256": "e26cd0f1246d14da70b70018838ed93be23b189d5364c53924523b1b1f637cb6"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/bark.mjs",
+      "bytes": 2642,
+      "sha256": "aa1fa920fb0a5e72dd04293bac3ec910a3aa974915776d3393cfebbf180bf802"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/bell.mjs",
+      "bytes": 1168,
+      "sha256": "ee6e50a042687b36ef913a87430efb3f53df41872807e22033b80f75c98f49b8"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/desktop.mjs",
+      "bytes": 10287,
+      "sha256": "7af754b790dd387262d571baa446e80b894fb75277107c2b47aa921e5a014c80"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/dingtalk.mjs",
+      "bytes": 3397,
+      "sha256": "bf9f2269f82fb287f9516563885b6eac1d25781afc9f4aa7722b3b74741be94c"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/feishu.mjs",
+      "bytes": 3124,
+      "sha256": "08f00e36bbd3c771ae54014f807d7d64a7878da5d976352d0ccc523df8279524"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/pushplus.mjs",
+      "bytes": 3425,
+      "sha256": "0c5e65aee94dd71efd44ac5e6e12f912c67840d9f165ea6bfe98f4bcfd683c71"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/qq-bot.mjs",
+      "bytes": 7364,
+      "sha256": "6e202e1d58d157e4b5670ca2fbc61a5af451d944af886f15100f594b20eb7324"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/serverchan.mjs",
+      "bytes": 3972,
+      "sha256": "29465f429c1618b93cd036e4ea27d8cf13ce539ecd3629468053ac88143e519c"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/spec-channels.mjs",
+      "bytes": 28260,
+      "sha256": "85c2e24b0c5aa62d6a0c0d75f233d90f1f6f08b5226bd069629f81bcce1ea2a4"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/telegram.mjs",
+      "bytes": 1935,
+      "sha256": "6c9a2a524d13b6a98de77dec8c7c72fb2db436b0f3247b1590a99a67f686032d"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/webhook.mjs",
+      "bytes": 2866,
+      "sha256": "dca89a3559c2d2970b770a72f521dcfed4d8406dd22727b9bffecfaeae9791b9"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/wecom-app.mjs",
+      "bytes": 4911,
+      "sha256": "ab1e92864de6a219e4ba888c15d2e2e3a0a3002631cda09f775e99dcae104f3a"
+    },
+    {
+      "path": "contract/reference/source/src/adapters/wxpusher.mjs",
+      "bytes": 2253,
+      "sha256": "6e78831d810369a1b2b65bb0cd4e4060a176796257e655adf4f4b92eac32e6af"
+    },
+    {
+      "path": "contract/reference/source/src/admin/api.mjs",
+      "bytes": 87561,
+      "sha256": "ab16a30ac338945d3ef08ea28ba4f136380c135a00a84ee5934c4d463f1400cf"
+    },
+    {
+      "path": "contract/reference/source/src/admin/events.mjs",
+      "bytes": 4012,
+      "sha256": "d256c4a3f2043eafefd48a17b5f3767fc4033294b90c481e7cd60360d46fe17a"
+    },
+    {
+      "path": "contract/reference/source/src/admin/scan.mjs",
+      "bytes": 19218,
+      "sha256": "e79e9fcad0c9030b22a220e169a32a23afa78ce5c8a75936c562cdc1e922ebf2"
+    },
+    {
+      "path": "contract/reference/source/src/admin/server.mjs",
+      "bytes": 27939,
+      "sha256": "4ffa1a658f19c212fa10dcf7477fde82adb9e3e8d648a084e44d10884d655ff0"
+    },
+    {
+      "path": "contract/reference/source/src/admin/ui/client.mjs",
+      "bytes": 85513,
+      "sha256": "7c30c2204e66e0022eadf38d88def08c0ea950acc8886d54923738c5d473c224"
+    },
+    {
+      "path": "contract/reference/source/src/admin/ui/markup.mjs",
+      "bytes": 14840,
+      "sha256": "34b4311317596983dedc9ad8122047cfd0f778acd545259e8eee19799c8bd2a5"
+    },
+    {
+      "path": "contract/reference/source/src/admin/ui/strings.mjs",
+      "bytes": 52627,
+      "sha256": "97c8946bd363e157eb0dd6bc75ae9efef385d4189a4af57b842ec55fc7d9df3c"
+    },
+    {
+      "path": "contract/reference/source/src/admin/ui/theme.mjs",
+      "bytes": 22405,
+      "sha256": "e37e1a66d34fa2ebb60c59c9c413229f587358aa3b78316c60a4f101206d6626"
+    },
+    {
+      "path": "contract/reference/source/src/admin/ui.mjs",
+      "bytes": 3180,
+      "sha256": "9677625a7dbfe019cf34708bb87bc2c4da72de5dafbd3ff30e9775b8e0689456"
+    },
+    {
+      "path": "contract/reference/source/src/approval/escalation.mjs",
+      "bytes": 2502,
+      "sha256": "5a6882ecd2aee4d1e63057025876a7c2a5e66bad84c6e25ce8c0f18a321d726a"
+    },
+    {
+      "path": "contract/reference/source/src/approval/router.mjs",
+      "bytes": 42628,
+      "sha256": "bf9d686a81a956379da864f5f56d2937df3b7e25be7a8cb43830212eeb090bd5"
+    },
+    {
+      "path": "contract/reference/source/src/assembly/admin-token.mjs",
+      "bytes": 4648,
+      "sha256": "f635f85970e234527d7947dbaac0bf9591f8d9e23b0b3e7f0db1e0a69e122729"
+    },
+    {
+      "path": "contract/reference/source/src/assembly/inbound-channels.mjs",
+      "bytes": 7919,
+      "sha256": "b692091fab6826063d8220e08f645a7700b9c64ef3c608a109d9ef805e6196f2"
+    },
+    {
+      "path": "contract/reference/source/src/assembly/inbound-signals.mjs",
+      "bytes": 8912,
+      "sha256": "2b7c94a307398e59a49c34a692e4f556933cc74a48059534c37356926c944e90"
+    },
+    {
+      "path": "contract/reference/source/src/assembly/lifecycle.mjs",
+      "bytes": 991,
+      "sha256": "f2fcf55e4ebbc853d2cf2cdef3e4544499cf443393e52d1e100d880d693e7562"
+    },
+    {
+      "path": "contract/reference/source/src/assembly/outbound.mjs",
+      "bytes": 5501,
+      "sha256": "a0df60226747f90b095de3dd076180b92f809ffdeca658509114568f525ff30b"
+    },
+    {
+      "path": "contract/reference/source/src/channels/feishu/index.mjs",
+      "bytes": 2903,
+      "sha256": "a3cc0b5240ea97d46307147e1bf9d452bbea8f6c1be2a03359e3192192efc363"
+    },
+    {
+      "path": "contract/reference/source/src/channels/telegram/index.mjs",
+      "bytes": 2777,
+      "sha256": "a43d70e831b8a682b9667ee8df199bd4ffd45f9fdee4f3e8b3fc4eec447e005c"
+    },
+    {
+      "path": "contract/reference/source/src/channels/wechat-ilink/index.mjs",
+      "bytes": 4226,
+      "sha256": "2394aac3a19e965d696cac0e702286caae33eb0868831f081ea023fcf1467b09"
+    },
+    {
+      "path": "contract/reference/source/src/channels/wechat-ilink/legacy-core.mjs",
+      "bytes": 27235,
+      "sha256": "846bba45796c202affa0eef683572c81982c089af1dd02ec1091a8e16dbd6dd9"
+    },
+    {
+      "path": "contract/reference/source/src/channels/wechat-ilink/protocol.mjs",
+      "bytes": 5925,
+      "sha256": "ba56a135b42bb5178525351bf1caa0c35c6705c539abd902fbc86031488b530f"
+    },
+    {
+      "path": "contract/reference/source/src/client/desktop-sound.mjs",
+      "bytes": 3452,
+      "sha256": "6da817b0001b65f9d4e5454832d7ef8c55729e69e43be8496d0e512bccc8e34a"
+    },
+    {
+      "path": "contract/reference/source/src/config.mjs",
+      "bytes": 22772,
+      "sha256": "dc83f0060a4f9964bb38b9671364f8ecf230efb93d6b09b1b6d9be83e77c9770"
+    },
+    {
+      "path": "contract/reference/source/src/control/contract.mjs",
+      "bytes": 4664,
+      "sha256": "9219dd4365df54d42dd3a0c88216c05ba950304b226f55d50d8dee4eacde1451"
+    },
+    {
+      "path": "contract/reference/source/src/control/entry.mjs",
+      "bytes": 15936,
+      "sha256": "d9cd34b147fd3a8bfbb642c03d8ed764c7661b3cddd559ddc2f0992f36ca2dd4"
+    },
+    {
+      "path": "contract/reference/source/src/control/handled-events.mjs",
+      "bytes": 1138,
+      "sha256": "35b94343f47b3d9ad2624b92b2e3f814993531c575cb429d90b23159c7f158f2"
+    },
+    {
+      "path": "contract/reference/source/src/control/session-arbiter.mjs",
+      "bytes": 14402,
+      "sha256": "6cb904b7c00a96582c6222768f80381c18ee0c133c7eeee15b54a66778aaada2"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/activity.mjs",
+      "bytes": 5514,
+      "sha256": "49db5ee3425a44a3aa6deabfd5b4fd27ac87b9b973c2e0b868c638d131ff695b"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/admin-session.mjs",
+      "bytes": 1978,
+      "sha256": "fd4edb1b489497202cfe212137d65dd5df455665eb1d2bdfd3cce4377aba83f5"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/apply-mode.mjs",
+      "bytes": 920,
+      "sha256": "5ae076eb4a563f5b28ea4c44526ab83040d7fd0473123200384a16afb44115ae"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/channel-config-migration.mjs",
+      "bytes": 4904,
+      "sha256": "1677d313c946fa65e29766c57eecf893995453027819e899c5687eaeee8310fb"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/channels.mjs",
+      "bytes": 4408,
+      "sha256": "dc5283b3983ad433fb038b18e4a3e023e9d96ea32dbe10cab59b8ac2b44f1d9b"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/health.mjs",
+      "bytes": 4332,
+      "sha256": "bfeb5678738dc70d412764a13bd16439cc39188b9ec007a04ad47615c740dfba"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/launch-ticket.mjs",
+      "bytes": 1574,
+      "sha256": "8a74795245ce0fc40681fa48af8b2180285836d6fe09113d5098004b3ba26931"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/outbound-config.mjs",
+      "bytes": 17117,
+      "sha256": "6485fba66aa519f73f5f53e1307072ddf2bb5118f2a314d54be7dd55be7a8f30"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/questions.mjs",
+      "bytes": 1815,
+      "sha256": "d22e40e1847121aba7ee233858b5f39eeca6ca6988d6e28ae6d31b38890fca85"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/revision.mjs",
+      "bytes": 3077,
+      "sha256": "f9df8bb5d531f8d687743b6946398108530a4d495f70518d0e8e5d44da9a193b"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/rpc.mjs",
+      "bytes": 7344,
+      "sha256": "7e11fed7c137287bce305c184b2106d0bf146807fec14f427dbd7f6dbd3fcd87"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/service.mjs",
+      "bytes": 9740,
+      "sha256": "b300a1ac3bd97655151c723ba6771af4abf46387afaafb15fe39721cc2b8c526"
+    },
+    {
+      "path": "contract/reference/source/src/control-surface/tasks.mjs",
+      "bytes": 1527,
+      "sha256": "d73c68f127d7a2fe0e461be2672900413e3e66fc0fe5bfa3d7cfa973f1c38093"
+    },
+    {
+      "path": "contract/reference/source/src/delivery-evidence.mjs",
+      "bytes": 1695,
+      "sha256": "f438007f5e4d0db8ed6de7f73c50f5ae47d3b8cf6aa63cd7bfbfe8ebabaf3ca0"
+    },
+    {
+      "path": "contract/reference/source/src/event-listener.mjs",
+      "bytes": 31636,
+      "sha256": "3e9398efdcec49630c263787bb5b9bd28cb27ca31946664af9dfe81568622b06"
+    },
+    {
+      "path": "contract/reference/source/src/health.mjs",
+      "bytes": 2796,
+      "sha256": "57b76db96b0eb581a192fd2bd1be7a65fe88852928aabe5b69eb6bb128a03331"
+    },
+    {
+      "path": "contract/reference/source/src/host/capability.mjs",
+      "bytes": 6931,
+      "sha256": "0258cab2efa6818c533130aefaa51218d343350ac1872a6764d6b10caeb94ce1"
+    },
+    {
+      "path": "contract/reference/source/src/host/messages.mjs",
+      "bytes": 6616,
+      "sha256": "2d8c80d0e3961d0bf2f7c92851e2345e2c89036c14165e4a6023d8c1ad94e4de"
+    },
+    {
+      "path": "contract/reference/source/src/host/native-questions.mjs",
+      "bytes": 15252,
+      "sha256": "a753da2a2bd6daf3db1ee050f6f59f3ac746352ca7b21e8d3b5319075beab887"
+    },
+    {
+      "path": "contract/reference/source/src/host-events.mjs",
+      "bytes": 8366,
+      "sha256": "3d0a968a0d5367ca020d05e1817f0656c3c95c716904797b833722da4a90a86a"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_bounded.mjs",
+      "bytes": 3464,
+      "sha256": "fccc405837ef145597e749dc3008d15522d91363e1bf4e4a1d67cdc2cd4d707d"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_breaker.mjs",
+      "bytes": 2653,
+      "sha256": "5c960c55f6dbfd1ecc5d685b881afc40773f529023bf558303c3146e1eb63cc8"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_contract.mjs",
+      "bytes": 9123,
+      "sha256": "9ba66cfe2dd6069ef6851c4ba8612325b7a4083ba01b261f6e66ffe0c4e0dd09"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_dingtalk-auth.mjs",
+      "bytes": 15767,
+      "sha256": "7855d12bbd60a217987756f4959de33f7ad6842b4d59fc0ad2c9bfaf7a963a18"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_feishu-register.mjs",
+      "bytes": 10428,
+      "sha256": "d16cef985c6a5f55b062797eac00d43acb2ee6d8282d3a03d180c4b81e9f9126"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_ilink-api.mjs",
+      "bytes": 8907,
+      "sha256": "cc3701c0d9487b3cdc496f915b77244e8c5629d02995bd1c46bfa0b6733d9fd0"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/_qq-scan.mjs",
+      "bytes": 7646,
+      "sha256": "6a57a7fa762560049d15ba1b29e2cc55383d26ae3f45265ccb000ecc8ec376b1"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/bus.mjs",
+      "bytes": 19790,
+      "sha256": "b6852cae85ff3c1cba6a4447e87fcc7a597f2e25eedbe03200401a804e5e4579"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/callback-refs.mjs",
+      "bytes": 4212,
+      "sha256": "77502b88457731872ee6798e35535f79ceb0c7287dab03aea208b5d097274713"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/capability-matrix.mjs",
+      "bytes": 9688,
+      "sha256": "649af92fec8c382e9270cad54ef5c62353d75e927f4f1cb16ae23ad05498f5bf"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/channel-config.mjs",
+      "bytes": 9978,
+      "sha256": "d302480d4d36f2e2de3bfbd17b7b7334b4f401a9c21ec873e10862dc3cc896b4"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/channels-registry.mjs",
+      "bytes": 1002,
+      "sha256": "e17065b9a87449ae53cbfe13ed97b8c78e3a0c604545b216e2277ce6292c9dbc"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/commands.mjs",
+      "bytes": 13935,
+      "sha256": "fe21f01736b87198b41bc937fdc619d8114171bbb2f9e888421e9974be3772a5"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/conversation.mjs",
+      "bytes": 61630,
+      "sha256": "a470c5c77c1a4a2e4db35955ec6253570b5514b96006e6320bf5c7a18f0879b3"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/dingtalk-stream.mjs",
+      "bytes": 35012,
+      "sha256": "0993f6c44be305dd26ee86764b774bf2b307459d18841fcfc51f8a50690286a8"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/feishu-bot.mjs",
+      "bytes": 42783,
+      "sha256": "d64a8fc7a0cdf8cbbe16a74458e2fc483e4aa33c03790f1b9acf1babfff541e0"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/http-callback.mjs",
+      "bytes": 5753,
+      "sha256": "274a4b891276c00af357842f0af3d981925e45708b0c3a06144d4f658ccfac76"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/identity.mjs",
+      "bytes": 26310,
+      "sha256": "7ffb203e23710d675015a6086542f9f19856d5f5fcdba6ec8d173e72ab5e5a67"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/message.mjs",
+      "bytes": 24505,
+      "sha256": "1980aae53355898210c7f898dcc0d3838608d649d5ccdd398602b07c246353d3"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/pairing.mjs",
+      "bytes": 23992,
+      "sha256": "6a4ef6201324eecf5dc51b9a03ee1710e07364dd568648d75008a952b56e31a0"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/qq-gw.mjs",
+      "bytes": 45395,
+      "sha256": "01391f46031c5c7679d93d817f3f330bbb2f6f9fcb7c810d81683007dcd8ffd7"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/segment.mjs",
+      "bytes": 8397,
+      "sha256": "05ee4a160992b507c1876f2f1aed9317b88c774d030337a79567c0b8e007e16e"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/store.mjs",
+      "bytes": 26854,
+      "sha256": "348b87f4cb9815e5f48fb6c807950aa5d13dbada98c8bb7e526109ce655275e2"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/target-guard.mjs",
+      "bytes": 10589,
+      "sha256": "37410512f5c4b55866a7a1321315dfc647c3d581de35fdad781c3fd00a10fe11"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/telegram-bot.mjs",
+      "bytes": 32058,
+      "sha256": "e268d5dd9038022b92be2bfa38d724d77992662eded55193d83f490343a953b9"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/tokens.mjs",
+      "bytes": 2839,
+      "sha256": "784d6993966c44443c2df26559f940a1770f85cf46b8b9fb697edaffb73c35f5"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/verdict-text.mjs",
+      "bytes": 2644,
+      "sha256": "9226a944cf47fa4604fbaf125c05f7573b940a2049d6f07ce2c2bbc3a5703abe"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/wechat-ilink.mjs",
+      "bytes": 339,
+      "sha256": "39dafeb1bcdf67d29eb0ac77d744c777886c2444d1e5aa7f13d5bc9861d39257"
+    },
+    {
+      "path": "contract/reference/source/src/inbound/wxpusher-callback.mjs",
+      "bytes": 18150,
+      "sha256": "8f68e4bd4e70af24f6f59f2eddbbd2cfbf056a22a4839fe789d2f773de263ccf"
+    },
+    {
+      "path": "contract/reference/source/src/index.mjs",
+      "bytes": 57417,
+      "sha256": "889177d4591d1f6eb36bb6489afc920f55f20fc35538943fa86ca5bb65e52d9a"
+    },
+    {
+      "path": "contract/reference/source/src/interaction/ledger.mjs",
+      "bytes": 10026,
+      "sha256": "8a8b5dcdf8c60a9f75a4f3289ac7b3df9e03b11d6e1e99e78d030588af807c35"
+    },
+    {
+      "path": "contract/reference/source/src/ledger.mjs",
+      "bytes": 10622,
+      "sha256": "5f03b9c2f7aa088ada5d56e3c303ea0c1508e30f92cbd995c65eb5c5f873458a"
+    },
+    {
+      "path": "contract/reference/source/src/notify.mjs",
+      "bytes": 11613,
+      "sha256": "c71af6ae4396f1fdb9069c6ed0d642777b13717e759dd719d848b13073760cbe"
+    },
+    {
+      "path": "contract/reference/source/src/plugin-entry.mjs",
+      "bytes": 284,
+      "sha256": "f1b1fcc67c3ae5eb3c6ebe1a07fa05f91c1b62534705a28a19ca807b3d07b176"
+    },
+    {
+      "path": "contract/reference/source/src/public.mjs",
+      "bytes": 15655,
+      "sha256": "52ed5610fc78777cb2e38a41719565fdd0c8631ddc27011c35b370958dd43b2e"
+    },
+    {
+      "path": "contract/reference/source/src/questions/router.mjs",
+      "bytes": 77310,
+      "sha256": "82fbe82132057bfd7e80b20747ba23bb6028b051e38c22f939e3954e886984cc"
+    },
+    {
+      "path": "contract/reference/source/src/redact.mjs",
+      "bytes": 2729,
+      "sha256": "9124bcd2fa0dfb0a901be4af65a26ae37f2a55fbd2a4c7f08a15dcd308e69852"
+    },
+    {
+      "path": "contract/reference/source/src/routing/agent-router.mjs",
+      "bytes": 28399,
+      "sha256": "0ae83453a7935b2e444e54e23595f27109bcf484aa881a83ae99f74287c5c874"
+    },
+    {
+      "path": "contract/reference/source/src/routing/session-registry.mjs",
+      "bytes": 38516,
+      "sha256": "80da7969db798b8ef6a9ae9a611df170163f3cc5614c46701142034af93425dc"
+    },
+    {
+      "path": "contract/reference/source/src/routing/task-projection.mjs",
+      "bytes": 7187,
+      "sha256": "a0f1604323895f120a88fb8da37786f94287a548ea431863a106755ecb359bfc"
+    },
+    {
+      "path": "contract/reference/source/src/routing/task-selection.mjs",
+      "bytes": 14760,
+      "sha256": "a9fdcb7b0c41cf93d286f951d0b93a62398fe9e1449f8109fc1d7ea78e9cbf9b"
+    },
+    {
+      "path": "contract/reference/source/src/routing.mjs",
+      "bytes": 5330,
+      "sha256": "02776946ad3100a6da7f54842ce7eb256b0e76afda1b1a425a140007a01b4b56"
+    },
+    {
+      "path": "contract/reference/source/src/rules.mjs",
+      "bytes": 7673,
+      "sha256": "41b26cdf76e19c2c70b1f49c54835f5fea4e98ddc66cbe39a86ca2c6e44bb8cc"
+    },
+    {
+      "path": "contract/reference/source/src/runtime/channel-manager.mjs",
+      "bytes": 3217,
+      "sha256": "87842f208195112bb406283b21f63c0ebe513731b935535622c875ee7f93d97e"
+    },
+    {
+      "path": "contract/reference/source/src/runtime/outbound-source.mjs",
+      "bytes": 2821,
+      "sha256": "33336eec2003d7a90791890423d515d9d5f2187f9d930766e7f63cf95d346e98"
+    },
+    {
+      "path": "contract/reference/source/src/security/diagnostic.mjs",
+      "bytes": 1646,
+      "sha256": "10ddce61139571bcdcd5fe01bf24fc156d1d667cec4aeb1c1b88e27df17ba82b"
+    },
+    {
+      "path": "contract/reference/source/src/security/exposure.mjs",
+      "bytes": 491,
+      "sha256": "62e1cce797d36258345bba451d4f7f07298f0ca4e617a991f8668c6a41e71517"
+    },
+    {
+      "path": "contract/reference/source/src/security/network-policy.mjs",
+      "bytes": 11549,
+      "sha256": "87ac3948514707f72f0e1677c9a654ab336055ae70eccffc00a1b36a28a02e3e"
+    },
+    {
+      "path": "contract/reference/source/src/security/secret-patch.mjs",
+      "bytes": 1247,
+      "sha256": "c532d3b0a7db9e42c40131e380a00173d2aa6f39581284e047f09167eea13399"
+    },
+    {
+      "path": "contract/reference/source/src/status/turn-tracker.mjs",
+      "bytes": 8585,
+      "sha256": "858edf98def5475d1f25263e8e4c5bc4283ea539308392afafe5934019017e45"
+    },
+    {
+      "path": "contract/reference/source/src/strings.mjs",
+      "bytes": 51416,
+      "sha256": "441289490c45ae523261f9e4ee0e79598734baa95257a43be654f9f2d82ca889"
+    },
+    {
+      "path": "contract/reference/source/src/testing.mjs",
+      "bytes": 6759,
+      "sha256": "91c1058fa581896c981fc56903ae550bb9b85e33d9a12d4cbee0a8d890283d64"
+    },
+    {
+      "path": "contract/reference/source/src/tool-register.mjs",
+      "bytes": 11778,
+      "sha256": "60351ac6e2f7e15862d8004518381378e75089dbf058d93d521998f9e6cf0056"
+    },
+    {
+      "path": "contract/reference/source/test/_helpers.mjs",
+      "bytes": 2388,
+      "sha256": "edf3e18ca064149d66e04739bba5dda7119532ead80ded355dd56f1dbe4d94fa"
+    },
+    {
+      "path": "contract/reference/source/test/_hermetic-network-guard.mjs",
+      "bytes": 1786,
+      "sha256": "4f272d0ec5c55d4336ede14ef2ee18adc43fac83968d1e70ad93265b84df9975"
+    },
+    {
+      "path": "contract/reference/source/test/actions.test.mjs",
+      "bytes": 28679,
+      "sha256": "442fa849b92c0e0694796426eb07c71f29ae5f96812c78d18141a3958df07796"
+    },
+    {
+      "path": "contract/reference/source/test/activity-v012.test.mjs",
+      "bytes": 1200,
+      "sha256": "e432d26ef1652f48b6c5abf7421b38033a1dd97bdbbed11ddb4223d654c06178"
+    },
+    {
+      "path": "contract/reference/source/test/adapters.test.mjs",
+      "bytes": 21613,
+      "sha256": "02483ec1f1365d567916f0ffaf6e6d6a231fc5f8ba24dbf2e326f8972d459e7e"
+    },
+    {
+      "path": "contract/reference/source/test/admin-api.test.mjs",
+      "bytes": 47894,
+      "sha256": "b8760b847a1e438ee16f644b30dcb42a34f9bea9be736356a91e659d8c6b2016"
+    },
+    {
+      "path": "contract/reference/source/test/admin-events.test.mjs",
+      "bytes": 4272,
+      "sha256": "4809730c40823ff123fcd8ea9efec76dfbf0148ffc39bca6f245e81ff886778d"
+    },
+    {
+      "path": "contract/reference/source/test/admin-members.test.mjs",
+      "bytes": 16330,
+      "sha256": "2bff0e5a7d536191aaf99e2a2ed235eb2885c9ec300afdd83eed38ceb280f052"
+    },
+    {
+      "path": "contract/reference/source/test/admin-origin.test.mjs",
+      "bytes": 6830,
+      "sha256": "79cc905bdfe3242b5eb0d797ac5ded1891f4c1d5a458a4b2f1aa22339a53657f"
+    },
+    {
+      "path": "contract/reference/source/test/admin-questions.test.mjs",
+      "bytes": 14504,
+      "sha256": "9150d0581a3a8db2ef336aa059efa72368e8ac255e92c9bc5add3703957e9d4e"
+    },
+    {
+      "path": "contract/reference/source/test/admin-scan.test.mjs",
+      "bytes": 38395,
+      "sha256": "993e1b5d55ed2ebd39cb02fe7f0e95942fb3184203afe75ecc514cbbdd413374"
+    },
+    {
+      "path": "contract/reference/source/test/admin-server-sse.test.mjs",
+      "bytes": 5754,
+      "sha256": "e893db9477c48ba0d7ee4ad70720241b9fcd44f8b8bdae1136e3d65bb059c9ec"
+    },
+    {
+      "path": "contract/reference/source/test/admin-server.test.mjs",
+      "bytes": 32203,
+      "sha256": "bac8c5891fcb6701ead9e090cd0bb359c246bc639d9aff30445b5189059f459d"
+    },
+    {
+      "path": "contract/reference/source/test/admin-ui-behavior.test.mjs",
+      "bytes": 52827,
+      "sha256": "33e8ce81478beb8d755c867dd3e5579fbc4fc281ea216bb1f4f528bd77c2b72c"
+    },
+    {
+      "path": "contract/reference/source/test/admin-ui-i18n.test.mjs",
+      "bytes": 3064,
+      "sha256": "53f7ba16eb7583493c3383407d44cf7fb2aa3ced2a32194ce651b3d5eeff050f"
+    },
+    {
+      "path": "contract/reference/source/test/admin-wiring.test.mjs",
+      "bytes": 32222,
+      "sha256": "2dede2dfba85e124ea6a13e64cd87c4e8a72752a0697a9065e581dcef64deae5"
+    },
+    {
+      "path": "contract/reference/source/test/admin.expose-tasks-host.test.mjs",
+      "bytes": 5976,
+      "sha256": "96c50099ab5664d0f34e9cff8ca6037ca8fd407c603bedda38ecc0e0f9051339"
+    },
+    {
+      "path": "contract/reference/source/test/agent-router.test.mjs",
+      "bytes": 31319,
+      "sha256": "fe02d79abcb5aadc0ca050e015a92104e8d2c93ada5f7526d671f27d2642d9fb"
+    },
+    {
+      "path": "contract/reference/source/test/approval-phase2-hardening.test.mjs",
+      "bytes": 11907,
+      "sha256": "3e561a5ebdd488a2e3e1f4d11389ab9d8bf84ed68d66ab17b3d945fe3271f8b1"
+    },
+    {
+      "path": "contract/reference/source/test/approval.multi.test.mjs",
+      "bytes": 25564,
+      "sha256": "f300c93ae7a9324c2b209c2305b0f1b6b71da4cc4078c1c45136da007982c7a3"
+    },
+    {
+      "path": "contract/reference/source/test/approval.test.mjs",
+      "bytes": 35916,
+      "sha256": "4ebc9e6c1c5f1b543f78f6dbb449565b67b078dbca2f11c05ea5695e171807da"
+    },
+    {
+      "path": "contract/reference/source/test/assembly-runtime.test.mjs",
+      "bytes": 6521,
+      "sha256": "d17180599b24376850de5b26b4c803d1cd1b5526ac1481e455680db2646747da"
+    },
+    {
+      "path": "contract/reference/source/test/assembly.admin-token.test.mjs",
+      "bytes": 6438,
+      "sha256": "5fe31a8a6a3c643288bc15ccbab4eafcb866fff90136312ee9c481a2ff08b226"
+    },
+    {
+      "path": "contract/reference/source/test/assembly.inbound-signals.test.mjs",
+      "bytes": 7843,
+      "sha256": "0dfba953453c1542e1277bbdf67ddd5317a318365b94c72fe151b14fc0063a5c"
+    },
+    {
+      "path": "contract/reference/source/test/assembly.outbound.test.mjs",
+      "bytes": 7270,
+      "sha256": "9e99864e21364db85b69fc2a42708deb1dcb0285f25d6fec91ff1c70da16707b"
+    },
+    {
+      "path": "contract/reference/source/test/attachments-bounds-v0121.test.mjs",
+      "bytes": 3097,
+      "sha256": "948a86cd3ac0325581afdc4eee03893be42cb79ef132222925391a4fbaedfc15"
+    },
+    {
+      "path": "contract/reference/source/test/bounded.test.mjs",
+      "bytes": 11918,
+      "sha256": "34cfec99c5d3060ad9aff33147966a9e875887157c1d5401b8088ddd119a5ec1"
+    },
+    {
+      "path": "contract/reference/source/test/breaker.test.mjs",
+      "bytes": 3527,
+      "sha256": "b22d0ace89911fa743bbe448c82a48a02e6a5807cd4fff8847370222c9d14a1c"
+    },
+    {
+      "path": "contract/reference/source/test/channel-config-migration-v013.test.mjs",
+      "bytes": 9568,
+      "sha256": "38b09b5681a861916730eecba8f8def0565e6ab08d66be6623bc28a4f3a5472f"
+    },
+    {
+      "path": "contract/reference/source/test/channel-fail-closed.test.mjs",
+      "bytes": 9013,
+      "sha256": "50de088dd35905c1f6bf740f3aac2e80882351a08d6530e9b759056c83a1d3b2"
+    },
+    {
+      "path": "contract/reference/source/test/channel-login.test.mjs",
+      "bytes": 14445,
+      "sha256": "3430ad3fc40fa376ea66e89f2c62e040df4bfca616724e463c714d1a8db81248"
+    },
+    {
+      "path": "contract/reference/source/test/channels/feishu.test.mjs",
+      "bytes": 3658,
+      "sha256": "fdb934202c9e5ca6c23dce4781c292c98419323c081301f2771276948e918175"
+    },
+    {
+      "path": "contract/reference/source/test/channels/telegram.test.mjs",
+      "bytes": 3813,
+      "sha256": "b9eb348c4ee2c6f0570c96575f216cfd0ce4994bee93891cfbf9074a7790b8e3"
+    },
+    {
+      "path": "contract/reference/source/test/channels/wechat-ilink.test.mjs",
+      "bytes": 21963,
+      "sha256": "8eb695a2825af56001f93349ff04c6a996cb10ef8e6aae5b0c93181b6729e750"
+    },
+    {
+      "path": "contract/reference/source/test/client-module.test.mjs",
+      "bytes": 11557,
+      "sha256": "b8894e5143c40e813f225b51d9bb7c4b9f9ac8e3846c4905c43e6c1a19d66a90"
+    },
+    {
+      "path": "contract/reference/source/test/commands.test.mjs",
+      "bytes": 9664,
+      "sha256": "96ced467958e580bc2da134b7134203c27965ded07958337c76c12b64b2d6120"
+    },
+    {
+      "path": "contract/reference/source/test/config-runtime-truth-v013.test.mjs",
+      "bytes": 7757,
+      "sha256": "74cbd545719ec5e07c55c921b8c42928fce5bb5e3fc45ff29f01c34d8e0dcae5"
+    },
+    {
+      "path": "contract/reference/source/test/config-validation.test.mjs",
+      "bytes": 20502,
+      "sha256": "b4fd5dae31d0cb74267bf1c2e47601b39fc9837bbafd065f6f31641e2bf82c67"
+    },
+    {
+      "path": "contract/reference/source/test/config.test.mjs",
+      "bytes": 8523,
+      "sha256": "c5b18e8a39a781509718559f1a4e9d58361b8522c20fe895ebd776f15ff427aa"
+    },
+    {
+      "path": "contract/reference/source/test/consumer-demo.test.mjs",
+      "bytes": 3297,
+      "sha256": "8176f8e6cf20edef2f34f793666e58581c7ca6e3aaf5054fd99cc2f742882c58"
+    },
+    {
+      "path": "contract/reference/source/test/contract.spec.mjs",
+      "bytes": 9554,
+      "sha256": "aff3f4f217e1924a1c7be4ae6f48bcd298090bbbe5730d03ea46a6a3a8bdcc89"
+    },
+    {
+      "path": "contract/reference/source/test/contract.test.mjs",
+      "bytes": 1476,
+      "sha256": "f4a8ec53b0839e7b859a50210ecf02458aa146a0181fb552990a03e84a705206"
+    },
+    {
+      "path": "contract/reference/source/test/control-contract.test.mjs",
+      "bytes": 3655,
+      "sha256": "88439bda33ce41e5595a43f28cbc587ec6fc88688bc57232a5aaf0dc44ff8f4e"
+    },
+    {
+      "path": "contract/reference/source/test/control-entry.integration.test.mjs",
+      "bytes": 42754,
+      "sha256": "d8e7bcfc9a8c0d2e675daedd9027bc95424252ec0a06a4609ce562146c629693"
+    },
+    {
+      "path": "contract/reference/source/test/control-surface-rpc-v012.test.mjs",
+      "bytes": 5356,
+      "sha256": "ce8a65b029721bf403f4cd32f0c307c65d33bda675669643965430ae481785e5"
+    },
+    {
+      "path": "contract/reference/source/test/control-surface-service-v012.test.mjs",
+      "bytes": 9484,
+      "sha256": "77e12b143ad87238675127b89fc3a1e33bf48d4f720d62775e087ed267b7f254"
+    },
+    {
+      "path": "contract/reference/source/test/conversation.attachment-delivery.test.mjs",
+      "bytes": 12414,
+      "sha256": "a3b67b86f11b6f947be66e56dc8faa9fbf1c60ffea0cafbcb7e1f426f2254d0d"
+    },
+    {
+      "path": "contract/reference/source/test/conversation.image-delivery.test.mjs",
+      "bytes": 7237,
+      "sha256": "1991deac4c1f0f3d990b24cb5327c8d61731543082bb9fd0856b12d12e11a536"
+    },
+    {
+      "path": "contract/reference/source/test/conversation.route.test.mjs",
+      "bytes": 34985,
+      "sha256": "39616a4703573aecf09cd1151d99498e097cb73588ac3db729a2b08d66ebee92"
+    },
+    {
+      "path": "contract/reference/source/test/conversation.task-selection.test.mjs",
+      "bytes": 7456,
+      "sha256": "76322014b3aba55b0ca4ffea1a458bb69e270a3b48db055d2965164263870d5a"
+    },
+    {
+      "path": "contract/reference/source/test/conversation.test.mjs",
+      "bytes": 16681,
+      "sha256": "c18edbf37cdd17931e6157c36aab121cf6f126cf8c929790cce046d620e0804c"
+    },
+    {
+      "path": "contract/reference/source/test/delivery-evidence-v013.test.mjs",
+      "bytes": 6608,
+      "sha256": "c049979dcfb8c514bffafe3f127c3398e86c0d5d0755219a522a9b228f78cec4"
+    },
+    {
+      "path": "contract/reference/source/test/desktop.test.mjs",
+      "bytes": 11396,
+      "sha256": "0fcc264648a0149e449c2fe5035b986ea3ec0fd6d3592b7acbb85b947f41eb63"
+    },
+    {
+      "path": "contract/reference/source/test/dingtalk-auth.test.mjs",
+      "bytes": 17971,
+      "sha256": "27b6609578f52e35513a552890df718a4c3ed95fa6045024e96ffd740bcd9462"
+    },
+    {
+      "path": "contract/reference/source/test/durability-contract-v0121.test.mjs",
+      "bytes": 9753,
+      "sha256": "1c83463928286be2bc81d2ab786a6b440bd9f2cb31d0e94aa48c744afb709653"
+    },
+    {
+      "path": "contract/reference/source/test/durable-primitives-v0121.test.mjs",
+      "bytes": 4472,
+      "sha256": "ece8bea1b28edc9c6e9c9f1dd59c328454be9d7be0dea4210b5c77139ab20556"
+    },
+    {
+      "path": "contract/reference/source/test/escalation.test.mjs",
+      "bytes": 6524,
+      "sha256": "2dfc933d8106afcc9655da42974865f2d669c1a77a810f51e0bce75bc2981b6f"
+    },
+    {
+      "path": "contract/reference/source/test/event-listener.test.mjs",
+      "bytes": 40657,
+      "sha256": "a6c92a069b82811a70658b67d3a9ca3468d76116d16be35b0f729e9240185f93"
+    },
+    {
+      "path": "contract/reference/source/test/feishu-p2p-source.test.mjs",
+      "bytes": 16728,
+      "sha256": "31f23655d44388efe945ecdd714d3bed61da18974a93eb1742ff450da9f9b27b"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/chanify.json",
+      "bytes": 556,
+      "sha256": "0ecf829d163bf4c6a410369c23f806f71710699ad9a9541d7f73f6a96e3c312d"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/discord.json",
+      "bytes": 597,
+      "sha256": "adeecf6d7502bd9231261c37284b9ca578752637adaa4bfb844e025f8d973230"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/feishu.json",
+      "bytes": 840,
+      "sha256": "ca2a202ba6692756d83dc71d9682ef62bbe71b32c738f12a51349c42f104bf49"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/gchat.json",
+      "bytes": 658,
+      "sha256": "bf7bf7cf8a4b326347e80d531e26f45e612b7adf48d57ae609e970626c1686ad"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/gotify.json",
+      "bytes": 770,
+      "sha256": "0bb13aeb154fe824f57fb7e379f4fe42d4705587dc92958393e16e6f3a1d697d"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/igot.json",
+      "bytes": 655,
+      "sha256": "508cb26ab41c5d2549d05b71d45c17febd1ea3848b73f602a2702240303bd5c8"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/mattermost.json",
+      "bytes": 588,
+      "sha256": "75ad690ecc42fcc2d1c6a8c19db3e253a57ea6d2329c616886bd9d6de8c4685c"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/ntfy.json",
+      "bytes": 854,
+      "sha256": "425f9a5fc5390818f694ff69c41705d66e11fa46aba9435b994f78a77c0a900d"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/onebot.json",
+      "bytes": 914,
+      "sha256": "4b74b9a66734f82fdfb6623f8c3cbc614645ebc907c5ca0d4a2ce5a98bcd5db9"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/pushdeer.json",
+      "bytes": 678,
+      "sha256": "08702b416bd1531d7495a67bc2590b50aa6bb0286068e353d9f8559cfbac3a1d"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/pushover.json",
+      "bytes": 845,
+      "sha256": "fae10f3dce115bb159533f5aae59513146cacc6a29cf38205454f7fd9b2475a0"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/qmsg.json",
+      "bytes": 657,
+      "sha256": "0aa760b3482ba89464a20f02a424c8738045d2a7eac591dcaa1915ed2cda415b"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/qq-bot-protocol.json",
+      "bytes": 912,
+      "sha256": "7342bf704363ff380d4de8be0abaa1a08b632ec88778a9b39c610e31d40f636c"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/qq-bot.json",
+      "bytes": 1117,
+      "sha256": "7e7dcaf1724deada3d062faae0f4e5052a5dbe2a1fd8475ba000f526919ec87c"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/slack.json",
+      "bytes": 607,
+      "sha256": "a2f9eba6affb31b4e9150ce276137febdda8568c7a5effb66d55e647d69b3a7a"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/teams.json",
+      "bytes": 1067,
+      "sha256": "37aca4a0024c3d2b4102b5b6c58e296446354fa709347193fbc5125a4d1c0f57"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/telegram.json",
+      "bytes": 964,
+      "sha256": "48dbf87251b128965cf845cb47f85ced23481e307dff4169913fb5db0704c0db"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/wechat-ilink.json",
+      "bytes": 992,
+      "sha256": "45378d0684750207e30e782eb210c01256e8aad48824adc4fbc4afe8a337fc84"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/wecom-app.json",
+      "bytes": 1089,
+      "sha256": "92638423fca683fe24f7acf396b9dd7713c2b55726705d5ae3cc34b535bc81f6"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/wecom.json",
+      "bytes": 732,
+      "sha256": "1526cc34c83532f88956c5c89c3e9fbb224fc721563e9e6e6452e6213589738c"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/wps-bot.json",
+      "bytes": 729,
+      "sha256": "ce91055e4cac3a124acdffd75a96a3cf15547b9d5d29083627aaced73fec81c5"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/channels/xizhi.json",
+      "bytes": 611,
+      "sha256": "9a7dc17dc29dd8be1bcd769dd4613b1934814159175c1693e59fb92a24792d9b"
+    },
+    {
+      "path": "contract/reference/source/test/fixtures/qq-c2c-image.json",
+      "bytes": 313,
+      "sha256": "cd49b53f2c69da68d2d41169ae7cd6f26b7f49a60718b13ad7f3150ec7b4bb70"
+    },
+    {
+      "path": "contract/reference/source/test/health.test.mjs",
+      "bytes": 6044,
+      "sha256": "c66f353bc23dc69403ae5ca6f37d63a2c1584ccbc29958ca5603209ff929c616"
+    },
+    {
+      "path": "contract/reference/source/test/helpers/urlguard-public.mjs",
+      "bytes": 864,
+      "sha256": "6c86fa9f681e4e20a3faec96bdbc5acffdfdd9dd059985f2c8be157293b9a07c"
+    },
+    {
+      "path": "contract/reference/source/test/host-capability.test.mjs",
+      "bytes": 5633,
+      "sha256": "fd042b3f48cd1f31ffd5506ab70c8ca6d419181cda82c3a58f028c61e410136f"
+    },
+    {
+      "path": "contract/reference/source/test/host-compat-matrix.test.mjs",
+      "bytes": 5209,
+      "sha256": "522eedda6116d381c823ec0eaade3f4b859afb881785b9e3f3dfe532d1072132"
+    },
+    {
+      "path": "contract/reference/source/test/host-events.test.mjs",
+      "bytes": 8893,
+      "sha256": "b738f506df803623e7b9e2f6051aa14d1cc971914119f518002f173010619fe7"
+    },
+    {
+      "path": "contract/reference/source/test/http-callback.test.mjs",
+      "bytes": 695,
+      "sha256": "0ba36473de88f4bca61462a05bfcdc44ace29a93156b359a4a3b55fcc2413757"
+    },
+    {
+      "path": "contract/reference/source/test/identity.test.mjs",
+      "bytes": 43057,
+      "sha256": "ed41c0f4fefac029e56a752d9d5b642f2b2c5631c90048d5be9f4d019ea85045"
+    },
+    {
+      "path": "contract/reference/source/test/inbound-dedup-bounded-v0121.test.mjs",
+      "bytes": 2926,
+      "sha256": "c946d38c975a591e5223be13d063734beb5264bf41ec5c48f61af061a9ef4e03"
+    },
+    {
+      "path": "contract/reference/source/test/inbound-log-command.test.mjs",
+      "bytes": 13822,
+      "sha256": "9ab4de69fa593080cdc1db3e67ec9b864bb4bd393f11d99734752127cc85c9a7"
+    },
+    {
+      "path": "contract/reference/source/test/inbound-sessions-command.test.mjs",
+      "bytes": 8512,
+      "sha256": "a338e244e51342ddf15154c1728d747acb11cbb416a47bd5e85b7fd8fb956c06"
+    },
+    {
+      "path": "contract/reference/source/test/inbound-transport-timeout.test.mjs",
+      "bytes": 5750,
+      "sha256": "ef1567e941964b54400b6694f6b5f27577cf4a9d58bf94d6a87ced2895661e8a"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.capability-matrix.test.mjs",
+      "bytes": 10371,
+      "sha256": "64c5ed8fdb5a1c2def2a8590451ee7a6ed1ef2e03380a4643d01ca18fa553f96"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.dingtalk.test.mjs",
+      "bytes": 46002,
+      "sha256": "bf586d7e17a72664e9da7f6bfa4ff9c3faa4d1690d7784ce9ed95ae356e797ee"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.feishu.test.mjs",
+      "bytes": 60417,
+      "sha256": "bdf4eec115ba8c5a937a21541acba435c3b9c8b9d6fac02c3339dee38bade5c0"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.message.test.mjs",
+      "bytes": 15327,
+      "sha256": "9632b56d6c579c00c9cf7f1962243ed570035eec08491f628bf34f3543ad7476"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.qq.test.mjs",
+      "bytes": 63883,
+      "sha256": "7e487ede083f7d033bfcc183111a657714237020d4a8426db5c842a428ec5bf8"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.telegram.test.mjs",
+      "bytes": 61465,
+      "sha256": "d23b8e944870152b2d599dbb6a9b82c56e74535c300642071eb8aee9e5fe70b7"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.test.mjs",
+      "bytes": 34031,
+      "sha256": "9db0a206b09c18dc24ef687c70fbaa20f49308a31eb47527fcae45a39ffdd6f4"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.wechat.test.mjs",
+      "bytes": 35156,
+      "sha256": "ffcad4051d09458da6857fb7dc0520fc7f20f67ae4bddc2683140a3e2a99c5b8"
+    },
+    {
+      "path": "contract/reference/source/test/inbound.wxpusher.test.mjs",
+      "bytes": 23294,
+      "sha256": "4e5327b2334ea5d683d8f67822ace1bd7a8c88fbac5e045afab287269cb0ec2c"
+    },
+    {
+      "path": "contract/reference/source/test/index.test.mjs",
+      "bytes": 16812,
+      "sha256": "5f2d3c14c6c9ae319327e574bd738e0240a8ce64cb177dd6fc677fa2e874aa9b"
+    },
+    {
+      "path": "contract/reference/source/test/interaction.ledger.test.mjs",
+      "bytes": 6044,
+      "sha256": "c75f24fd1ca7e8312ac55bd1c031d55839a166c06dd5f7b42d290b923196f188"
+    },
+    {
+      "path": "contract/reference/source/test/issue38-host-compat.test.mjs",
+      "bytes": 7466,
+      "sha256": "aef233c6a1feaafb3a9fb3e422a6bbfa987c0356d989549137721064085317c8"
+    },
+    {
+      "path": "contract/reference/source/test/lang-strings.test.mjs",
+      "bytes": 7770,
+      "sha256": "ff3ffc04163f2794d9e23102ca056444497615008164bbe4c316e5b14bcad6ab"
+    },
+    {
+      "path": "contract/reference/source/test/launch-ticket-v012.test.mjs",
+      "bytes": 1033,
+      "sha256": "e4b3f6ad291e530c59b459cdaf8505173da1b8d032231bbaaae56faef4e638ba"
+    },
+    {
+      "path": "contract/reference/source/test/ledger-numeric-and-io-v0121.test.mjs",
+      "bytes": 7531,
+      "sha256": "0c3a1912738f546c7c73065bdbc150e65d0e365a7e61c0f6b0761f2fc1ada27d"
+    },
+    {
+      "path": "contract/reference/source/test/ledger.test.mjs",
+      "bytes": 12622,
+      "sha256": "cfc886a76052d30aa820e11c56bdb5749b77e894e97c0be1f722069401845454"
+    },
+    {
+      "path": "contract/reference/source/test/login-credential-durability-v013.test.mjs",
+      "bytes": 9605,
+      "sha256": "f7cdaae1b96df3cd3e74a1ef13db5c1bdb349276d03f426733e50e29d7d7eb07"
+    },
+    {
+      "path": "contract/reference/source/test/mobile-task-loop-contract.test.mjs",
+      "bytes": 4779,
+      "sha256": "f35879512fbb74315043c0e2427474d1142250abb961ec6b6d84ff7b1a2daf8e"
+    },
+    {
+      "path": "contract/reference/source/test/native-questions.test.mjs",
+      "bytes": 16654,
+      "sha256": "809fb0accd72f30056a624467e7ca3bb57d4c4a139d5907a8bf775a5cd2ca053"
+    },
+    {
+      "path": "contract/reference/source/test/network-policy-production-path.test.mjs",
+      "bytes": 4956,
+      "sha256": "29c0c6ee51c120ed8b4bc60490a9010611c792bf900acaec7273e402f778df9a"
+    },
+    {
+      "path": "contract/reference/source/test/notify.test.mjs",
+      "bytes": 8118,
+      "sha256": "a90f569964e14b5eedc4a55e74cd8838992f87b5e7dba29d69189b5b468b452b"
+    },
+    {
+      "path": "contract/reference/source/test/outbound-source-v012.test.mjs",
+      "bytes": 1074,
+      "sha256": "c2ab198e51fcee560f9f690598d28625c842d81886255425ef474a35e01b7633"
+    },
+    {
+      "path": "contract/reference/source/test/outbound-transaction-rollback-v013.test.mjs",
+      "bytes": 5533,
+      "sha256": "531a1826b91cd930502b4ec23c8a64ba541108385d9bdeafcadfa18edde817a6"
+    },
+    {
+      "path": "contract/reference/source/test/package-exports.test.mjs",
+      "bytes": 683,
+      "sha256": "c28b3fa4faf2698058260642dbb9750d7022e3e6fa2f6a7254a4252d2fba6440"
+    },
+    {
+      "path": "contract/reference/source/test/package-payload.test.mjs",
+      "bytes": 2404,
+      "sha256": "6ba55e39c7aeb01131bf8db54309297280969a618b3558fa0b51f7c5cf7234a4"
+    },
+    {
+      "path": "contract/reference/source/test/pairing.test.mjs",
+      "bytes": 14134,
+      "sha256": "c9dfacbc17a864d5ea419dc30cccde112d72e25f1d3014fc342fdbd44e0b05fa"
+    },
+    {
+      "path": "contract/reference/source/test/pending-bounds-v0121.test.mjs",
+      "bytes": 732,
+      "sha256": "ac80129710cabcac8e87e64907088bd7ef9c0e0d28edecb6fde0fccea9410cb6"
+    },
+    {
+      "path": "contract/reference/source/test/personal-ux-api.test.mjs",
+      "bytes": 7766,
+      "sha256": "6c9fcb4481822f1df14df10f353b235a1da4ef39d7e1a5fe4fb27bc7eee22b1a"
+    },
+    {
+      "path": "contract/reference/source/test/plugins-docs.test.mjs",
+      "bytes": 3908,
+      "sha256": "3fd969fe0813ac30eb2f8c4dad7ff42b5b79d11d75ed7880f592e17ef09c93e8"
+    },
+    {
+      "path": "contract/reference/source/test/public-testing-fake.test.mjs",
+      "bytes": 7172,
+      "sha256": "e02cd676bfa02d025ff33be95dd26ca8c75c9cc3bd3596677cfa3b8b9ddcfae0"
+    },
+    {
+      "path": "contract/reference/source/test/public-truth.test.mjs",
+      "bytes": 1140,
+      "sha256": "e46280b5e91b3143b7e04f891096daa0ccedd42204246bf79a2e1aaa7dd8b5cc"
+    },
+    {
+      "path": "contract/reference/source/test/public-types.test.mjs",
+      "bytes": 5707,
+      "sha256": "520e55903fa310f3d42f6e66b6c9f0fee7cdad8b12d91df4c09950b562367941"
+    },
+    {
+      "path": "contract/reference/source/test/public.test.mjs",
+      "bytes": 30648,
+      "sha256": "1cbc8e656245e87b71cbe7fbd8b2ea3ff3c0ca0ac3ce7b095c27adb9fdaf7db9"
+    },
+    {
+      "path": "contract/reference/source/test/questions-admin-settlement.test.mjs",
+      "bytes": 10662,
+      "sha256": "9c1381581e18c85626e8fe74c2d271972acdcc664abda974fac60649144f8a7c"
+    },
+    {
+      "path": "contract/reference/source/test/questions-answer-bound.test.mjs",
+      "bytes": 6105,
+      "sha256": "bb9be0d45627edd8da7429666c4be87c7551e99ca14bc2f8e21bac1f8347d21b"
+    },
+    {
+      "path": "contract/reference/source/test/questions-web-first.test.mjs",
+      "bytes": 20630,
+      "sha256": "1833c4e8ec4dfcd307fe9494320cea85fd46a1fb2672a2d656eb1a7776ff7601"
+    },
+    {
+      "path": "contract/reference/source/test/questions.test.mjs",
+      "bytes": 95105,
+      "sha256": "cc181c730b2acdbfc26c636454f05166f0f9ffc71c275d4babc8dd1ca0346288"
+    },
+    {
+      "path": "contract/reference/source/test/redact.test.mjs",
+      "bytes": 4677,
+      "sha256": "fe7b32ffcbf75d9ae39d9b38ee438a30df8a263a5099f7ee0fcd3a500d05cc2a"
+    },
+    {
+      "path": "contract/reference/source/test/route-cli.test.mjs",
+      "bytes": 13536,
+      "sha256": "402e43c51b8a294b3f27eb85a2743884fad7a359a215b9f338cc269153ca6cf0"
+    },
+    {
+      "path": "contract/reference/source/test/routing.test.mjs",
+      "bytes": 9597,
+      "sha256": "e853d4fbccdb4b13baf3287966db2163ccf452e06f0be82d50aa297a071c8013"
+    },
+    {
+      "path": "contract/reference/source/test/rules.test.mjs",
+      "bytes": 14469,
+      "sha256": "e99a9d5156bd01991f1064ecdbcc4f467b04c8b47885d27138c1d8b8d0b1b4b0"
+    },
+    {
+      "path": "contract/reference/source/test/security-structure.test.mjs",
+      "bytes": 8505,
+      "sha256": "901522d2286abdbdf08448664d47411c9091b5fa936975b5f4288a2437e87586"
+    },
+    {
+      "path": "contract/reference/source/test/segment.test.mjs",
+      "bytes": 10733,
+      "sha256": "dc3bfd53fb60927f8e24af3aeb076ddcf64688ca850b05506c8ae1c6f55f9e11"
+    },
+    {
+      "path": "contract/reference/source/test/session-arbiter.test.mjs",
+      "bytes": 13532,
+      "sha256": "dc13d88f74d652846f8c5e6cc57e6eeb8552de5937dbba942258e5b9cfa26b76"
+    },
+    {
+      "path": "contract/reference/source/test/session-registry.test.mjs",
+      "bytes": 44104,
+      "sha256": "c8106fa344348d44bcf45a1ef90672ccfc6debe4decb12f2846fec50e529a8bc"
+    },
+    {
+      "path": "contract/reference/source/test/sign.test.mjs",
+      "bytes": 2967,
+      "sha256": "f916f8b9236eb8509ae71c62a620c38bcc04baafa411db6733a00e36f78157e1"
+    },
+    {
+      "path": "contract/reference/source/test/store-shape-corrupt-v0121.test.mjs",
+      "bytes": 11704,
+      "sha256": "2be3b034daabc21d57dab6ccbe6c00ac2ee5c7f0b54f5a34ce9677500ab50ab0"
+    },
+    {
+      "path": "contract/reference/source/test/store.test.mjs",
+      "bytes": 5178,
+      "sha256": "88a150d5749f5863abdff20472e3db46e23b131d543d1e1f21bec563b2efdf2b"
+    },
+    {
+      "path": "contract/reference/source/test/surface-bounds-v0121.test.mjs",
+      "bytes": 5662,
+      "sha256": "ca3bd46daed521bbd61285e5d83d241bdf1a722482eae56550aa486bda803ea2"
+    },
+    {
+      "path": "contract/reference/source/test/surface-revision-v012.test.mjs",
+      "bytes": 988,
+      "sha256": "ea6a4f8906cb77be5632f2d58a00ce1ddbf08c02ed89a188ba937505cd597519"
+    },
+    {
+      "path": "contract/reference/source/test/target-guard.test.mjs",
+      "bytes": 10716,
+      "sha256": "eca13b0175444d1c22fe9e54bb1c31fcf161d2238de88d716608881fe52467df"
+    },
+    {
+      "path": "contract/reference/source/test/task-routing.test.mjs",
+      "bytes": 7972,
+      "sha256": "7ceaaa94ea48a97e7aad566b8df12ce2a388e0c2510dbea8b2d7d3c97e91e875"
+    },
+    {
+      "path": "contract/reference/source/test/terminal-cleanup-v013.test.mjs",
+      "bytes": 11752,
+      "sha256": "360ad655e4082ee17bd51ecdbd144531894fe0d78c998a35e3b476c26f867ae0"
+    },
+    {
+      "path": "contract/reference/source/test/tokens.test.mjs",
+      "bytes": 4552,
+      "sha256": "b0ba3b3dd853ab5c4e873170be852fa77b1e91022916a051ba4aca4dd684ac68"
+    },
+    {
+      "path": "contract/reference/source/test/tool-register.test.mjs",
+      "bytes": 8692,
+      "sha256": "62499f1585924b830476e73fa5364671b5136029d3e9ba50f77880aaa1256a06"
+    },
+    {
+      "path": "contract/reference/source/test/turn-tracker.test.mjs",
+      "bytes": 9831,
+      "sha256": "05b332d37a2282d3122870b58fcb78e03875385a9c3d253417a6e9c5bc1107cb"
+    },
+    {
+      "path": "contract/reference/source/test/urlguard.test.mjs",
+      "bytes": 10211,
+      "sha256": "88673d87030084e82a2960ddd46977b290ea31219722d56afb3092dd8eab9f3e"
+    },
+    {
+      "path": "contract/reference/source/test/v013-invariants.test.mjs",
+      "bytes": 1511,
+      "sha256": "4a29a4cb5f4b9b2bb5e7b87b78bffc0fb11396a6dccc9ec5905e9039cdcb5469"
+    },
+    {
+      "path": "contract/reference/source/test/verdict-text.test.mjs",
+      "bytes": 1935,
+      "sha256": "5da4647fa9a48074c90f4a0bfb0ab5e7a365d77c135c057b9488d3f0bcbc081d"
+    },
+    {
+      "path": "contract/reference/source/test/wecom-app.test.mjs",
+      "bytes": 3303,
+      "sha256": "bdec7cc9f896d4c3d4769222866d9d11c34bc5fb97468c52036be842f70663eb"
+    },
+    {
+      "path": "contract/reference/source/test/wiring.route.test.mjs",
+      "bytes": 30478,
+      "sha256": "5ef4ac9fcd85e4cc5e49696f876d2768e77bff6985f861cfffb5c5f4dae3c7f9"
+    },
+    {
+      "path": "contract/reference/source/types/index.d.ts",
+      "bytes": 4439,
+      "sha256": "19dc61fc66907bad6e7f61d79ce74e012b0f6731f6eddf19372ad66a18e3cfa4"
+    },
+    {
+      "path": "contract/spec/CHANNELS.json",
+      "bytes": 8253,
+      "sha256": "cb0a4193bb6a469be41918f0132e9acb4b2c8fa05fd9ba917709beaff59b6fec"
+    },
+    {
+      "path": "contract/spec/DESIGN-TOKENS.json",
+      "bytes": 1354,
+      "sha256": "2b059d4ac5daee298b3339a8895cdf349c5cd392d74ee692f845a018bd1d66ce"
+    },
+    {
+      "path": "contract/spec/EDITOR-FIELDS.json",
+      "bytes": 70629,
+      "sha256": "87eb6eb8fc78e91ce5525c920e4e71dc15e9fe429f1162c825c4c090af9cef65"
+    },
+    {
+      "path": "contract/spec/FIELD-CONSTRAINTS.json",
+      "bytes": 1041,
+      "sha256": "6f60ac3b395e54061b16b51630f60a3766088b835df0dce41ac940dd58ce2997"
+    },
+    {
+      "path": "contract/spec/IMPORT-KEYS.json",
+      "bytes": 211,
+      "sha256": "61813c7771831ff84b668db2eff7d4fa9a34044eb3d5594edf0fc5d8707302ed"
+    },
+    {
+      "path": "contract/spec/PROVIDER-OPTION-INDEX.json",
+      "bytes": 931,
+      "sha256": "da4b4c223a557b1d779067c33737f601d4bdfe3f069cd5a758721c2b0a9f6fc1"
+    },
+    {
+      "path": "contract/spec/RPC-METHODS.json",
+      "bytes": 9095,
+      "sha256": "8e20bc945cd4b534df04dda9c157a860c740eec5bf70b59713ce1c857363fbdf"
+    },
+    {
+      "path": "contract/spec/TOOLCHAIN.json",
+      "bytes": 312,
+      "sha256": "bdec01927677791509f240b995ca8a5b822dbf50550263d7972b33f89de78e34"
+    },
+    {
+      "path": "contract/spec/UX-COPY.json",
+      "bytes": 1090,
+      "sha256": "891d2a94dba0dbed68a664b601de8fe202f7d30b118a7a38c813ed47f5f6bf0c"
+    },
+    {
+      "path": "contract/spec/WIRING-CASES.json",
+      "bytes": 19906,
+      "sha256": "0d0234fb1207f3229644399b48ba97730fcb15cfc51fa0c66dfeb747221b8936"
+    },
+    {
+      "path": "contract/spec/ports.d.ts",
+      "bytes": 4634,
+      "sha256": "71e5a19572b94c53ca7bc6d30732ba2347c80321e9753638810624d4bfd69cd8"
+    },
+    {
+      "path": "contract/spec/provider-fields.json",
+      "bytes": 15757,
+      "sha256": "93bf302e6219100253bb79433637cf0f576138e5b93526df61079bb44a6ff1c1"
+    },
+    {
+      "path": "contract/templates/cordis.patch.yml",
+      "bytes": 94,
+      "sha256": "8de533fbabd307baf1b546cd2dc6b192b99b3dec7f35bc17863b50c9e216bec0"
+    },
+    {
+      "path": "contract/templates/package.json",
+      "bytes": 2089,
+      "sha256": "1f0d581da665945a9d86aeadde046f9d8da55fb4854837f45f8506df3bd768c2"
+    },
+    {
+      "path": "contract/templates/pre-push",
+      "bytes": 127,
+      "sha256": "9dc909b228bfcd3b788a6543fb2aebe7090b50d22b555e62b61f283533828bbb"
+    },
+    {
+      "path": "contract/templates/prepush_docs_gate.py",
+      "bytes": 3674,
+      "sha256": "82e3b46b099565ef946b40bffb13be266d232d33322221b3317d6c87cc9985e6"
+    },
+    {
+      "path": "contract/verify_bundle.py",
+      "bytes": 1576,
+      "sha256": "2e52d6754396a1e52d8262788e2aea7a9b38fb043517c0c009939b1daff3f65b"
+    },
+    {
+      "path": "history/v3-00-START.md",
+      "bytes": 2399,
+      "sha256": "4fb1dd4b22ff2c5a6d124f846a270c83ca6b9de78276225cc771bbb3cde928a9"
+    },
+    {
+      "path": "history/v3-AGENTS.md",
+      "bytes": 3616,
+      "sha256": "2a91657629dedc77e2ff9fcc38465b6a6a406756517813bb3b4469354933b73f"
+    },
+    {
+      "path": "history/v3-HANDOFF_PROMPT.txt",
+      "bytes": 1345,
+      "sha256": "5cb8df8bc12c483fed754da144fe2cf123570a5ec9584c99004eb29de25b7725"
+    },
+    {
+      "path": "history/v3-MANIFEST.json",
+      "bytes": 60653,
+      "sha256": "39f167fe2d6b6bd69ed9c37a9217d3975ff4b2d5604ebe2240530d8ae8bdb075"
+    },
+    {
+      "path": "history/v3-PLAN-DOC-SYNC.json",
+      "bytes": 9142,
+      "sha256": "61533d29b91531ac046e8374c0e1da762ff0f361fbb5268f78c92d8dd15c17a4"
+    },
+    {
+      "path": "history/v3-README.md",
+      "bytes": 772,
+      "sha256": "ba1183ef6fc3da6fb56155ff2cb62e4aae786bfbf686965ca4f30bbf613d0c31"
+    },
+    {
+      "path": "history/v3-STATIC-CHECK.txt",
+      "bytes": 206,
+      "sha256": "7d19280f98faba3858e54a21b84fe9ed0e7fb855b72b9f501d2c84af2e87d16f"
+    },
+    {
+      "path": "history/v3-TASKS.csv",
+      "bytes": 13269,
+      "sha256": "f24ab0ad1ebb9c584a9b037dff8ce47f073ecc9ed37afc52132fea33594a44e6"
+    },
+    {
+      "path": "source-baseline.zip",
+      "bytes": 1765712,
+      "sha256": "c50561b86cb93a9c2941946a707923e2217fef6ce09402284e24a931329f6f6a"
+    },
+    {
+      "path": "verify_bundle.py",
+      "bytes": 1434,
+      "sha256": "6671ee9baf8eb932e2c209cb1276d1c62df7b310184e4eab4fb80e5143f5f7c4"
+    }
+  ]
+}

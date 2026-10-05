@@ -48,6 +48,7 @@ try:
   tree=g('ls-tree','-r','--name-only',localsha).splitlines()
   needed={p for p in tree if p in ['AGENTS.md','README.md','README.zh-CN.md','CHANGELOG.md','HANDOFF.md'] or p.startswith('v1/') and (p.endswith('.md') or p.startswith('v1/docs/'))}
   needed.update(p for p in tree if p.startswith('docs/developer/v1-flash-v3/') and p.endswith('.md') and not any('/'+v+'/' in p for v in ['reference','archive','.agents']))
+  needed.update(p for p in tree if p.startswith('docs/developer/v1-release-v4/') and p.endswith(('.md','.csv','.json')))
   missing=needed-seen
   if missing:fail('inventory missing: '+', '.join(sorted(missing)[:8]))
   if any(not doc(p) for p in paths) and not any(p.startswith('v1/') and p.endswith('.md') for p in paths):fail('code changed without accompanying product documentation')

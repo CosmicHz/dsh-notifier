@@ -1,125 +1,52 @@
-# Task progress
+# Task progress (v4 release authority)
 
-Source of truth: [TASKS.csv](../../docs/developer/v1-flash-v3/TASKS.csv). Ship only
-when every row is `verified` and no blocker remains (08-EXECUTION.md).
+Status source of truth: `docs/developer/v1-release-v4/REMAINING-TASKS.csv` (v4 release package, baseline `2eb91c9`). This file is generated from that list; do not hand-edit a second status. The frozen v3 task graph in `docs/developer/v1-flash-v3/TASKS.csv` and `handoff/` snapshots are history only.
 
-Status values: `planned` → `in_progress` → `verified` (or `blocked`).
+Status values: `required` -> `in_progress` -> `implemented` -> `verified`. `implemented — needs v4 current evidence` means the code and local tests already exist (pushed before this package) but the v4 `validation` file/command set has not yet been reconciled.
 
-## Phase 1 — Bootstrap & foundation
-
-| id | title | status |
-|---|---|---|
-| T00 | Bootstrap | **verified** |
-| T01 | Schema | **verified** |
-| T02 | Store lock | **verified** |
-| T03 | Backup | **verified** |
-| T04 | Secrets | **verified** |
-| T08 | Network | **verified** |
-| T09 | Host ports | **verified** |
-| B00 | Static descriptors | **verified** |
-| T25 | Activity diagnostics | **verified** |
-
-## Phase 2 — Core entities & routing
+Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITION.md).
 
 | id | title | status |
 |---|---|---|
-| T05 | Accounts | **verified** |
-| T06 | Identity | **verified** |
-| T07 | Routes | **verified** |
+| G00 | 恢复唯一入口、保护当前工作树、同步新任务状态 | **done** (this commit) |
+| N01 | 补齐R03授权：Task.sessionId、owner路由、执行时重验 | required |
+| N02 | 秘密解码后按descriptor严格验证 | required |
+| N03 | 消除onFatal早到被ready覆盖与迟到句柄泄漏 | required |
+| N04 | 修正登录能力并建立capability方法证据映射 | required |
+| R07 | 控制卡片token合同 | **implemented** — needs v4 current evidence |
+| R09 | Telegram群callback拒绝与接收ACK | **implemented** — needs v4 current evidence |
+| R14 | 交互TTL与Host截止时间 | **implemented** — needs v4 current evidence |
+| R10 | 默认manager接入配对与本人撤销 | **implemented** — needs v4 current evidence |
+| R11 | Host事件到对话回程与待办投递 | **implemented** — needs v4 current evidence |
+| R12 | 媒体引用安全准入到Host AttachmentRef | **implemented** — needs v4 current evidence |
+| R13 | 控制发送幂等及逐段效果证据 | **implemented** — needs v4 current evidence |
+| T17 | Feishu | **implemented** — needs v4 current evidence |
+| T18 | WeChat | required |
+| T19 | QQ | required |
+| T20 | DingTalk | required |
+| T21 | WxPusher | **implemented** — needs v4 current evidence |
+| T26 | DSH integration | required |
+| T27 | RPC | required |
+| T28 | CLI | required |
+| UX00 | Design contract fixtures | required |
+| T30 | UI foundation | required |
+| UX01 | R1 visual prototype review | required |
+| T31 | Overview notifications UI | required |
+| T32 | Private chat UI | required |
+| T33 | Pending settings UI | required |
+| UX02 | R2 full UX review | required |
+| UX03 | Fix reviewed UX defects | required |
+| UX04 | R3 visual and accessibility review | required |
+| UX05 | UX quality gate | required |
+| G01 | 固定1.0.0候选版本与可复现依赖 | required |
+| T34 | Full journeys | required |
+| T35 | Coverage fault injection | required |
+| T36 | Performance soak | required |
+| T37 | Packaging | required |
+| G02 | 发行CI与缺项必须失败的严格门槛 | required |
+| T38 | Docs release gates | required |
+| T39 | Final verification | required |
+| G03 | 组装可交付发行目录与SHA256清单 | required |
+| G04 | 最终文档同步与单ZIP发行交付 | required |
 
-## Phase 3 — Outbound providers
-
-| id | title | status |
-|---|---|---|
-| T13 | Provider registry | **verified** |
-| T14 | Notifications | **verified** |
-| T12 | Messages | **verified** |
-| T22 | Remaining code adapters | **verified** |
-| T23 | Spec adapters | **verified** |
-| T24 | Local adapters | **verified** |
-| T29 | Importer | **verified** |
-
-## Phase 4 — Inbound, effects, interactions
-
-| id | title | status |
-|---|---|---|
-| B01 | Effect inbox and reply identity | **verified** |
-| B02 | Control reply and correlation | **verified** |
-| B03 | Login and read projection | **verified** |
-| B04 | Callbacks and host facts | **verified** |
-| T10 | Interactions | **verified** |
-| T11 | Conversation | **verified** |
-
-## Phase 5 — Runtime, platform providers, integration
-
-| id | title | status |
-|---|---|---|
-| T15 | Runtime | **verified** |
-| T16 | Telegram | **verified** |
-| T17 | Feishu | **implemented** |
-| T18 | WeChat | planned |
-| T19 | QQ | planned |
-| T20 | DingTalk | planned |
-| T21 | WxPusher | **implemented** |
-| T26 | DSH integration | planned |
-| T27 | RPC | planned |
-| T28 | CLI | planned |
-
-## Phase 6 — UI
-
-| id | title | status |
-|---|---|---|
-| UX00 | Design contract fixtures | planned |
-| T30 | UI foundation | planned |
-| UX01 | R1 visual prototype review | planned |
-| T31 | Overview notifications UI | planned |
-| T32 | Private chat UI | planned |
-| T33 | Pending settings UI | planned |
-| UX02 | R2 full UX review | planned |
-| UX03 | Fix reviewed UX defects | planned |
-| UX04 | R3 visual and accessibility review | planned |
-| UX05 | UX quality gate | planned |
-
-## Phase 7 — Acceptance
-
-| id | title | status |
-|---|---|---|
-| T34 | Full journeys | planned |
-| T35 | Coverage fault injection | planned |
-| T36 | Performance soak | planned |
-| T37 | Packaging | planned |
-| T38 | Docs release gates | planned |
-| T39 | Final verification | planned |
-
-## Recovery pass — R01–R14
-
-Opened by the static review of baseline `24404fb` (`v1/REVIEW.md`). Independent of
-the TASKS.csv phases above.
-
-| id | title | status |
-|---|---|---|
-| R01 | docs / evidence / source-version consistency | **verified** (`fb264a4`) |
-| R02 | effective pre-push gate path + neat-freak | **verified** (`263671e`) |
-| R03 | member list / stop / binding authorization | **verified** (`8bbac37`) |
-| R08 | typed secret decoding | **verified** (`3308719`) |
-| R04 | `controlEnabled` admission | **verified** (this commit) |
-| R05 | Telegram reliable offset | **verified** (this commit) |
-| R06 | background exit → real `degraded` health | **verified** (this commit) |
-| R07 | control-card `{label,token}` contract | **implemented** (uncommitted) |
-| R09 | Telegram callback group type + ACK | **implemented** (uncommitted) |
-| R10 | `/pair` injection + `/unpair` | **implemented** (uncommitted) |
-| R11 | Host event return path | **implemented** (uncommitted) |
-| R12 | media safely into the Host | **implemented** (uncommitted) |
-| R13 | control-send idempotency + segmentation | **implemented** (uncommitted) |
-| R14 | interaction TTL | **implemented** (uncommitted) |
-
-## Notes
-
-- Evidence files live in `evidence/<task>.json` and are produced by the task itself.
-- Phase boundaries trigger a neat-freak documentation sync even when no push happens.
-- **Status values**: `planned` → `in_progress` → `implemented` → `verified`.
-- **implemented**: Code committed but not yet re-validated in current session.
-- **verified**: Tests run and passed in current session with evidence recorded.
-- Tasks B01–B04, T10, T11, T15, T16 have been re-validated on 2026-10-05 at commit
-  3308719 with source hash d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced.
-  All unit tests (262), protocol tests (59), and integration tests (13) pass.
+Original 51-task coverage mapping: `docs/developer/v1-release-v4/ORIGINAL-TASK-COVERAGE.csv`.

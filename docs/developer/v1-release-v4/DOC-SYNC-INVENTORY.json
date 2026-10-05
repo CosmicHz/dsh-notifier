@@ -1,0 +1,273 @@
+{
+  "scope": "handoff-package-only",
+  "skill": ".agents/skills/neat-freak/SKILL.md",
+  "independentMemory": "not-applicable",
+  "files": [
+    {
+      "path": ".agents/skills/neat-freak/SKILL.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": ".agents/skills/neat-freak/references/agent-paths.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": ".agents/skills/neat-freak/references/sync-matrix.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "00-START-HERE.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "01-CURRENT-REVIEW.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "02-RELEASE-DEFINITION.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "03-EXECUTION-AND-DOC-SYNC.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "04-LATEST-CONTRACT-FIXES.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "AGENTS.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "README.md",
+      "disposition": "updated",
+      "reason": "最新发行目标/接手状态与任务同步"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/SKILL.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/references/agent-paths.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/.agents/skills/neat-freak/references/sync-matrix.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/01-DECISIONS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/02-DATA.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/03-SERVICES-RPC.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/04-PROVIDERS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/05-HOST-CLI.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/06-UI.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/07-ACCEPTANCE.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/08-EXECUTION.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/09-IMPORT.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/11-UX-FLOWS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/12-VISUAL-DIRECTION.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/13-QUALITY-LOOP.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/14-UX-API-ADDENDUM.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/15-FIELD-COPY.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/18-WIRING.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/19-UI-WIRING.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/20-HOST-PROTOCOL-MAP.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/21-REVIEW-CLOSURE.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/22-DOC-SYNC-AND-PUSH.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/DELIVERY-NOTES.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/README.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/archive/10-UX-AUDIT.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/archive/ARCHITECTURE.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/archive/REVIEW.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/archive/WIRING-REVIEW-v2.1.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/design/README.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/evidence/R03-sessions-auth.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/README.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/ADAPTER.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/PLUGINS.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/THIRD_PARTY_NOTICES.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/README.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/dingtalk.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/feishu.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/qq-bot.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/telegram.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "contract/reference/source/docs/protocol-preflight/wechat-ilink.md",
+      "disposition": "reviewed-no-change",
+      "reason": "完整冻结产品合同/协议参考或原版skill保留，不作为旧任务入口"
+    },
+    {
+      "path": "history/v3-00-START.md",
+      "disposition": "not-applicable",
+      "reason": "旧入口/状态已隔离，禁止作为当前指令"
+    },
+    {
+      "path": "history/v3-AGENTS.md",
+      "disposition": "not-applicable",
+      "reason": "旧入口/状态已隔离，禁止作为当前指令"
+    },
+    {
+      "path": "history/v3-README.md",
+      "disposition": "not-applicable",
+      "reason": "旧入口/状态已隔离，禁止作为当前指令"
+    }
+  ],
+  "note": "本次只静态同步交接包，不声称远端文档已修改或产品已测试"
+}

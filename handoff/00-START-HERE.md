@@ -1,4 +1,10 @@
-# Handoff — dsh-notifier v1 (authoritative entry)
+> **SUPERSEDED by v4 (2026-10-05).** This handoff and every snapshot in this directory
+> are frozen history, **not** current state. The authoritative entry is now
+> [`docs/developer/v1-release-v4/00-START-HERE.md`](../docs/developer/v1-release-v4/00-START-HERE.md)
+> with the task list `docs/developer/v1-release-v4/REMAINING-TASKS.csv`; the goal is the
+> dsh-notifier 1.0.0 release-ready artifact. Do not use this file for execution order.
+
+# Handoff — dsh-notifier v1 (historical snapshot)
 
 Read this file first. It is the single source of truth for the next agent; the other
 files in this directory are supporting snapshots (see the warning at the bottom).

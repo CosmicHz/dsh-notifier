@@ -1,0 +1,518 @@
+[
+  {
+    "path": "v1/src/plugin-entry.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/runtime/application.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/host/dsh.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/rpc/router.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/rpc/server.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/cli/main.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/entry.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/controller.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/rpc.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/strings.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/theme.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/components.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/design-tokens.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/field-copy.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/pages/overview.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/pages/notifications.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/pages/private-chat.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/pages/pending.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/ui/pages/settings.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/dist/client.js",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/client.js",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/types/index.d.ts",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/package.json",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/package-lock.json",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/cordis.patch.yml",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/README.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/README.zh-CN.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/LICENSE",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/THIRD_PARTY_NOTICES.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/CHANGELOG.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/HANDOFF.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/docs/integration-guide.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/docs/architecture.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/docs/runbook.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/docs/PROGRESS.md",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/docs/DOC-SYNC.json",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/scripts/coverage.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/scripts/soak.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/scripts/verify-pack.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/scripts/verify-release.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/scripts/verify-ux.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/scripts/assemble-release.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/playwright.config.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/test/e2e/harness.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": ".github/workflows/v1-release-check.yml",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/telegram/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/dingtalk/index.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/feishu/index.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/wxpusher/index.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/pushplus/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/serverchan/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/bark/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/webhook/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/bell/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/desktop/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/slack/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/discord/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/wecom/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/mattermost/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/gchat/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/teams/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/ntfy/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/gotify/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/pushover/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/chanify/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/pushdeer/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/xizhi/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/qmsg/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/igot/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/onebot/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/wps-bot/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/qq-bot/index.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/wecom-app/index.mjs",
+    "baselineExists": true,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "v1/src/providers/wechat-ilink/index.mjs",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "behavior-and-pack-gate; existence alone is not completion"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/dsh-notifier-1.0.0.tgz",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/SHA256SUMS",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/SOURCE-MANIFEST.json",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/source-v1.zip",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/RELEASE-NOTES.zh-CN.md",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/RELEASE-NOTES.en.md",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/SUPPORT-MATRIX.json",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/VALIDATION.json",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/KNOWN-LIMITATIONS.md",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/INSTALL.md",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0/DELIVERY.json",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "02-RELEASE-DEFINITION.md"
+  },
+  {
+    "path": "release/dsh-notifier-1.0.0-release.zip",
+    "baselineExists": false,
+    "requiredAtRelease": true,
+    "proof": "G04"
+  }
+]
