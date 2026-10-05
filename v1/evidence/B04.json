@@ -1,8 +1,8 @@
 {
   "task": "B04",
   "title": "Callbacks and host facts",
-  "commit": null,
-  "sourceId": null,
+  "commit": "3308719",
+  "sourceId": "d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced",
   "files": [
     "src/host/callbacks.mjs",
     "src/host/waiters.mjs",
@@ -10,8 +10,16 @@
     "test/unit/host-facts.test.mjs"
   ],
   "commands": [
-    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; host-facts.test.mjs covers W03/W06/W25" },
-    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "report": "262 unit tests pass; host-facts.test.mjs covers W03/W06/W25"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "report": "check passed (68 source files)"
+    }
   ],
   "tests": [
     "hostRefs embed the boot id and parse without splitting platform ids",
@@ -25,5 +33,7 @@
     "W06 an oversized body is 413 before any provider verification",
     "W06 a host without callback mount reports CALLBACK_UNAVAILABLE"
   ],
-  "remaining": []
+  "remaining": [],
+  "validatedAt": "2026-10-05",
+  "validationNote": "Re-validated in handoff session after R08"
 }

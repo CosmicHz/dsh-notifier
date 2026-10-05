@@ -1,16 +1,24 @@
 {
   "task": "T10",
   "title": "Interactions",
-  "commit": null,
-  "sourceId": null,
+  "commit": "3308719",
+  "sourceId": "d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced",
   "files": [
     "src/services/interactions.mjs",
     "src/runtime/arbiter.mjs",
     "test/unit/interactions.test.mjs"
   ],
   "commands": [
-    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; interactions.test.mjs covers C01-C04" },
-    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "report": "262 unit tests pass; interactions.test.mjs covers C01-C04"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "report": "check passed (68 source files)"
+    }
   ],
   "tests": [
     "C01 a claimed interaction rejects a second claim (one Host execution)",
@@ -23,5 +31,7 @@
     "revision mismatch is a CONFLICT carrying only the current revision",
     "pending interactions are capped and never evict active work"
   ],
-  "remaining": []
+  "remaining": [],
+  "validatedAt": "2026-10-05",
+  "validationNote": "Re-validated in handoff session after R08"
 }

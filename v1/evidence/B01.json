@@ -1,8 +1,8 @@
 {
   "task": "B01",
   "title": "Effect inbox and reply identity",
-  "commit": null,
-  "sourceId": null,
+  "commit": "3308719",
+  "sourceId": "d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced",
   "files": [
     "src/services/effects.mjs",
     "src/services/inbox.mjs",
@@ -11,8 +11,16 @@
     "test/unit/effects.test.mjs"
   ],
   "commands": [
-    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; effects.test.mjs covers W10/W11/W20/W04" },
-    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "report": "262 unit tests pass; effects.test.mjs covers W10/W11/W20/W04"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "report": "check passed (68 source files)"
+    }
   ],
   "tests": [
     "W10 the idempotency key isolates actor, method and requestId",
@@ -26,5 +34,7 @@
     "a reply context is pinned to the principal and hides transport secrets from views",
     "W04 a reply ref stores only the token hash and scopes lookup to account/chat"
   ],
-  "remaining": []
+  "remaining": [],
+  "validatedAt": "2026-10-05",
+  "validationNote": "Re-validated in handoff session after R08"
 }

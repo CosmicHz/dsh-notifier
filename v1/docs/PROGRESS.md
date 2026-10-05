@@ -43,19 +43,19 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 
 | id | title | status |
 |---|---|---|
-| B01 | Effect inbox and reply identity | **implemented** |
-| B02 | Control reply and correlation | **implemented** |
-| B03 | Login and read projection | **implemented** |
-| B04 | Callbacks and host facts | **implemented** |
-| T10 | Interactions | **implemented** |
-| T11 | Conversation | **implemented** |
+| B01 | Effect inbox and reply identity | **verified** |
+| B02 | Control reply and correlation | **verified** |
+| B03 | Login and read projection | **verified** |
+| B04 | Callbacks and host facts | **verified** |
+| T10 | Interactions | **verified** |
+| T11 | Conversation | **verified** |
 
 ## Phase 5 — Runtime, platform providers, integration
 
 | id | title | status |
 |---|---|---|
-| T15 | Runtime | **implemented** |
-| T16 | Telegram | **implemented** |
+| T15 | Runtime | **verified** |
+| T16 | Telegram | **verified** |
 | T17 | Feishu | planned |
 | T18 | WeChat | planned |
 | T19 | QQ | planned |
@@ -98,6 +98,6 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 - **Status values**: `planned` → `in_progress` → `implemented` → `verified`.
 - **implemented**: Code committed but not yet re-validated in current session.
 - **verified**: Tests run and passed in current session with evidence recorded.
-- Tasks B01–B04, T10, T11, T15, T16 are marked `implemented` as they have committed
-  code from previous agent (commits 737d09c, 24404fb) but require revalidation before
-  claiming `verified` status.
+- Tasks B01–B04, T10, T11, T15, T16 have been re-validated on 2026-10-05 at commit
+  3308719 with source hash d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced.
+  All unit tests (262), protocol tests (59), and integration tests (13) pass.

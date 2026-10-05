@@ -1,16 +1,24 @@
 {
   "task": "T16",
   "title": "Telegram",
-  "commit": null,
-  "sourceId": null,
+  "commit": "3308719",
+  "sourceId": "d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced",
   "files": [
     "src/providers/telegram/index.mjs",
     "src/providers/platform.mjs",
     "test/protocol/telegram.test.mjs"
   ],
   "commands": [
-    { "command": "npm run test:protocol", "exitCode": 0, "report": "59 protocol tests pass; telegram covers outbound/control reply/inbound long-poll/media/reconnect/stale epoch" },
-    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass (registry now includes the telegram outbound provider)" }
+    {
+      "command": "npm run test:protocol",
+      "exitCode": 0,
+      "report": "59 protocol tests pass; telegram covers outbound/control reply/inbound long-poll/media/reconnect/stale epoch"
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "report": "262 unit tests pass (registry now includes the telegram outbound provider)"
+    }
   ],
   "tests": [
     "telegram: outbound sendMessage URL/body and silent flag",
@@ -21,5 +29,7 @@
     "telegram: a stale-epoch cursor stop ends the loop",
     "telegram: a photo is resolved to a downloadable file URL"
   ],
-  "remaining": []
+  "remaining": [],
+  "validatedAt": "2026-10-05",
+  "validationNote": "Re-validated in handoff session after R08"
 }

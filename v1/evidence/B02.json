@@ -1,8 +1,8 @@
 {
   "task": "B02",
   "title": "Control reply and correlation",
-  "commit": null,
-  "sourceId": null,
+  "commit": "3308719",
+  "sourceId": "d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced",
   "files": [
     "src/services/control-replies.mjs",
     "src/services/correlations.mjs",
@@ -10,8 +10,16 @@
     "test/unit/correlations.test.mjs"
   ],
   "commands": [
-    { "command": "npm run test:unit", "exitCode": 0, "report": "262 unit tests pass; control-replies/correlations suites cover W01/W02/W12/W16" },
-    { "command": "npm run check", "exitCode": 0, "report": "check passed (68 source files)" }
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "report": "262 unit tests pass; control-replies/correlations suites cover W01/W02/W12/W16"
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "report": "check passed (68 source files)"
+    }
   ],
   "tests": [
     "W01 a control reply ignores route/quiet and lands on the inbound channel",
@@ -24,5 +32,7 @@
     "W02 restart cancels a reserved correlation and marks an active one uncertain",
     "W16 revoking a principal cancels only that principal live correlations"
   ],
-  "remaining": []
+  "remaining": [],
+  "validatedAt": "2026-10-05",
+  "validationNote": "Re-validated in handoff session after R08"
 }
