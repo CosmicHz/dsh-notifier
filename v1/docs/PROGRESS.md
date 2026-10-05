@@ -91,6 +91,28 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 | T38 | Docs release gates | planned |
 | T39 | Final verification | planned |
 
+## Recovery pass — R01–R14
+
+Opened by the static review of baseline `24404fb` (`v1/REVIEW.md`). Independent of
+the TASKS.csv phases above.
+
+| id | title | status |
+|---|---|---|
+| R01 | docs / evidence / source-version consistency | **verified** (`fb264a4`) |
+| R02 | effective pre-push gate path + neat-freak | **verified** (`263671e`) |
+| R03 | member list / stop / binding authorization | **verified** (`8bbac37`) |
+| R08 | typed secret decoding | **verified** (`3308719`) |
+| R04 | `controlEnabled` admission | **verified** (this commit) |
+| R05 | Telegram reliable offset | **verified** (this commit) |
+| R06 | background exit → real `degraded` health | **verified** (this commit) |
+| R07 | control-card `{label,token}` contract | required-not-run |
+| R09 | Telegram callback group type + ACK | required-not-run |
+| R10 | `/pair` injection + `/unpair` | required-not-run |
+| R11 | Host event return path | required-not-run |
+| R12 | media safely into the Host | required-not-run |
+| R13 | control-send idempotency + segmentation | required-not-run |
+| R14 | interaction TTL | required-not-run |
+
 ## Notes
 
 - Evidence files live in `evidence/<task>.json` and are produced by the task itself.

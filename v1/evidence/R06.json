@@ -1,0 +1,16 @@
+{
+  "task": "R06",
+  "scope": "后台异常与health",
+  "acceptance": "配置失败/后台退出真实degraded，无空catch假ready",
+  "status": "verified",
+  "timestamp": "2026-10-05T18:00:00Z",
+  "commit": null,
+  "sourceId": "43687d98be34ae5aac291588c85d19f1597f75f1c685f53d4e0bb7511c5428b0",
+  "evidence": {
+    "fix": "src/providers/telegram/index.mjs start() fails fast (NOT_CONFIGURED/UNSUPPORTED); background fatal exit routed through onFatal; no `.catch(()=>null)`. src/runtime/manager.mjs applyAccount now passes onFatal into provider.start and sets connection.state='degraded'+health 'degraded' (ignored for a superseded epoch).",
+    "tests": [
+      "test/unit/R06-telegram-lifecycle.test.mjs (4 cases)",
+      "test/integration/runtime.test.mjs R06 cases: background fatal exit degrades; superseded-epoch onFatal ignored"
+    ]
+  }
+}

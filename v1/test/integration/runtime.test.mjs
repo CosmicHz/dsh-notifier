@@ -28,24 +28,26 @@ async function scratch() {
     enabled: true,
     config: { outbound: {}, inbound: {} },
     notificationEnabled: false,
-    controlEnabled: false,
+    controlEnabled: true,  // ← R04: tests need ingest to work
+    secretChanges: [{ op: 'set', path: 'inbound.botToken', value: { kind: 'literal', value: '"fake-token"' } }],
   }, { now: 100 });
   return { store, account };
 }
 
 /** A provider that records its lifecycle and can emit into the runtime. */
 function fakeProvider({ onStart } = {}) {
-  const state = { starts: 0, stops: 0, lastEpoch: null, emit: null };
+  const state = { starts: 0, stops: 0, lastEpoch: null, emit: null, onFatal: null };
   return {
     id: 'telegram',
     capabilities: { outbound: true, inbound: true, controlReply: true },
     state,
-    async start({ epoch, emit, cursorStore }) {
+    async start({ epoch, emit, cursorStore, onFatal }) {
       state.starts += 1;
       state.lastEpoch = epoch;
       state.emit = emit;
       state.cursorStore = cursorStore;
-      onStart?.({ emit, epoch, cursorStore });
+      state.onFatal = onFatal ?? null;
+      onStart?.({ emit, epoch, cursorStore, onFatal });
       return { async stop() { state.stops += 1; } };
     },
   };
@@ -191,5 +193,36 @@ test('the bounded event buffer refuses on overflow and reports degraded', async 
   await manager.start();
   assert.equal(manager.eventBus.overflowed, true);
   assert.ok(manager.eventBus.dropped >= 1, 'overflowed events are dropped, not silently queued');
+  await manager.stop();
+});
+test('R06 a background fatal exit from the provider degrades the connection (no fake ready)', async () => {
+  const { store, account } = await scratch();
+  const provider = fakeProvider();
+  const manager = createRuntimeManager({ store, resolveProvider: () => provider });
+  await manager.start();
+  // The manager must pass onFatal into provider.start so a later async exit can degrade.
+  assert.equal(typeof provider.state.onFatal, 'function', 'manager must wire onFatal');
+  assert.equal(manager.connectionView(account.id).state, 'ready');
+
+  provider.state.onFatal({ code: 'FORBIDDEN', message: 'auth failed' });
+
+  const view = manager.connectionView(account.id);
+  assert.equal(view.state, 'degraded', 'background fatal exit must degrade');
+  assert.equal(view.errorCode, 'FORBIDDEN');
+  assert.equal(manager.health.status, 'degraded');
+  await manager.stop();
+});
+
+test('R06 a fatal exit from a superseded epoch does not degrade the replacement', async () => {
+  const { store, account } = await scratch();
+  const provider = fakeProvider();
+  const manager = createRuntimeManager({ store, resolveProvider: () => provider });
+  await manager.start();
+  const staleOnFatal = provider.state.onFatal;
+  // Restart mints a new epoch and swaps in a fresh loop; the old loop dying must not win.
+  const restarted = await manager.restartAccount(account.id);
+  assert.notEqual(restarted.epoch, null);
+  staleOnFatal({ code: 'FORBIDDEN', message: 'stale' });
+  assert.equal(manager.connectionView(account.id).state, 'ready', 'stale onFatal is ignored');
   await manager.stop();
 });

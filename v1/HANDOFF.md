@@ -44,6 +44,50 @@ not import it and does not keep v0 compatibility.
   phases remain planned. See [docs/PROGRESS.md](docs/PROGRESS.md) for the live status
   table.
 
+### Recovery pass (R01–R14, `REVIEW.md`)
+
+A static review of baseline `24404fb` opened 14 recovery items. Current progress:
+
+| item | scope | status |
+|---|---|---|
+| R01 | docs / evidence / source-version consistency | **done** (commit `fb264a4`) |
+| R02 | effective pre-push gate path + neat-freak | **done** (commit `263671e`) |
+| R03 | member list / stop / binding authorization | **done** (commit `8bbac37`) |
+| R08 | typed secret decoding (literal JSON / env) | **done** (commit `3308719`) |
+| R04 | `controlEnabled` admission | **done**, tests green, in this commit |
+| R05 | Telegram reliable offset | **done**, tests green, in this commit |
+| R06 | background exit → real `degraded` health | **done**, tests green, in this commit |
+| R07 | control-card `{label,token}` contract | remaining |
+| R09 | Telegram callback group type + ACK | remaining |
+| R10 | `/pair` dependency injection + `/unpair` | remaining |
+| R11 | Host event return path (`turn.*`, `interaction.opened`) | remaining |
+| R12 | media safely into the Host (`MediaService` → `AttachmentRef`) | remaining |
+| R13 | control-send idempotency + segmentation | remaining |
+| R14 | interaction TTL (never extend a past deadline) | remaining |
+
+R04/R05/R06 details this pass (all covered by `npm run test:unit` +
+`npm run test:integration`):
+
+- **R04** — `runtime/manager.mjs` gates the inbound control transport on
+  `account.enabled && account.controlEnabled` in both `applyAccount` (never calls
+  `provider.start`) and `ingest` (returns `FORBIDDEN` *after* the stale-epoch check,
+  so D04 precedence holds). Notification delivery is untouched. The acceptance test
+  was relocated from `test/r04-…` into `test/unit/` — the runner only walks
+  `test/{unit,integration,protocol}`, so it had never executed and its second case
+  failed on a hard-coded epoch.
+- **R05** — `providers/telegram/index.mjs` advances the cursor only when every update
+  in the batch was accepted or `DUPLICATE`. A non-stale rejection now aborts the batch
+  **and surfaces as fatal** (the connection degrades instead of pretending to be
+  `ready`); a superseded `STALE_EPOCH` still ends the loop quietly. A failed
+  `cursorStore.commit` throws `UNAVAILABLE` so the watermark never moves without a
+  durable commit.
+- **R06** — provider `start()` fails fast on missing config/network; a fatal background
+  exit goes through `onFatal` (no `.catch(() => null)`). `runtime/manager.mjs` now
+  **wires `onFatal` into `provider.start`** and projects a real background exit to
+  `connection.state='degraded'` + `health.degraded` (ignored for a superseded epoch).
+
+Current suite: **356 tests pass**, `npm run check` passes (72 source files).
+
 ## How to continue
 
 1. Read the frozen contract docs listed in `TASKS.csv` `read_first` for the task.

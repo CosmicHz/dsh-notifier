@@ -65,6 +65,24 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
   principal sessionIds (owner sees all, members see only authorized sessions). Fixed
   `/stop` to check canConverse and session authorization before terminating. Unified
   authorization logic via `isSessionAuthorized()` helper. All 340 tests pass.
+- R04: controlEnabled admission. `runtime/manager.mjs` now gates the inbound control
+  transport on `account.enabled && account.controlEnabled`: `applyAccount` records the
+  connection `stopped` without calling `provider.start`, and `ingest` rejects with
+  `FORBIDDEN` after the stale-epoch check (D04 precedence preserved). Notification
+  delivery stays independent of `controlEnabled`. The R04 acceptance test was moved
+  into `test/unit/` so the runner actually executes it, and a D04-precedence case was
+  added.
+- R05: Telegram reliable offset. `providers/telegram/index.mjs` advances the cursor
+  only when every update in the batch was accepted or explicitly `DUPLICATE`; a
+  non-stale rejection now aborts the batch and surfaces as fatal (the manager degrades
+  instead of faking `ready`), while a superseded `STALE_EPOCH` ends the loop quietly. A
+  failed `cursorStore.commit` throws `UNAVAILABLE` so the next `getUpdates` can never use
+  an uncommitted offset. The unparseable-update advance is documented.
+- R06: Telegram background exit and health. `providers/telegram/index.mjs` fails fast on
+  missing config at `start()` and routes a fatal background exit through `onFatal`
+  (never `.catch(() => null)`). `runtime/manager.mjs` now wires `onFatal` into
+  `provider.start`, so a real background auth exit projects `connection.state='degraded'`
+  + `health.degraded` (ignored for a superseded epoch).
 
 > Only the Phase 1 foundation, Phase 2 core entity services, Phase 3 outbound providers,
 > Phase 4 inbound/effects/interactions, and Phase 5 runtime + Telegram exist so far;

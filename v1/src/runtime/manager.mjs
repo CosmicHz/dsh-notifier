@@ -144,6 +144,10 @@ export function createRuntimeManager({
     if (envelope.epoch !== connection.epoch) {
       return { accepted: false, code: 'STALE_EPOCH' };
     }
+    // D04 satisfied: stale epoch rejected before checking controlEnabled
+    if (account.enabled !== true || account.controlEnabled !== true) {
+      return { accepted: false, code: 'FORBIDDEN' };
+    }
     const at = nowOf(clock);
     let received;
     try {
@@ -274,7 +278,7 @@ export function createRuntimeManager({
       connections.set(accountId, { epoch, state: 'outbound', provider: null, controller: null, stop: null });
       return connectionView(accountId);
     }
-    if (account.enabled !== true) {
+    if (account.enabled !== true || account.controlEnabled !== true) {
       connections.set(accountId, { epoch, state: 'stopped', provider: null, controller: null, stop: null });
       return connectionView(accountId);
     }
@@ -290,6 +294,19 @@ export function createRuntimeManager({
         network,
         clock,
         cursorStore: makeCursorStore(accountId, epoch),
+        // A fatal background exit (e.g. HTTP 401/403) must project a real
+        // degraded connection, never a fake `ready`. Ignore the callback if the
+        // connection was already superseded or removed (swap/stop), so a dying
+        // loop cannot knock out its replacement.
+        onFatal: (info) => {
+          const current = connections.get(accountId);
+          if (!current || current.epoch !== epoch) return;
+          current.state = 'degraded';
+          current.errorCode = typeof info?.code === 'string' ? info.code : 'INTERNAL';
+          warn(`account ${accountId} background exit: ${current.errorCode}`);
+          setHealth('degraded', 'CHANNEL_DEGRADED', accountId);
+          projection?.invalidate?.('runtime-degraded');
+        },
       });
       connection.stop = typeof started?.stop === 'function' ? started.stop : null;
       connection.state = 'ready';

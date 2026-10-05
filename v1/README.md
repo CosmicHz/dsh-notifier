@@ -2,7 +2,8 @@
 
 > Status: **implementation in progress**. This is the v1 independent rewrite. It is
 > not yet a working release; see [HANDOFF.md](HANDOFF.md) and
-> [docs/PROGRESS.md](docs/PROGRESS.md) for the exact task state.
+> [docs/PROGRESS.md](docs/PROGRESS.md) for the exact task state. Recovery items
+> R01–R14 from `REVIEW.md` are tracked in the same status table.
 
 `dsh-notifier` delivers task notifications to 28 outbound channels and lets a paired
 user control DSH from 6 inbound channels, from inside DSH 0.1.7-rc.2.

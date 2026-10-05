@@ -1,0 +1,15 @@
+{
+  "task": "R05",
+  "scope": "Telegram可靠offset",
+  "acceptance": "未持久接收和cursor失败不越水位",
+  "status": "verified",
+  "timestamp": "2026-10-05T18:00:00Z",
+  "commit": null,
+  "sourceId": "43687d98be34ae5aac291588c85d19f1597f75f1c685f53d4e0bb7511c5428b0",
+  "evidence": {
+    "fix": "src/providers/telegram/index.mjs runLoop advances nextOffset only on accepted===true||code==='DUPLICATE'; any other rejection aborts the batch (STALE_EPOCH ends quietly, everything else throws so manager degrades); a failed cursorStore.commit throws UNAVAILABLE so the next getUpdates never uses an uncommitted offset. Unparseable-update advance documented.",
+    "tests": [
+      "test/unit/R05-telegram-offset.test.mjs (all-accepted→103, second-rejected→no commit, DUPLICATE→103, STALE_EPOCH→no commit, non-stale rejection→onFatal, cursor-commit failure→fatal + single poll)"
+    ]
+  }
+}

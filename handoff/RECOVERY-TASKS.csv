@@ -1,0 +1,15 @@
+id,scope,depends_on,acceptance,status
+R01,文档/任务/源版本证据,,进度与当前代码一致，未复验不verified,required-not-run
+R02,pre-push有效路径与neat-freak,R01,从仓库根执行有效hook；缺/旧报告必须拒绝,required-not-run
+R03,成员列表/stop/binding授权,R02,过滤后分页，撤权或canConverse=false不调用Host,required-not-run
+R04,controlEnabled准入,R03,关闭控制不start、不接纳，通知仍独立,required-not-run
+R05,Telegram可靠offset,R04,未持久接收和cursor失败不越水位,required-not-run
+R06,后台异常与health,R05,配置失败/后台退出真实degraded，无空catch假ready,required-not-run
+R08,typed secrets解码,R06,literal JSON/env按descriptor还原，日志无秘密,required-not-run
+R09,callback群拒绝与ACK,R08,群回调不当private，ACK不等于审批成功,required-not-run
+R14,Host期限,R09,过期不续命，未来TTL取较短者,required-not-run
+R07,卡片token合同,R14,服务生成label/token可直接进入Telegram字节合法body,required-not-run
+R10,pair与unpair,R07,真实manager默认链能配对、只撤本人,required-not-run
+R11,Host事件回程/待办,R10,事件产生回答/待办，仅原主体接收，多端只结算一次,required-not-run
+R12,媒体安全入Host,R11,安全下载保存再submit，不透传令牌URL,required-not-run
+R13,控制幂等与分段,R12,同请求不重复，部分成功保留，平台接收不标送达,required-not-run

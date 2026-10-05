@@ -1,0 +1,455 @@
+{
+  "reviewedHead": "24404fbc940624e01004c95bad28d9bf4c26375e",
+  "scope": "static-only",
+  "taskCountsAsCommitted": {
+    "verified": 26,
+    "planned": 25
+  },
+  "evidenceCount": 27,
+  "evidenceMissingBothSourceIds": 23,
+  "evidence": [
+    {
+      "task": "B00",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; descriptors.test.mjs checks all 29 channels and frozen EDITOR-FIELDS"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "B01",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass; effects.test.mjs covers W10/W11/W20/W04"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (68 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "B02",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass; control-replies/correlations suites cover W01/W02/W12/W16"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (68 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "B03",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass; runtime-login.test.mjs covers W05/W17/W18/W28"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (68 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "B04",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass; host-facts.test.mjs covers W03/W06/W25"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (68 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T00",
+      "commit": "bc4237b1387e1cce06f5057a8895309c01559975",
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "node --check scripts/test.mjs",
+          "exitCode": 0,
+          "report": "syntax ok"
+        },
+        {
+          "command": "node --check scripts/check.mjs",
+          "exitCode": 0,
+          "report": "syntax ok"
+        },
+        {
+          "command": "node --check scripts/build.mjs",
+          "exitCode": 0,
+          "report": "syntax ok"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (0 source files)"
+        },
+        {
+          "command": "node scripts/test.mjs unit",
+          "exitCode": 1,
+          "report": "no test files found -> non-zero as required"
+        },
+        {
+          "command": "node scripts/build.mjs",
+          "exitCode": 1,
+          "report": "entry not implemented -> non-zero as required"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T01",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; schema.test.mjs covers valid/unknown-field/foreign-key/limit cases"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T02",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; store.test.mjs covers S01-S04, atomic commit and second-instance refusal"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T03",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; backup.test.mjs covers S05, corrupt-backup rejection and source protection"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T04",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; secrets.test.mjs covers A05, env resolution without persistence and keep/set/clear"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T05",
+      "commit": null,
+      "sourceId": "d52624485fe487d0457f53e1b1ecc4d384346ad4eeb156d56258d32a551b570a",
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "135 unit tests pass; accounts/destinations/connections suites cover A01/A02/A04/A05, target contract, reference cleanup and connection atomicity"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (22 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T06",
+      "commit": null,
+      "sourceId": "9a772fe1e7bea443caaa996ec3031063b8e929db09636b60f0e753567e1c8964",
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "135 unit tests pass; pairing/principals suites cover P01-P04 and A03"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (22 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T07",
+      "commit": null,
+      "sourceId": "4ac6a9425fd8138f1dbc3a1ff8ee419914e453b3ee101e689c4d414b850f6d73",
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "135 unit tests pass; routes/settings suites cover priority, quiet inheritance, validation, binding ambiguity and settings concurrency"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (22 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T08",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; network.test.mjs covers N01-N06"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T09",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; host-port.test.mjs covers every HostPort method shape and typed UNSUPPORTED"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T10",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass; interactions.test.mjs covers C01-C04"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (68 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T11",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass; conversation.test.mjs covers U05/W02/W15 and command authorization"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (68 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T12",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "173 unit tests pass; messages.test.mjs covers inbound normalization, reply resolution and inbound media admission"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T13",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "173 unit tests pass; registry.test.mjs asserts the registry covers all 29 descriptors / 28 outbound "
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (54 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T14",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "173 unit tests pass; notifications.test.mjs covers D01-D03"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T15",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:integration",
+          "exitCode": 0,
+          "report": "integration suite passes; runtime.test.mjs covers D04/D05, epoch rejection, duplicate replay, idempotent lifecycle and bounded event buffer overflow"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (70 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T16",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:protocol",
+          "exitCode": 0,
+          "report": "59 protocol tests pass; telegram covers outbound/control reply/inbound long-poll/media/reconnect/stale epoch"
+        },
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "262 unit tests pass (registry now includes the telegram outbound provider)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T22",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:protocol",
+          "exitCode": 0,
+          "report": "52 protocol tests pass; code-adapters.test.mjs covers the 5 code adapters"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T23",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:protocol",
+          "exitCode": 0,
+          "report": "52 protocol tests pass; spec-adapters.test.mjs covers all 16 declarative channels"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T24",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:protocol",
+          "exitCode": 0,
+          "report": "52 protocol tests pass; local-adapters.test.mjs covers bell and desktop"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T25",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:unit",
+          "exitCode": 0,
+          "report": "96 unit tests pass; activity/diagnostics suites cover cap, TTL, redaction and log rotation"
+        },
+        {
+          "command": "npm run check",
+          "exitCode": 0,
+          "report": "check passed (15 source files)"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    },
+    {
+      "task": "T29",
+      "commit": null,
+      "sourceId": null,
+      "commandsClaimed": [
+        {
+          "command": "npm run test:integration",
+          "exitCode": 0,
+          "report": "8 integration tests pass; import.test.mjs covers I01-I05 on a real temp Store and real files"
+        }
+      ],
+      "reviewStatus": "reported-by-previous-agent-not-rerun"
+    }
+  ],
+  "uncommittedOldAgentChanges": "not-accessible",
+  "agentHangCause": "unknown"
+}

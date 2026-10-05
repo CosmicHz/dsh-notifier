@@ -1,0 +1,17 @@
+{
+  "task": "R04",
+  "scope": "controlEnabled准入",
+  "acceptance": "关闭控制不start、不接纳，通知仍独立",
+  "status": "verified",
+  "timestamp": "2026-10-05T18:00:00Z",
+  "commit": null,
+  "sourceId": "43687d98be34ae5aac291588c85d19f1597f75f1c685f53d4e0bb7511c5428b0",
+  "evidence": {
+    "fix": "src/runtime/manager.mjs applyAccount (line ~281) records connection 'stopped' and never calls provider.start when account.controlEnabled!==true; ingest (line ~148) returns FORBIDDEN after the stale-epoch check so D04 precedence holds. Notifications are gated on account.enabled+notificationEnabled only.",
+    "tests": [
+      "test/unit/r04-control-enabled.test.mjs (3 cases: no start, FORBIDDEN ingest, STALE_EPOCH-before-FORBIDDEN)",
+      "test/integration/runtime.test.mjs D04/D05 use controlEnabled:true scratch account"
+    ],
+    "note": "R04 test relocated from test/r04-control-enabled.test.mjs (outside the runner's enumerated unit|integration|protocol dirs and previously never executed, with a failing 2nd case) into test/unit/ and fixed."
+  }
+}

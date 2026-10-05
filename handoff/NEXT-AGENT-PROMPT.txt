@@ -1,0 +1,15 @@
+接手THEWOLFWALKER/dsh-notifier的dev分支，当前已审查远端基线24404fbc940624e01004c95bad28d9bf4c26375e。上个agent卡死，保留已有v1代码增量继续，不推倒重来。
+
+先读仓库根AGENTS.md、v1/AGENTS.md、本交接REVIEW.md，再读docs/developer/v1-flash-v3/00-START.md、18-WIRING.md、TASKS.csv。不要照旧v1/HANDOFF.md从Phase4重做：实际已经提交Phase4/T15及Telegram T16，但文档和证据落后。
+
+第一步检查git status与当前分支/远端，不reset/clean；存在旧agent未提交修改先保存补丁和未跟踪文件（敏感文件不提交），理解后继续。fetch远端dev；若比24404fb更新，先读新增diff再应用本交接，不回退远端。
+
+按REVIEW.md及RECOVERY-TASKS.csv先修R01–R14：恢复文档/有效pre-push门槛，补成员会话权限、controlEnabled准入、Telegram durable offset、后台错误health、规范token/secret解码、群callback与ACK、pair/unpair接线、Host事件回程、媒体安全入库、控制回复幂等/分段以及交互TTL。
+
+用真实本地Store+manager+conversation+pairing/interactions+Telegram协议fixture串起一条完整闭环；只替换外部Host/provider网络，不mock应用服务绕开接线。逐项先写针对性失败用例再修复并验证。当前审查作者没有运行测试；旧evidence中的通过声明必须按当前源版本重新确认，commit/sourceId=null不得冒充完整证据。
+
+修复后继续原任务图剩余T17–T21、T26–T28、UX/UI/全部质量门槛，不只交审查报告，也不止于文档。既定架构/权限/前端设计不重选；不降级、不向后兼容、旧根src不改、不做真机。
+
+每次push前完整执行.agents/skills/neat-freak/SKILL.md：同步README中英、AGENTS、API/架构/runbook、CHANGELOG、HANDOFF、PROGRESS和DOC-SYNC；有效hook必须指向v1/scripts/prepush_docs_gate.py；不得绕过。只在用户此前已有明确push授权时普通fast-forward推dev；本交接不新增push权限，不碰main/tag/Release/npm publish。
+
+最终报告区分：已实现且本地验证、尚未实施、外部能力未知。不能把测试数量当整条业务闭环证明；不能假称真机、视觉或获奖级验收完成。

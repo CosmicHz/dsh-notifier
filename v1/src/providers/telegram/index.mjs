@@ -160,9 +160,6 @@ async function updateToEnvelope({ account, epoch, update, token, network, signal
 }
 
 async function runLoop({ account, epoch, emit, signal, network, cursorStore, reconnectMs = RECONNECT_MS }, inner) {
-  if (network === null || typeof network?.request !== 'function') {
-    throw new ProviderError('UNSUPPORTED', 'telegram 入站缺少网络端口');
-  }
   const { botToken } = inboundSecrets(account, { botToken: true });
   const stopSignal = combineSignals(signal, inner);
   let offset = toInt(cursorStore?.load?.()?.offset, 0);
@@ -174,35 +171,85 @@ async function runLoop({ account, epoch, emit, signal, network, cursorStore, rec
         url: `${API}/bot${botToken}/getUpdates?offset=${offset}&timeout=${Math.floor(LONG_POLL_MS / 1000)}&allowed_updates=${allowed}`,
         method: 'GET', headers: { accept: 'application/json' },
         timeoutMs: LONG_POLL_MS + 5000, channel: 'Telegram', signal: stopSignal,
+        throwOnHttpError: false,
       });
     } catch (error) {
       if (stopSignal.aborted) return;
-      await sleep(reconnectMs, stopSignal); // reconnect: resume from the persisted offset
+      // Recoverable network errors (timeout, connection failure): backoff and retry.
+      await sleep(reconnectMs, stopSignal);
       continue;
     }
-    if (response.json?.ok !== true) { await sleep(reconnectMs, stopSignal); continue; }
+    // Check HTTP status for auth failures.
+    const status = response.status ?? 0;
+    if (status === 401 || status === 403) {
+      throw new ProviderError('FORBIDDEN', `telegram 认证失败 (HTTP ${status})`);
+    }
+    if (response.json?.ok !== true) {
+      // Other API errors: backoff and retry.
+      await sleep(reconnectMs, stopSignal);
+      continue;
+    }
     const updates = Array.isArray(response.json.result) ? response.json.result : [];
     if (updates.length === 0) { await sleep(25, stopSignal); continue; }
-    let stale = false;
+    let nextOffset = offset;
+    let stopCause = null;
     for (const update of updates) {
       const envelope = await updateToEnvelope({ account, epoch, update, token: botToken, network, signal: stopSignal });
-      if (envelope === null) continue;
+      const updateId = toInt(update.update_id, 0);
+      if (envelope === null) {
+        // Unparseable update (no message/edited_message, or a callback with no
+        // token). Telegram redelivers any update whose id we do not acknowledge,
+        // so a poison update would be re-fetched forever if we did not skip it.
+        // Advancing past it is the only way to make progress; it is never
+        // silently lost — the raw update was not a persistable envelope.
+        nextOffset = Math.max(nextOffset, updateId + 1);
+        continue;
+      }
       const outcome = await emit(envelope);
-      offset = Math.max(offset, toInt(update.update_id, 0) + 1);
-      if (outcome && outcome.accepted === false && outcome.code === 'STALE_EPOCH') { stale = true; break; }
+      if (outcome?.accepted === true || outcome?.code === 'DUPLICATE') {
+        // Accepted or already deduplicated: safe to advance offset.
+        nextOffset = Math.max(nextOffset, updateId + 1);
+      } else {
+        // Any other rejection (STALE_EPOCH, NO_CONNECTION, FORBIDDEN): stop this
+        // batch and preserve the old offset so nothing is skipped.
+        stopCause = typeof outcome?.code === 'string' ? outcome.code : 'INTERNAL';
+        break;
+      }
     }
-    if (stale) return;
-    if (updates.length > 0) {
-      // Cursor advances only after every event was handed to the durable inbox.
-      const advanced = await cursorStore.commit(account.id, { offset });
-      if (advanced && advanced.advanced === false && advanced.reason === 'STALE_EPOCH') return;
+    // STALE_EPOCH means this connection was superseded: end quietly, the
+    // replacement owns the account. Any other stop is a real fault and must
+    // surface as fatal so the manager degrades instead of faking `ready`.
+    if (stopCause === 'STALE_EPOCH') return;
+    if (stopCause !== null) throw new ProviderError(stopCause, `telegram 入站批次中止: ${stopCause}`);
+    if (nextOffset > offset) {
+      // Commit the new offset only after all updates were reliably accepted or deduplicated.
+      const advanced = await cursorStore.commit(account.id, { offset: nextOffset });
+      // A failed cursor commit (e.g. an un-drained inbox) must not let the next
+      // getUpdates use the new offset: stop rather than risk skipping a record.
+      if (!advanced?.advanced) throw new ProviderError('UNAVAILABLE', 'telegram 游标提交失败，停止以避免越水位');
+      offset = nextOffset;
     }
   }
 }
 
-async function start({ account, epoch, emit, signal, network, cursorStore, reconnectMs }) {
+async function start({ account, epoch, emit, signal, network, cursorStore, reconnectMs, onFatal }) {
+  // Synchronous admission: fail fast if configuration is invalid.
+  if (network === null || typeof network?.request !== 'function') {
+    throw new ProviderError('UNSUPPORTED', 'telegram 入站缺少网络端口');
+  }
+  const { botToken } = inboundSecrets(account, { botToken: true });
+  if (str(botToken) === '') {
+    throw new ProviderError('NOT_CONFIGURED', 'telegram 入站未配置 botToken');
+  }
   const controller = new AbortController();
-  const promise = runLoop({ account, epoch, emit, signal, network, cursorStore, reconnectMs }, controller.signal).catch(() => null);
+  const promise = runLoop({ account, epoch, emit, signal, network, cursorStore, reconnectMs }, controller.signal)
+    .catch((error) => {
+      // Fatal errors: stop the loop and notify the manager.
+      if (!controller.signal.aborted && typeof onFatal === 'function') {
+        const code = typeof error?.code === 'string' ? error.code : 'INTERNAL';
+        onFatal({ code, message: String(error?.message ?? error ?? 'unknown') });
+      }
+    });
   return {
     async stop() {
       controller.abort();
