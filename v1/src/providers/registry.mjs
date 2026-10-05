@@ -14,6 +14,7 @@ import wecomApp from './wecom-app/index.mjs';
 import bell from './bell/index.mjs';
 import desktop from './desktop/index.mjs';
 import telegram from './telegram/index.mjs';
+import feishu from './feishu/index.mjs';
 import wxpusher from './wxpusher/index.mjs';
 
 /**
@@ -31,6 +32,7 @@ export const CHANNEL_IMPLEMENTATIONS = Object.freeze({
   bell,
   desktop,
   telegram,
+  feishu,
   wxpusher,
 });
 

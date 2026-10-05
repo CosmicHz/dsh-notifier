@@ -8,8 +8,8 @@
 > and `services/import` (Phase 3) — the inbound `services/` (`effects`, `inbox`,
 > `reply-*`, `control-replies`, `correlations`, `interactions`, `conversation`),
 > `runtime/` (manager, event-bus, arbiter, projection, host-return) and the Telegram +
-> WxPusher channels are implemented and tested. `host/dsh`, `rpc/`, `cli/`, `ui/` and the
-> remaining inbound channels (T17–T20) are still design targets frozen by
+> Feishu + WxPusher channels are implemented and tested. `host/dsh`, `rpc/`, `cli/`, `ui/`
+> and the remaining inbound channels (T18–T20) are still design targets frozen by
 > `docs/developer/v1-flash-v3/18-WIRING.md`, 02 (data) and 03 (services/RPC).
 
 ## Layers

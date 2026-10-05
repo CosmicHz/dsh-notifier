@@ -43,11 +43,12 @@ not import it and does not keep v0 compatibility.
   implemented and verified on 2026-10-05 at commit 3308719. Protocol tests (59),
   unit tests (262), and integration tests (13) all pass. Source hash:
   d113f406455d5be3a6c506a999124ef291c3720429df1468875ed0cde97f8ced.
-- **Phase 5 inbound channels: Telegram + WxPusher done, the rest planned.** T16 Telegram
-  and T21 WxPusher are implemented and pass `npm run test:protocol` (WxPusher: outbound
-  JSON send + Host-mounted callback with route/uid/pairing auth). T17 Feishu, T18 WeChat,
-  T19 QQ, T20 DingTalk, T26 DSH integration, T27 RPC, T28 CLI and all UI/UX phases remain
-  planned. See [docs/PROGRESS.md](docs/PROGRESS.md) for the live status table.
+- **Phase 5 inbound channels: Telegram + Feishu + WxPusher done, the rest planned.** T16
+  Telegram, T17 Feishu and T21 WxPusher pass `npm run test:protocol` (Feishu: custom-bot
+  webhook card + HMAC sign and an SDK-isolated WebSocket inbound; WxPusher: outbound JSON
+  send + Host-mounted callback). T18 WeChat, T19 QQ, T20 DingTalk, T26 DSH integration,
+  T27 RPC, T28 CLI and all UI/UX phases remain planned. See
+  [docs/PROGRESS.md](docs/PROGRESS.md) for the live status table.
 
 ### Recovery pass (R01–R14, `REVIEW.md`)
 
@@ -91,7 +92,7 @@ R04/R05/R06 details this pass (all covered by `npm run test:unit` +
   **wires `onFatal` into `provider.start`** and projects a real background exit to
   `connection.state='degraded'` + `health.degraded` (ignored for a superseded epoch).
 
-Current suite: **383 tests pass** (73 of them protocol), `npm run check` passes (74
+Current suite: **396 tests pass** (86 of them protocol), `npm run check` passes (75
 source files). Recovery items R07, R09–R12 (and the previously landed R01–R06, R08) are
 all closed; see the table above and `CHANGELOG.md` for scope and verification bounds.
 

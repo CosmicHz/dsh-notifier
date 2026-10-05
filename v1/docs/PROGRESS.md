@@ -56,7 +56,7 @@ Status values: `planned` → `in_progress` → `verified` (or `blocked`).
 |---|---|---|
 | T15 | Runtime | **verified** |
 | T16 | Telegram | **verified** |
-| T17 | Feishu | planned |
+| T17 | Feishu | **implemented** |
 | T18 | WeChat | planned |
 | T19 | QQ | planned |
 | T20 | DingTalk | planned |

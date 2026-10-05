@@ -1,12 +1,12 @@
 {
   "version": 1,
   "generatedAt": "2026-10-05",
-  "repository": "https://github.com/THEWOLFWALKER/dsh-notifier",
+  "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "2eb91c9284484fac11ed5dc8652f95dd56f74a1d",
-  "sourceDigest": "117eca3fc6a9521a936b0b6443855fb04c6b7e8b9a16d3f3de324ebee3180bff",
+  "base": "ca55a39aa133b9d03186c52b2b5b26e133323f3f",
+  "sourceDigest": "de612be7d87273e2f2b1d4b36def57bf54c18d99e6b0cf8329015cb8fe460fda",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "R07-R14 recovery closure plus one new inbound channel. Code: control-card {label,token} contract end to end with a typed ENCODE_ERROR over the 64-byte callback cap (R07); Telegram callback chat type read from the real chat and ACK only after the durable receipt (R09); /pair redemption injected by the composition root and /unpair revoking only the caller (R10); Host event return path in src/runtime/host-return.mjs (turn.output/completed/failed -> control reply, interaction.opened -> interaction + card, session.closed -> cancel) (R11); inbound media admitted through MediaService into Host.saveAttachment before submit, never the token URL (R12); control-send idempotency by requestId with per-segment evidence (R13); interaction TTL never extends a past deadline, future cap = min(host, now+15min) (R14); new T21 WxPusher provider (outbound send + Host-mounted callback with route/uid/pairing auth) wired into the provider registry. Docs: CHANGELOG, HANDOFF, docs/PROGRESS.md and docs/architecture.md updated. Verification: npm run check passes (74 source files); npm test 383 pass / 0 fail (73 protocol). Real devices/accounts remain out of scope; this is not a push authorization by itself.",
+  "summary": "T17 Feishu: new src/providers/feishu/index.mjs registered in the provider registry. Outbound is the custom-bot webhook with an interactive card and the official HMAC timestamp/sign body fields; inbound is the Lark SDK WebSocket long connection, loaded lazily (typed UNSUPPORTED when the optional SDK is absent), isolated with a per-client bounded HttpInstance (finite timeout, no shared-instance mutation) and a start/handshake deadline, with a no-op logger. Text events and card actions normalize to envelopes; non-text messages are acknowledged then dropped, never injected into the Host. Docs: CHANGELOG/HANDOFF/docs/PROGRESS.md/docs/architecture.md updated. Verification: npm run check passes (75 source files); npm test 396 pass / 0 fail (86 protocol). Real devices/accounts remain out of scope.",
   "unresolved": [],
   "changedPaths": [
     "v1/CHANGELOG.md",
@@ -14,22 +14,9 @@
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
     "v1/docs/architecture.md",
-    "v1/src/providers/http.mjs",
-    "v1/src/providers/platform.mjs",
+    "v1/src/providers/feishu/index.mjs",
     "v1/src/providers/registry.mjs",
-    "v1/src/providers/telegram/index.mjs",
-    "v1/src/providers/wxpusher/index.mjs",
-    "v1/src/runtime/host-return.mjs",
-    "v1/src/runtime/manager.mjs",
-    "v1/src/services/control-replies.mjs",
-    "v1/src/services/conversation.mjs",
-    "v1/src/services/interactions.mjs",
-    "v1/test/integration/r12-media.test.mjs",
-    "v1/test/integration/runtime.test.mjs",
-    "v1/test/protocol/telegram.test.mjs",
-    "v1/test/protocol/wxpusher.test.mjs",
-    "v1/test/unit/control-replies.test.mjs",
-    "v1/test/unit/conversation.test.mjs"
+    "v1/test/protocol/feishu.test.mjs"
   ],
   "inventory": [
     {
@@ -170,12 +157,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the T21 WxPusher entry and the R07/R09-R14 fixed entries; updated the remaining-work note."
+      "reason": "Added the T17 Feishu entry and refreshed the remaining-work note."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Recovery table now marks R07/R09-R14 done; Phase 5 channel status and suite count updated."
+      "reason": "Phase 5 channel status now lists Feishu; suite count updated to 396 tests / 75 source files."
     },
     {
       "path": "v1/README.md",
@@ -195,12 +182,12 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Status table marks R07-R14 (incl. R12) and T21 implemented."
+      "reason": "Status table marks T17 Feishu implemented."
     },
     {
       "path": "v1/docs/architecture.md",
       "disposition": "updated",
-      "reason": "Status paragraph and layer list corrected: inbound services, runtime/host-return and the Telegram+WxPusher channels are implemented."
+      "reason": "Status paragraph now lists Feishu among implemented channels (remaining inbound T18-T20)."
     },
     {
       "path": "v1/docs/integration-guide.md",
@@ -255,7 +242,7 @@
     {
       "path": "v1/docs/DOC-SYNC.json",
       "disposition": "updated",
-      "reason": "this report; regenerated with the exact handoff commit diff."
+      "reason": "Regenerated for this push (base ca55a39)."
     }
   ]
 }

@@ -52,6 +52,12 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
   route, a strict uid shape check, and the conversation layer's pairing/whitelist. The
   callback body never names its own account and the appToken comes only from the account
   secret resolver. Covered by `npm run test:protocol`.
+- Phase 5 inbound channel T17 Feishu (`src/providers/feishu/index.mjs`): outbound custom-bot
+  webhook with an interactive card and the official HMAC timestamp/sign; inbound is the
+  Lark SDK WebSocket long connection, loaded lazily (typed `UNSUPPORTED` when absent) and
+  isolated with a per-client bounded HttpInstance plus a start/handshake deadline. Text
+  events and card actions normalize to envelopes; non-text messages are acknowledged then
+  dropped (never injected into the Host). Covered by `npm run test:protocol`.
 
 ### Fixed
 
@@ -113,6 +119,6 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
   deadline is capped at `min(host, now+15min)`.
 
 > Only the Phase 1 foundation, Phase 2 core entity services, Phase 3 outbound providers,
-> Phase 4 inbound/effects/interactions, and Phase 5 runtime + Telegram + WxPusher exist so
-> far; T17-T20 (remaining inbound providers), T26-T28 (DSH integration, RPC, CLI), and all
+> Phase 4 inbound/effects/interactions, and Phase 5 runtime + Telegram + Feishu + WxPusher
+> exist so far; T18-T20 (remaining inbound providers), T26-T28 (DSH integration, RPC, CLI), and all
 > UI phases are still unimplemented plans, not working behavior.
