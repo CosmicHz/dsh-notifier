@@ -67,6 +67,9 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- R11 (v4): Host events now have a real return path, not just a projection invalidate. `turn.output`/`turn.completed` deliver the answer to the original chat (or an explicit notice when no body was cached), `interaction.opened` opens a pending interaction and delivers a control card, a repeated completion settles exactly once, and `session.closed` cancels the session interactions and live correlations. Covered by `test/integration/control-loop.test.mjs`.
+- R12 (v4): inbound media is admitted through MediaService (permission first, dangerous URL/size/cancel checks, attachment-only allowed) and the Host only ever receives a secret-free AttachmentRef - a token URL never reaches it. Covered by `test/integration/media-loop.test.mjs`.
+- R13 (v4): control delivery is idempotent and segment-accurate. The same requestId calls the channel once and replays its receipt; a partial failure keeps the accepted segment; an uncertain outcome is journaled and never resent; a platform 200 stays `accepted`, never a fabricated `confirmed`. Covered by `test/integration/control-delivery.test.mjs`.
 - R10 (v4): the default manager chain injects `redeemPairing`, so `/pair` works without
   any override; a code redeems exactly once. A wrong/used/expired code is a normal
   outcome (a reply, no principal) instead of a crash, and `/unpair` removes only the

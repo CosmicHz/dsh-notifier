@@ -17,9 +17,9 @@ Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITI
 | R09 | Telegram群callback拒绝与接收ACK | verified |
 | R14 | 交互TTL与Host截止时间 | verified |
 | R10 | 默认manager接入配对与本人撤销 | verified |
-| R11 | Host事件到对话回程与待办投递 | implemented |
-| R12 | 媒体引用安全准入到Host AttachmentRef | implemented |
-| R13 | 控制发送幂等及逐段效果证据 | implemented |
+| R11 | Host事件到对话回程与待办投递 | verified |
+| R12 | 媒体引用安全准入到Host AttachmentRef | verified |
+| R13 | 控制发送幂等及逐段效果证据 | verified |
 | T17 | Feishu | implemented |
 | T18 | WeChat | required |
 | T19 | QQ | required |
