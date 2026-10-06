@@ -80,21 +80,24 @@ function fakeDriver({ begin } = {}) {
     capabilities: { login: true },
     async begin(args) {
       if (begin) return begin(args, { done });
-      args.onQrCode?.({ text: 'qr-text', expiresAt: 200 });
-      return { done, qrText: 'qr-text', expiresAt: 200 };
+      // A generous window: these managers use a fixed now() of 150, so a short
+      // expiresAt would race the (fsync-bound) commit under full-suite load.
+      args.onQrCode?.({ text: 'qr-text', expiresAt: 60150 });
+      return { done, qrText: 'qr-text', expiresAt: 60150 };
     },
     resolveDone,
     rejectDone,
   };
 }
 
-async function until(fn, timeoutMs = 3000) {
-  const deadline = Date.now() + timeoutMs;
-  for (;;) {
+async function until(fn, tries = 5000) {
+  // Counter-based (no Date.now): a neighbouring case must not be able to skew the
+  // wait through a mocked clock. Up to ~5s of 1ms macrotasks.
+  for (let i = 0; i < tries; i++) {
     try { const value = fn(); if (value) return value; } catch { /* keep waiting */ }
-    if (Date.now() > deadline) throw new Error('condition not met');
-    await new Promise((r) => setImmediate(r));
+    await new Promise((r) => setTimeout(r, 1));
   }
+  throw new Error('condition not met');
 }
 
 const LOGIN_SECRETS = [{ path: 'inbound.botToken', op: 'set', value: { kind: 'literal', value: '"tok-1"' } }];

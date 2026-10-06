@@ -64,7 +64,11 @@ function keyboardFor(actions) {
     // callback payload and must fit Telegram's 64-byte callback_data cap (R07).
     const label = str(action?.label);
     const token = str(action?.token);
-    if (label === '' || token === '') continue;
+    // A button with an empty label or token is a caller bug: fail closed instead of
+    // silently dropping it, so a control action can never disappear (R07).
+    if (label === '' || token === '') {
+      throw new ProviderError('ENCODE_ERROR', 'telegram 按钮缺少 label 或 token', token);
+    }
     if (Buffer.byteLength(token, 'utf8') > CALLBACK_DATA_LIMIT) {
       throw new ProviderError('ENCODE_ERROR', `telegram 按钮 callback_data 超过 ${CALLBACK_DATA_LIMIT} 字节`, token);
     }

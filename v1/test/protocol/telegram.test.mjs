@@ -277,3 +277,19 @@ test('telegram: a photo is resolved to a downloadable file URL', async () => {
   assert.equal(emitted[0].attachments[0].url, 'https://api.telegram.org/file/botTOK/photos/big.jpg');
   assert.equal(emitted[0].attachments[0].mime, 'image/jpeg');
 });
+test('telegram: R07 a button missing its token fails closed instead of vanishing', async () => {
+  const network = makeNetwork(() => jsonResponse({ ok: true, result: { message_id: 7 } }));
+  await assert.rejects(
+    telegram.sendControlReply({
+      account,
+      replyContext: { chatId: '555', userId: '555' },
+      content: { text: 'pick', actions: [{ label: 'Yes', token: '' }] },
+      signal: noSignal(),
+      network,
+    }),
+    (e) => e.code === 'ENCODE_ERROR',
+  );
+  assert.equal(network.calls.length, 0, 'nothing is sent when a control action is malformed');
+});
+
+

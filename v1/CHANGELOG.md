@@ -67,6 +67,12 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- R07 (v4): the control-card `{label, token}` contract is enforced end-to-end. Telegram
+  maps it to `callback_data` under a 64-byte UTF-8 cap, and a button with an empty
+  label/token now fails closed (`ENCODE_ERROR`) instead of being silently dropped - there
+  is no `value`/`id` bypass left on the control path. Covered by
+  `test/protocol/telegram.test.mjs`. Also removed a 50 ms login-expiry race in
+  `test/unit/runtime-login.test.mjs` (fixed `now()` of 150 vs `expiresAt: 200`).
 - N04 (v4): capability truth. `login` is a scan flow and is now declared only by
   Feishu and WeChat iLink; the manual-credential channels (telegram/qq-bot/dingtalk/
   wxpusher) report `login:false` so no UI offers a QR scan they cannot serve. The
