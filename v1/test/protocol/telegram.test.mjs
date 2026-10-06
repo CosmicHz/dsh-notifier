@@ -293,3 +293,55 @@ test('telegram: R07 a button missing its token fails closed instead of vanishing
 });
 
 
+
+test('telegram: R09 a rejected receipt is never ACKed and the cursor is not advanced', async () => {
+  let polls = 0;
+  const order = [];
+  const network = makeNetwork((init) => {
+    if (init.url.includes('/getUpdates')) {
+      polls += 1;
+      if (polls > 1) return jsonResponse({ ok: true, result: [] });
+      return jsonResponse({ ok: true, result: [
+        { update_id: 400, callback_query: { id: 'cb-rej', from: { id: 555 }, message: { chat: { id: 555, type: 'private' } }, data: JSON.stringify({ t: 'tok' }) } },
+      ] });
+    }
+    if (init.url.includes('/answerCallbackQuery')) { order.push('ack'); return jsonResponse({ ok: true, result: true }); }
+    return jsonResponse({ ok: true, result: {} });
+  });
+  const cursor = cursorStore();
+  let emitted = 0;
+  const started = await telegram.start({
+    account, epoch: 'e1', network, signal: noSignal(), cursorStore: cursor,
+    emit: async () => { emitted += 1; return { accepted: false, code: 'FORBIDDEN' }; },
+  });
+  await waitFor(() => emitted > 0);
+  await new Promise((r) => setTimeout(r, 20));
+  await started.stop();
+  assert.equal(order.includes('ack'), false, 'a rejected control action is never ACKed');
+  assert.equal(cursor.commits.length, 0, 'the offset is preserved so the update is retried');
+});
+
+test('telegram: R09 a duplicate callback is ACKed and the cursor advances', async () => {
+  let polls = 0;
+  const order = [];
+  const network = makeNetwork((init) => {
+    if (init.url.includes('/getUpdates')) {
+      polls += 1;
+      if (polls > 1) return jsonResponse({ ok: true, result: [] });
+      return jsonResponse({ ok: true, result: [
+        { update_id: 401, callback_query: { id: 'cb-dup', from: { id: 555 }, message: { chat: { id: 555, type: 'private' } }, data: JSON.stringify({ t: 'tok' }) } },
+      ] });
+    }
+    if (init.url.includes('/answerCallbackQuery')) { order.push('ack'); return jsonResponse({ ok: true, result: true }); }
+    return jsonResponse({ ok: true, result: {} });
+  });
+  const cursor = cursorStore();
+  const started = await telegram.start({
+    account, epoch: 'e1', network, signal: noSignal(), cursorStore: cursor,
+    emit: async () => ({ replayed: true, accepted: false, code: 'DUPLICATE' }),
+  });
+  await waitFor(() => cursor.commits.length > 0);
+  await started.stop();
+  assert.equal(order.includes('ack'), true, 'an already-received update is ACKed (UI hint only)');
+  assert.deepEqual(cursor.commits[0], { offset: 402 });
+});

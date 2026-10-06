@@ -3,10 +3,10 @@
   "generatedAt": "2026-10-06",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "3444ca67fcb2ad24bb0cef335b13beba23704691",
-  "sourceDigest": "7fccecc787bc7f0fe506d1b60f0ef4addae1e2d16334f25949c159b86a877f80",
+  "base": "377f57437806cfa961a5784fd9ae1bb37f36ad26",
+  "sourceDigest": "dcde1a9f491252051408a99f7f0701891339b7f4e6248a95a6e80bc02bf8b9f8",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "R07 (v4): control-card {label, token} evidence reconciliation. Telegram maps the frozen contract to callback_data under a 64-byte UTF-8 cap (already present), and a button with an empty label/token now fails closed with ENCODE_ERROR instead of being silently skipped, so no control action can vanish and no value/id bypass remains. New protocol cases in test/protocol/telegram.test.mjs. Also removed a real flake: the login tests used a fixed now() of 150 with expiresAt 200 (a 50 ms window) so a loaded fsync could win the race and mark the session expired; the wait is now counter-based and the window generous (4 consecutive full unit runs green). Verification: npm run check passes (75 source files); npm test 410 pass / 0 fail.",
+  "summary": "R09 (v4): Telegram callback evidence reconciliation. chat.type is preserved from the real update (non-private -> group, rejected at the control entry); answerCallbackQuery is sent only after the reliable receipt and never stands in for a settled interaction. New protocol cases: a rejected receipt is not ACKed and the cursor is preserved; a duplicate is ACKed and advances the cursor. Verification: npm run check passes (75 source files); npm test 412 pass / 0 fail (90 protocol).",
   "unresolved": [],
   "changedPaths": [
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
@@ -14,9 +14,7 @@
     "v1/HANDOFF.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/src/providers/telegram/index.mjs",
-    "v1/test/protocol/telegram.test.mjs",
-    "v1/test/unit/runtime-login.test.mjs"
+    "v1/test/protocol/telegram.test.mjs"
   ],
   "inventory": [
     {
@@ -157,12 +155,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the R07 (v4) fixed entry."
+      "reason": "Added the R09 (v4) fixed entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Suite count 410 / 88 protocol."
+      "reason": "Suite count 412 / 90 protocol."
     },
     {
       "path": "v1/README.md",
@@ -182,7 +180,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: R07 verified."
+      "reason": "Regenerated: R09 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -292,7 +290,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "R07 status -> verified."
+      "reason": "R09 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",

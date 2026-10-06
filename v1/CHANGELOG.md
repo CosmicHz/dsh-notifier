@@ -67,6 +67,12 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- R09 (v4): Telegram callbacks are classified from the real `chat.type` (anything not
+  explicitly `private` is treated as group and rejected at the control entry), and a
+  callback is answered only AFTER the reliable receipt — `answerCallbackQuery` is a UI
+  hint and never fakes a settled interaction. A rejected receipt is never ACKed and the
+  cursor is preserved; a duplicate is ACKed and advances the cursor; a failed ACK does
+  not invalidate the receipt. Covered by `test/protocol/telegram.test.mjs`.
 - R07 (v4): the control-card `{label, token}` contract is enforced end-to-end. Telegram
   maps it to `callback_data` under a 64-byte UTF-8 cap, and a button with an empty
   label/token now fails closed (`ENCODE_ERROR`) instead of being silently dropped - there

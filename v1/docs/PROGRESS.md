@@ -14,7 +14,7 @@ Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITI
 | N03 | 消除onFatal早到被ready覆盖与迟到句柄泄漏 | verified |
 | N04 | 修正登录能力并建立capability方法证据映射 | verified |
 | R07 | 控制卡片token合同 | verified |
-| R09 | Telegram群callback拒绝与接收ACK | implemented |
+| R09 | Telegram群callback拒绝与接收ACK | verified |
 | R14 | 交互TTL与Host截止时间 | implemented |
 | R10 | 默认manager接入配对与本人撤销 | implemented |
 | R11 | Host事件到对话回程与待办投递 | implemented |
