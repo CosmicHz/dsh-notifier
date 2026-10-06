@@ -3,10 +3,10 @@
   "generatedAt": "2026-10-06",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "e08c90c536c832597ac781b52a410b64202f4d5c",
-  "sourceDigest": "a2eeead2790ea42c3808b2462d1180ae387e657b6d7283232758d1325367c1e1",
+  "base": "7bb25a2b80961da3cfb496c9a0da917e98ecf598",
+  "sourceDigest": "da7ef5399618bebf6c4d0738f517063b6806e5b9d22bc3e569074cede97d8fff",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "T17-T20 platform channels (v4), all wired into the registry and verified by npm run test:protocol (146 protocol cases, 484 total). T18 WeChat iLink: long-poll + cursor + context_token + media descriptors + a loginDriver scan port. T19 QQ Bot: token outbound with msg_seq idempotency and the WS gateway (HELLO/IDENTIFY/READY/heartbeat/RESUME/reconnect). T20 DingTalk: signed webhook outbound + Stream gateway (auth/ACK/ping/reconnect) with inbound images normalized to attachment descriptors; message editing is not supported by the protocol, so updateMessage is declared false (documented, not hidden). T17 now ships the Feishu registerApp scan login, closing the last pending capability gap (PENDING_CAPABILITY_GAPS is empty). SUPPORT-MATRIX.json regenerated: 29 channels, 2 scan channels, 0 pending, 0 missing.",
+  "summary": "T26 DSH integration. New runtime/application.mjs is the composition root (construct vs start per W08, minimal-port injection per W07, reverse disposer teardown, storage-degraded keeps diagnostics only), host/dsh.mjs adapts injected host seams into the validated HostPort (missing capabilities are typed UNSUPPORTED, never fake success) and plugin-entry.mjs is the DSH plugin (name=dsh-notifier, ctx.provide(notifierV1, facade), notify/notify_test/ask_user with trusted-context-only scope/actor). New test/integration/application.test.mjs covers assembly, host call shapes, tools, attachments and teardown order. Also fixed a real bug: NOT_READY (required by 18-WIRING) was missing from ERROR_CODES. Honest simplifications: dsh.mjs adapts an injected seam bundle rather than the real DSH module loader, and native approval/user-question waterfall interceptors are not registered. Verification: npm run check passes (81 source files); npm test 495 pass / 0 fail.",
   "unresolved": [],
   "changedPaths": [
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
@@ -14,18 +14,11 @@
     "v1/HANDOFF.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/docs/SUPPORT-MATRIX.json",
-    "v1/src/domain/descriptors.mjs",
-    "v1/src/providers/dingtalk/index.mjs",
-    "v1/src/providers/feishu/index.mjs",
-    "v1/src/providers/qq-bot/index.mjs",
-    "v1/src/providers/registry.mjs",
-    "v1/src/providers/wechat-ilink/index.mjs",
-    "v1/test/protocol/dingtalk.test.mjs",
-    "v1/test/protocol/feishu.test.mjs",
-    "v1/test/protocol/qq-bot.test.mjs",
-    "v1/test/protocol/wechat-ilink.test.mjs",
-    "v1/test/unit/registry.test.mjs"
+    "v1/src/domain/errors.mjs",
+    "v1/src/host/dsh.mjs",
+    "v1/src/plugin-entry.mjs",
+    "v1/src/runtime/application.mjs",
+    "v1/test/integration/application.test.mjs"
   ],
   "inventory": [
     {
@@ -166,12 +159,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added T17-T20 entries."
+      "reason": "Added the T26 entry and the NOT_READY fix."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Suite 484 / 146 protocol."
+      "reason": "Suite 495."
     },
     {
       "path": "v1/README.md",
@@ -191,7 +184,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: T17-T21 verified."
+      "reason": "Regenerated: T26 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -301,7 +294,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "T17-T21 status -> verified."
+      "reason": "T26 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",

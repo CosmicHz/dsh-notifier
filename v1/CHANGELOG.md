@@ -6,6 +6,14 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Added
 
+- T26 DSH integration: `runtime/application.mjs` (composition root with the W08
+  construct->start order, minimal-port injection and reverse disposer teardown),
+  `host/dsh.mjs` (adapts injected host seams into the validated HostPort) and
+  `plugin-entry.mjs` (`name='dsh-notifier'`, `ctx.provide('notifierV1', facade)`, tool
+  registration plus disposer). `notify`/`notify_test`/`ask_user` take scope and actor
+  only from the trusted call context. Missing host capabilities degrade honestly to
+  `UNSUPPORTED`. Also fixed a real bug: `NOT_READY` (required by 18-WIRING for calls
+  before start) was missing from the domain error-code set.
 - T18 WeChat iLink: inbound long-poll with a bounded cursor and opaque `context_token`, typed
   failures, media descriptors, and a `loginDriver` scan port (login:true) - `src/providers/wechat-ilink/index.mjs`.
 - T19 QQ Bot: app-access-token outbound with msg_seq idempotency, rate gate and segmentation, plus

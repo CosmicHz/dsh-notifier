@@ -3,6 +3,8 @@ export const ERROR_CODES = Object.freeze([
   'VALIDATION',
   'NOT_FOUND',
   'CONFLICT',
+  // The manager returns NOT_READY for any call made before start() (18-WIRING).
+  'NOT_READY',
   'FORBIDDEN',
   'EXPIRED',
   'ALREADY_HANDLED',

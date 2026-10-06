@@ -25,7 +25,7 @@ Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITI
 | T19 | QQ | verified |
 | T20 | DingTalk | verified |
 | T21 | WxPusher | verified |
-| T26 | DSH integration | required |
+| T26 | DSH integration | verified |
 | T27 | RPC | required |
 | T28 | CLI | required |
 | UX00 | Design contract fixtures | required |
