@@ -3,10 +3,10 @@
   "generatedAt": "2026-10-06",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "13a8b024fbec9cd71ed40e0621834be837eb2ac6",
-  "sourceDigest": "50b5d36680fb7969ae5715116dccfa4fc4105fa16fb53607791f3256cda64f2d",
+  "base": "4fd8375fc5cf02af9fefe50a1ae8218d926008ba",
+  "sourceDigest": "2a339cc65737c20c19549a9686da085075835c10b1ea40740d33d6d0d6ab6d9f",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "R14 (v4): interaction TTL evidence reconciliation. The effective deadline is min(host, now + INTERACTION_TTL_MS). A past Host deadline (including exactly now) is EXPIRED and never revived; settling at/after the deadline is EXPIRED, not a silent approval. New cases in test/unit/interactions.test.mjs. Verification: npm run check passes (75 source files); npm test 414 pass / 0 fail.",
+  "summary": "R10 (v4): pairing evidence reconciliation. The default manager chain injects redeemPairing so /pair works with no override and a code redeems exactly once; a wrong/used/expired code now returns a reply (paired:false) instead of throwing, and /unpair removes only the caller's binding, refs and pending targets. New test/integration/pairing-loop.test.mjs. Verification: npm run check passes (75 source files); npm test 416 pass / 0 fail.",
   "unresolved": [],
   "changedPaths": [
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
@@ -14,7 +14,8 @@
     "v1/HANDOFF.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/test/unit/interactions.test.mjs"
+    "v1/src/services/conversation.mjs",
+    "v1/test/integration/pairing-loop.test.mjs"
   ],
   "inventory": [
     {
@@ -155,12 +156,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the R14 (v4) fixed entry."
+      "reason": "Added the R10 (v4) fixed entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Suite count 414."
+      "reason": "Suite count 416."
     },
     {
       "path": "v1/README.md",
@@ -180,7 +181,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: R14 verified."
+      "reason": "Regenerated: R10 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -290,7 +291,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "R14 status -> verified."
+      "reason": "R10 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",

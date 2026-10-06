@@ -103,7 +103,7 @@ R04/R05/R06 details this pass (all covered by `npm run test:unit` +
   **wires `onFatal` into `provider.start`** and projects a real background exit to
   `connection.state='degraded'` + `health.degraded` (ignored for a superseded epoch).
 
-Current suite: **414 tests pass** (90 of them protocol), `npm run check` passes (75
+Current suite: **416 tests pass** (90 of them protocol), `npm run check` passes (75
 source files). Recovery items R07, R09–R12 (and the previously landed R01–R06, R08) are
 all closed; see the table above and `CHANGELOG.md` for scope and verification bounds.
 

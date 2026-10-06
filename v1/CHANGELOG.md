@@ -67,6 +67,11 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- R10 (v4): the default manager chain injects `redeemPairing`, so `/pair` works without
+  any override; a code redeems exactly once. A wrong/used/expired code is a normal
+  outcome (a reply, no principal) instead of a crash, and `/unpair` removes only the
+  caller - its binding, reply refs and pending targets - never another identity.
+  Covered by `test/integration/pairing-loop.test.mjs`.
 - R14 (v4): the effective interaction deadline is `min(hostDeadline, now + 15min)`.
   A Host deadline that is already past (including exactly `now`) is `EXPIRED` and is never
   revived into an approvable row, and settling at or after the deadline is `EXPIRED` rather

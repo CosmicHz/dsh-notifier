@@ -17,7 +17,7 @@
 // MediaService — bounded, cancellable, never relaxed to private networks — before
 // Host.submit; a raw URL/token is never handed to the Host.
 import { randomUUID } from 'node:crypto';
-import { DomainError, conflict, notFound, validationError } from '../domain/errors.mjs';
+import { DomainError, conflict, isDomainError, notFound, validationError } from '../domain/errors.mjs';
 import { LIMITS, codepointLength } from '../domain/limits.mjs';
 import { commit } from '../storage/store.mjs';
 import { appendActivity } from './activity.mjs';
@@ -708,13 +708,20 @@ async function redeemPair(store, envelope, account, replyContextId, code, ctx) {
   if (typeof redeem !== 'function') {
     throw new DomainError('UNSUPPORTED', 'pairing redemption is unavailable');
   }
-  const principal = await redeem({
-    accountId: account.id,
-    userId: envelope.userId,
-    code: code.trim(),
-    replyContextId,
-  });
-  return { paired: true, message: `paired as ${principal.role}` };
+  try {
+    const principal = await redeem({
+      accountId: account.id,
+      userId: envelope.userId,
+      code: code.trim(),
+      replyContextId,
+    });
+    return { paired: true, message: `paired as ${principal.role}` };
+  } catch (error) {
+    // A wrong, used or expired code is a normal outcome, not a crash: report it and
+    // never create a principal (R10).
+    if (isDomainError(error)) return { paired: false, message: '配对码无效或已使用' };
+    throw error;
+  }
 }
 
 export { completeCorrelation };
