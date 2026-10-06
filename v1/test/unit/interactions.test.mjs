@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { createEmptyState, validateState } from '../../src/domain/schema.mjs';
+import { LIMITS } from '../../src/domain/limits.mjs';
 import { upsertReplyContext } from '../../src/services/reply-contexts.mjs';
 import { issueReplyRef } from '../../src/services/reply-refs.mjs';
 import { createFixtureHost } from '../fixtures/host.mjs';
@@ -326,5 +327,33 @@ test('revision mismatch is a CONFLICT carrying only the current revision', () =>
       id: interaction.id, expectedRevision: 7, decision: 'approve', actor: { kind: 'local-owner' }, requestId: randomUUID(),
     }, { now: 11 }),
     (e) => e.code === 'CONFLICT' && e.details.currentRevision === 0,
+  );
+});
+// --- R14: interaction TTL vs the Host deadline ------------------------------
+
+test('R14 the effective deadline is min(host, now+15min) and a past one never revives', () => {
+  const draft = baseState();
+  const base = { type: 'approval', sessionId: 's-1', hostRef: 'h-1', turnId: 't-1', prompt: 'Allow?', choices: [] };
+  // Default: now + INTERACTION_TTL_MS.
+  assert.equal(openInteraction(draft, base, { now: 1000 }).expiresAt, 1000 + LIMITS.INTERACTION_TTL_MS);
+  // A far-future Host deadline is capped to the local TTL.
+  assert.equal(openInteraction(draft, { ...base, hostRef: 'h-2', expiresAt: 10_000_000 }, { now: 1000 }).expiresAt, 1000 + LIMITS.INTERACTION_TTL_MS);
+  // A shorter Host deadline is honoured.
+  assert.equal(openInteraction(draft, { ...base, hostRef: 'h-3', expiresAt: 2000 }, { now: 1000 }).expiresAt, 2000);
+  // Boundary: a deadline of exactly now (or earlier) is already expired, never revived.
+  assert.throws(() => openInteraction(draft, { ...base, hostRef: 'h-4', expiresAt: 1000 }, { now: 1000 }), (e) => e.code === 'EXPIRED');
+  assert.throws(() => openInteraction(draft, { ...base, hostRef: 'h-5', expiresAt: 999 }, { now: 1000 }), (e) => e.code === 'EXPIRED');
+});
+
+test('R14 settling exactly at the deadline is EXPIRED, not a silent approval', () => {
+  const draft = baseState();
+  const interaction = openInteraction(draft, {
+    type: 'approval', sessionId: 's-1', hostRef: 'h-1', turnId: 't-1', prompt: 'Allow?', choices: [], expiresAt: 1500,
+  }, { now: 1000 });
+  assert.throws(
+    () => claimInteraction(draft, {
+      id: interaction.id, expectedRevision: 0, decision: 'approve', actor: { kind: 'local-owner' }, requestId: randomUUID(),
+    }, { now: interaction.expiresAt }),
+    (e) => e.code === 'EXPIRED',
   );
 });

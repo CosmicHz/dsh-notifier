@@ -67,6 +67,10 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- R14 (v4): the effective interaction deadline is `min(hostDeadline, now + 15min)`.
+  A Host deadline that is already past (including exactly `now`) is `EXPIRED` and is never
+  revived into an approvable row, and settling at or after the deadline is `EXPIRED` rather
+  than a silent approval. Covered by `test/unit/interactions.test.mjs`.
 - R09 (v4): Telegram callbacks are classified from the real `chat.type` (anything not
   explicitly `private` is treated as group and rejected at the control entry), and a
   callback is answered only AFTER the reliable receipt — `answerCallbackQuery` is a UI
