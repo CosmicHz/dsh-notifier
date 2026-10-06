@@ -7,6 +7,7 @@ import { descriptors } from '../../src/domain/descriptors.mjs';
 import { specProviders } from '../../src/providers/specs.mjs';
 import {
   WIRED_PROVIDERS, hasProvider, getProvider, getChannelProvider, registryEntries, assertRegistryConsistent,
+  capabilityGaps, PENDING_CAPABILITY_GAPS,
 } from '../../src/providers/registry.mjs';
 
 test('registry enumerates exactly the frozen descriptors with no missing/extra ids', () => {
@@ -65,4 +66,36 @@ test('constructing the registry opens no transport: entries are frozen data', ()
   assert.equal(Object.isFrozen(WIRED_PROVIDERS), true);
   // A second read is byte-identical, i.e. no lazy socket/transport is created.
   assert.equal(JSON.stringify(registryEntries()), JSON.stringify(entries));
+});
+// --- N04: capability truth and method evidence -----------------------------
+
+test('N04: login (a scan flow) is declared only by Feishu and WeChat iLink', () => {
+  const login = descriptors().filter((d) => d.capabilities.login === true).map((d) => d.id).sort();
+  assert.deepEqual(login, ['feishu', 'wechat-ilink']);
+  for (const id of ['telegram', 'qq-bot', 'dingtalk', 'wxpusher']) {
+    assert.equal(descriptors().find((d) => d.id === id).capabilities.login, false, `${id} must not advertise a scan`);
+  }
+});
+
+test('N04: every declared capability has a backing method or is an explicit pending gap', () => {
+  const gaps = capabilityGaps();
+  for (const gap of gaps) {
+    assert.equal(gap.pending, true, `${gap.channelId}:${gap.capability} must be recorded in PENDING_CAPABILITY_GAPS`);
+  }
+  // Exactly the known Feishu scan gap today; the list must shrink, never grow.
+  assert.deepEqual(gaps.map((g) => `${g.channelId}:${g.capability}`).sort(), ['feishu:login']);
+  assert.equal(PENDING_CAPABILITY_GAPS.length, 1);
+  assert.equal(assertRegistryConsistent(), true);
+});
+
+test('N04: the support matrix covers 29 channels / 6 control replies / 2 scans', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const matrix = JSON.parse(await readFile(new URL('../../docs/SUPPORT-MATRIX.json', import.meta.url), 'utf8'));
+  assert.equal(matrix.counts.channels, 29);
+  assert.deepEqual([...matrix.counts.loginChannels].sort(), ['feishu', 'wechat-ilink']);
+  const control = descriptors().filter((d) => d.capabilities.controlReply === true).map((d) => d.id);
+  assert.equal(control.length, 6);
+  const missing = Object.entries(matrix.channels).flatMap(([id, c]) => Object.entries(c.capabilities)
+    .filter(([, v]) => v.status === 'missing').map(([k]) => `${id}:${k}`));
+  assert.deepEqual(missing, [], 'no declared capability may be silently missing');
 });

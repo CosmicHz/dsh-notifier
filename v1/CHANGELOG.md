@@ -67,6 +67,15 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- N04 (v4): capability truth. `login` is a scan flow and is now declared only by
+  Feishu and WeChat iLink; the manual-credential channels (telegram/qq-bot/dingtalk/
+  wxpusher) report `login:false` so no UI offers a QR scan they cannot serve. The
+  registry gained a `CAPABILITY_METHODS` map plus `capabilityGaps()`, and
+  `assertRegistryConsistent()` now fails when a declared capability has no backing
+  method unless it is an explicit `PENDING_CAPABILITY_GAPS` entry (today only
+  `feishu:login`, closed by T17); the final gate (G03) fails while any pending remains.
+  New `v1/docs/SUPPORT-MATRIX.json` enumerates all 29 channels × capabilities
+  (declared / method / status / protocol test). Covered by `test/unit/registry.test.mjs`.
 - N03 (v4): connection state is monotonic. `runtime/manager.mjs` promotes a
   connection to `ready` only while it is still the current connection, was not aborted,
   and did not already report a fatal during `start` — a synchronous `onFatal` can no

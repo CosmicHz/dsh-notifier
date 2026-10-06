@@ -3,10 +3,10 @@
   "generatedAt": "2026-10-06",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "b61e2d821572dcf8bad361938f638f922c680ae5",
-  "sourceDigest": "2d715d18f1f081675d9ccbadbec74a3d83a8144a48e4f796cf49714d265ba85d",
+  "base": "02d9a096a7a1538e82fc468e37b06ab08b83df46",
+  "sourceDigest": "a711004edd5109560f437475562ef8c367fa923c0a5ae323f9dfc407a7f39bb9",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "N03 (v4 follow-up): connection state is now monotonic in runtime/manager.mjs. A connection is promoted to ready only while it is still current, was not aborted, and did not report a fatal during start, so a synchronous onFatal can no longer be overwritten back to ready. A start that resolves after its connection was superseded disposes the late handle (no leaked provider loop), and a non-current connection can no longer degrade the replacement health or catch path. Also widened the login test wait (500ms -> 3000ms) to remove a pre-existing flaky timeout under full-suite concurrency. Verification: npm run check passes (75 source files); npm test 406 pass / 0 fail (new N03 cases in test/integration/runtime.test.mjs).",
+  "summary": "N04 (v4 follow-up): capability truth. login is a scan flow and is declared only by Feishu and WeChat iLink; manual-credential channels (telegram/qq-bot/dingtalk/wxpusher) now report login:false. The registry gained CAPABILITY_METHODS and capabilityGaps(); assertRegistryConsistent() fails when a declared capability has no backing method unless it is an explicit PENDING_CAPABILITY_GAPS entry (today only feishu:login, closed by T17). New v1/docs/SUPPORT-MATRIX.json enumerates all 29 channels x capabilities (declared/method/status/protocol test). Verification: npm run check passes (75 source files); npm test 409 pass / 0 fail (new N04 cases in test/unit/registry.test.mjs).",
   "unresolved": [],
   "changedPaths": [
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
@@ -14,9 +14,10 @@
     "v1/HANDOFF.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/src/runtime/manager.mjs",
-    "v1/test/integration/runtime.test.mjs",
-    "v1/test/unit/runtime-login.test.mjs"
+    "v1/docs/SUPPORT-MATRIX.json",
+    "v1/src/domain/descriptors.mjs",
+    "v1/src/providers/registry.mjs",
+    "v1/test/unit/registry.test.mjs"
   ],
   "inventory": [
     {
@@ -157,12 +158,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the N03 (v4) fixed entry."
+      "reason": "Added the N04 (v4) fixed entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "N03 done in the v4 follow-up table; suite count 406."
+      "reason": "N04 done in the v4 follow-up table; suite count 409."
     },
     {
       "path": "v1/README.md",
@@ -182,7 +183,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: G00/N01/N02/N03 verified."
+      "reason": "Regenerated: G00/N01-N04 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -292,7 +293,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "N03 status -> verified."
+      "reason": "N04 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",
@@ -308,6 +309,11 @@
       "path": "docs/developer/v1-release-v4/history/v3-TASKS.csv",
       "disposition": "updated",
       "reason": "v4 release authority machine list (task state source)."
+    },
+    {
+      "path": "v1/docs/SUPPORT-MATRIX.json",
+      "disposition": "updated",
+      "reason": "New machine-readable support matrix (N04)."
     }
   ]
 }

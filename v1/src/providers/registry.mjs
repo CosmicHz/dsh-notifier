@@ -79,6 +79,51 @@ export function registryEntries() {
 }
 
 /**
+ * Capability -> the provider method that proves it, or null when the capability is
+ * realised inline by the protocol adapter (its evidence lives in the protocol cases).
+ * N04: a descriptor may only claim `true` when this mapping is satisfied, so a
+ * capability is never advertised without an implementation behind it.
+ */
+export const CAPABILITY_METHODS = Object.freeze({
+  outbound: 'send',
+  inbound: 'start',
+  controlReply: 'sendControlReply',
+  login: 'loginDriver',
+  updateMessage: 'updateControlMessage',
+  replyLookup: null,
+  media: null,
+  buttons: null,
+});
+
+/**
+ * Declared capabilities that have no implementation yet, each naming the task that
+ * closes it. The final release gate (G03) fails while this list is non-empty; the
+ * interim `assertRegistryConsistent` only tolerates exactly these, so a new gap is
+ * caught immediately.
+ */
+export const PENDING_CAPABILITY_GAPS = Object.freeze([
+  { channelId: 'feishu', capability: 'login', closesIn: 'T17 registerApp scan' },
+]);
+
+/** Every declared capability of a wired provider that lacks its backing method. */
+export function capabilityGaps() {
+  const gaps = [];
+  for (const entry of registryEntries()) {
+    if (!entry.wired) continue;
+    const provider = WIRED_PROVIDERS[entry.id];
+    for (const [capability, method] of Object.entries(CAPABILITY_METHODS)) {
+      if (entry.capabilities[capability] !== true || method === null) continue;
+      if (typeof provider[method] === 'function') continue;
+      const pending = PENDING_CAPABILITY_GAPS.some(
+        (g) => g.channelId === entry.id && g.capability === capability,
+      );
+      gaps.push({ channelId: entry.id, capability, method, pending });
+    }
+  }
+  return gaps;
+}
+
+/**
  * Static invariant check: the registry covers exactly the frozen channel ids, and
  * every wired provider agrees with its descriptor capabilities. Throws on drift so
  * `npm run check` / tests fail loudly instead of silently diverging.
@@ -99,6 +144,13 @@ export function assertRegistryConsistent() {
     if (provider.capabilities !== entry.capabilities && provider.capabilities.outbound !== entry.capabilities.outbound) {
       throw new DomainError('INTERNAL', `provider capabilities disagree with descriptor for ${entry.id}`);
     }
+  }
+  // N04: every declared capability must have its backing method, unless it is one
+  // of the explicitly-recorded pending gaps.
+  const unplanned = capabilityGaps().filter((gap) => !gap.pending);
+  if (unplanned.length > 0) {
+    const list = unplanned.map((gap) => `${gap.channelId}:${gap.capability}`).join(',');
+    throw new DomainError('INTERNAL', `declared capabilities without an implementation: ${list}`);
   }
   return true;
 }

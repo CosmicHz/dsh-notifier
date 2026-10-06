@@ -1,0 +1,1423 @@
+{
+  "generatedAt": "2026-10-06",
+  "note": "declared=true must have a backing method (implemented) or be an explicit pending gap; the final gate (G03) fails while any pending remains.",
+  "counts": {
+    "channels": 29,
+    "loginChannels": [
+      "feishu",
+      "wechat-ilink"
+    ],
+    "pendingGaps": 1
+  },
+  "capabilityMethods": {
+    "outbound": "send",
+    "inbound": "start",
+    "controlReply": "sendControlReply",
+    "login": "loginDriver",
+    "updateMessage": "updateControlMessage",
+    "replyLookup": null,
+    "media": null,
+    "buttons": null
+  },
+  "pendingGaps": [
+    {
+      "channelId": "feishu",
+      "capability": "login",
+      "closesIn": "T17 registerApp scan"
+    }
+  ],
+  "channels": {
+    "telegram": {
+      "outbound": true,
+      "inbound": true,
+      "wired": true,
+      "protocolTest": "test/protocol/telegram.test.mjs",
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": true,
+          "method": "start",
+          "status": "implemented"
+        },
+        "controlReply": {
+          "declared": true,
+          "method": "sendControlReply",
+          "status": "implemented"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": true,
+          "method": "updateControlMessage",
+          "status": "implemented"
+        },
+        "replyLookup": {
+          "declared": true,
+          "method": "inline",
+          "status": "implemented"
+        },
+        "media": {
+          "declared": true,
+          "method": "inline",
+          "status": "implemented"
+        },
+        "buttons": {
+          "declared": true,
+          "method": "inline",
+          "status": "implemented"
+        }
+      }
+    },
+    "dingtalk": {
+      "outbound": true,
+      "inbound": true,
+      "wired": false,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "unwired"
+        },
+        "inbound": {
+          "declared": true,
+          "method": "start",
+          "status": "unwired"
+        },
+        "controlReply": {
+          "declared": true,
+          "method": "sendControlReply",
+          "status": "unwired"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": true,
+          "method": "updateControlMessage",
+          "status": "unwired"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": true,
+          "method": "inline",
+          "status": "unwired"
+        },
+        "buttons": {
+          "declared": true,
+          "method": "inline",
+          "status": "unwired"
+        }
+      }
+    },
+    "feishu": {
+      "outbound": true,
+      "inbound": true,
+      "wired": true,
+      "protocolTest": "test/protocol/feishu.test.mjs",
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": true,
+          "method": "start",
+          "status": "implemented"
+        },
+        "controlReply": {
+          "declared": true,
+          "method": "sendControlReply",
+          "status": "implemented"
+        },
+        "login": {
+          "declared": true,
+          "method": "loginDriver",
+          "status": "pending"
+        },
+        "updateMessage": {
+          "declared": true,
+          "method": "updateControlMessage",
+          "status": "implemented"
+        },
+        "replyLookup": {
+          "declared": true,
+          "method": "inline",
+          "status": "implemented"
+        },
+        "media": {
+          "declared": true,
+          "method": "inline",
+          "status": "implemented"
+        },
+        "buttons": {
+          "declared": true,
+          "method": "inline",
+          "status": "implemented"
+        }
+      }
+    },
+    "wxpusher": {
+      "outbound": true,
+      "inbound": true,
+      "wired": true,
+      "protocolTest": "test/protocol/wxpusher.test.mjs",
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": true,
+          "method": "start",
+          "status": "implemented"
+        },
+        "controlReply": {
+          "declared": true,
+          "method": "sendControlReply",
+          "status": "implemented"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "pushplus": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "serverchan": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "bark": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "webhook": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "bell": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "desktop": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "slack": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "discord": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "wecom": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "mattermost": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "gchat": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "teams": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "ntfy": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "gotify": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "pushover": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "chanify": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "pushdeer": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "xizhi": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "qmsg": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "igot": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "onebot": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "wps-bot": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "qq-bot": {
+      "outbound": true,
+      "inbound": true,
+      "wired": false,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "unwired"
+        },
+        "inbound": {
+          "declared": true,
+          "method": "start",
+          "status": "unwired"
+        },
+        "controlReply": {
+          "declared": true,
+          "method": "sendControlReply",
+          "status": "unwired"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": true,
+          "method": "updateControlMessage",
+          "status": "unwired"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": true,
+          "method": "inline",
+          "status": "unwired"
+        },
+        "buttons": {
+          "declared": true,
+          "method": "inline",
+          "status": "unwired"
+        }
+      }
+    },
+    "wecom-app": {
+      "outbound": true,
+      "inbound": false,
+      "wired": true,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": true,
+          "method": "send",
+          "status": "implemented"
+        },
+        "inbound": {
+          "declared": false,
+          "method": "start",
+          "status": "declared-false"
+        },
+        "controlReply": {
+          "declared": false,
+          "method": "sendControlReply",
+          "status": "declared-false"
+        },
+        "login": {
+          "declared": false,
+          "method": "loginDriver",
+          "status": "declared-false"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    },
+    "wechat-ilink": {
+      "outbound": false,
+      "inbound": true,
+      "wired": false,
+      "protocolTest": null,
+      "capabilities": {
+        "outbound": {
+          "declared": false,
+          "method": "send",
+          "status": "declared-false"
+        },
+        "inbound": {
+          "declared": true,
+          "method": "start",
+          "status": "unwired"
+        },
+        "controlReply": {
+          "declared": true,
+          "method": "sendControlReply",
+          "status": "unwired"
+        },
+        "login": {
+          "declared": true,
+          "method": "loginDriver",
+          "status": "unwired"
+        },
+        "updateMessage": {
+          "declared": false,
+          "method": "updateControlMessage",
+          "status": "declared-false"
+        },
+        "replyLookup": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        },
+        "media": {
+          "declared": true,
+          "method": "inline",
+          "status": "unwired"
+        },
+        "buttons": {
+          "declared": false,
+          "method": "inline",
+          "status": "declared-false"
+        }
+      }
+    }
+  }
+}

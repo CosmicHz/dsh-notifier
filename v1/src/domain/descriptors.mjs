@@ -10,13 +10,16 @@ export const INBOUND_CHANNEL_COUNT = 6;
 // CHANNELS.json; the remaining flags are refined by the frozen adapter facts when
 // the concrete adapters land (T16-T21). They default to false so nothing is claimed
 // without an implementation that has positive and negative evidence.
+// `login` is a beginLogin scan flow (04-LATEST-CONTRACT-FIXES §4): only the two
+// scan channels (Feishu, WeChat iLink) may advertise it. A manual-credential
+// channel is configured with typed secrets, never a QR scan, so its login is false.
 const CAPABILITY_OVERRIDES = Object.freeze({
-  telegram: { login: true, replyLookup: true, media: true, buttons: true, updateMessage: true },
+  telegram: { replyLookup: true, media: true, buttons: true, updateMessage: true },
   feishu: { login: true, replyLookup: true, media: true, buttons: true, updateMessage: true },
   'wechat-ilink': { login: true, media: true },
-  'qq-bot': { login: true, media: true, buttons: true, updateMessage: true },
-  dingtalk: { login: true, media: true, buttons: true, updateMessage: true },
-  wxpusher: { login: true },
+  'qq-bot': { media: true, buttons: true, updateMessage: true },
+  dingtalk: { media: true, buttons: true, updateMessage: true },
+  wxpusher: {},
 });
 
 const TYPE_SET = new Set(['string', 'integer', 'boolean', 'string[]', 'integer[]', 'record<string,string>']);
