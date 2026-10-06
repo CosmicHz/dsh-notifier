@@ -11,7 +11,7 @@ Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITI
 | G00 | 恢复唯一入口、保护当前工作树、同步新任务状态 | verified |
 | N01 | 补齐R03授权：Task.sessionId、owner路由、执行时重验 | verified |
 | N02 | 秘密解码后按descriptor严格验证 | verified |
-| N03 | 消除onFatal早到被ready覆盖与迟到句柄泄漏 | required |
+| N03 | 消除onFatal早到被ready覆盖与迟到句柄泄漏 | verified |
 | N04 | 修正登录能力并建立capability方法证据映射 | required |
 | R07 | 控制卡片token合同 | implemented |
 | R09 | Telegram群callback拒绝与接收ACK | implemented |

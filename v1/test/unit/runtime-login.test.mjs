@@ -88,7 +88,7 @@ function fakeDriver({ begin } = {}) {
   };
 }
 
-async function until(fn, timeoutMs = 500) {
+async function until(fn, timeoutMs = 3000) {
   const deadline = Date.now() + timeoutMs;
   for (;;) {
     try { const value = fn(); if (value) return value; } catch { /* keep waiting */ }

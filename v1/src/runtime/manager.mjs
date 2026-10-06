@@ -324,7 +324,7 @@ export function createRuntimeManager({
         // loop cannot knock out its replacement.
         onFatal: (info) => {
           const current = connections.get(accountId);
-          if (!current || current.epoch !== epoch) return;
+          if (!current || current.epoch !== epoch || current.state === 'stopped') return;
           current.state = 'degraded';
           current.errorCode = typeof info?.code === 'string' ? info.code : 'INTERNAL';
           warn(`account ${accountId} background exit: ${current.errorCode}`);
@@ -333,12 +333,25 @@ export function createRuntimeManager({
         },
       });
       connection.stop = typeof started?.stop === 'function' ? started.stop : null;
-      connection.state = 'ready';
+      // N03: promote to ready only while this is still the current connection, it was
+      // not aborted, and start did not already report a fatal. onFatal is a monotonic
+      // state change, so a late start can never overwrite it back to ready.
+      if (connections.get(accountId) !== connection) {
+        // Superseded by a restart/stop while starting: release the late handle so the
+        // replaced connection cannot keep running (no leak).
+        try { await connection.stop?.(); } catch { /* best effort */ }
+        connection.stop = null;
+      } else if (connection.state === 'connecting' && !controller.signal.aborted) {
+        connection.state = 'ready';
+      }
     } catch (error) {
-      connection.state = 'degraded';
-      connection.errorCode = typeof error?.code === 'string' ? error.code : 'INTERNAL';
-      warn(`account ${accountId} failed to start: ${connection.errorCode}`);
-      setHealth('degraded', 'CHANNEL_DEGRADED', accountId);
+      // Only the current, non-superseded connection may degrade its own health.
+      if (connections.get(accountId) === connection) {
+        connection.state = 'degraded';
+        connection.errorCode = typeof error?.code === 'string' ? error.code : 'INTERNAL';
+        warn(`account ${accountId} failed to start: ${connection.errorCode}`);
+        setHealth('degraded', 'CHANNEL_DEGRADED', accountId);
+      }
     }
     // Callback-mounted channels (Feishu/WxPusher/...): the mount shares this
     // connection's epoch so a callback carrying an old epoch is rejected.

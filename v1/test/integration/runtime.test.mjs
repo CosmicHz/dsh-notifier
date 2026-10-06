@@ -401,3 +401,43 @@ test('R11 interaction.opened opens a pending interaction and delivers a control 
   assert.ok(card.actions.every((a) => typeof a.token === 'string' && a.token !== ''));
   await manager.stop();
 });
+
+// --- N03: onFatal is monotonic; a late start is disposed -------------------
+
+test('N03 a fatal raised during start is not overwritten by ready', async () => {
+  const { store, account } = await scratch();
+  const provider = fakeProvider({
+    onStart: ({ onFatal }) => { onFatal?.({ code: 'HTTP_401' }); },
+  });
+  const manager = createRuntimeManager({ store, host: createFixtureHost(), resolveProvider: () => provider });
+  await manager.start();
+  const conn = manager.connections().find((c) => c.accountId === account.id);
+  assert.equal(conn.state, 'degraded', 'a fatal during start must not be overwritten by ready');
+  assert.equal(conn.errorCode, 'HTTP_401');
+  await manager.stop();
+});
+
+test('N03 a start that resolves after being superseded releases its late handle', async () => {
+  const { store, account } = await scratch();
+  let release;
+  const gate = new Promise((r) => { release = r; });
+  const state = { starts: 0, stops: 0 };
+  const provider = {
+    id: 'telegram',
+    capabilities: { outbound: true, inbound: true, controlReply: true },
+    async start() {
+      state.starts += 1;
+      if (state.starts === 2) await gate; // the superseded start hangs
+      return { async stop() { state.stops += 1; } };
+    },
+  };
+  const manager = createRuntimeManager({ store, host: createFixtureHost(), resolveProvider: () => provider });
+  await manager.start(); // #1 resolves
+  const superseded = manager.restartAccount(account.id); // #2 hangs
+  await new Promise((r) => setImmediate(r));
+  await manager.restartAccount(account.id); // #3 supersedes #2 and resolves
+  const before = state.stops;
+  release();
+  await superseded;
+  assert.equal(state.stops, before + 1, 'the superseded start handle must be disposed, never leaked');
+});

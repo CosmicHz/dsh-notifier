@@ -67,6 +67,13 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- N03 (v4): connection state is monotonic. `runtime/manager.mjs` promotes a
+  connection to `ready` only while it is still the current connection, was not aborted,
+  and did not already report a fatal during `start` — a synchronous `onFatal` can no
+  longer be overwritten back to `ready`. A `start` that resolves after its connection was
+  superseded releases the late handle (no leaked provider loop), and a non-current
+  connection can no longer degrade the replacement's health. Covered by
+  `test/integration/runtime.test.mjs`.
 - N02 (v4): `resolveSecret` now validates the decoded value against the field
   descriptor (`validateFieldValue`) before returning it — a JSON object that decodes for
   a string field is rejected instead of becoming `"[object Object]"`. Provider inbound

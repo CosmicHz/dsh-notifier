@@ -3,10 +3,10 @@
   "generatedAt": "2026-10-06",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "d9a9e2200be8a7b039164b210506ca2a7f593ee3",
-  "sourceDigest": "bfc96f08dde9e64cf4553be7ef93266e02068dd8ffc066a4193fb91a39b3c537",
+  "base": "b61e2d821572dcf8bad361938f638f922c680ae5",
+  "sourceDigest": "2d715d18f1f081675d9ccbadbec74a3d83a8144a48e4f796cf49714d265ba85d",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "N02 (v4 follow-up): typed secret validation after decoding. resolveSecret now runs validateFieldValue(descriptor, decoded) before returning, so a JSON object for a string field is INVALID instead of becoming \"[object Object]\"; env values are validated after decoding too. providers/platform.inboundSecrets resolves via the declared inbound secret descriptor and rejects any non-string value (no String() coercion). accounts writes reject a literal whose decoded type does not match the field. The importer now stores literals JSON-encoded (02-DATA), which is what surfaced the previous raw-string path. Verification: npm run check passes (75 source files); npm test 404 pass / 0 fail (new N02 cases in test/unit/secrets.test.mjs; import integration suite green again).",
+  "summary": "N03 (v4 follow-up): connection state is now monotonic in runtime/manager.mjs. A connection is promoted to ready only while it is still current, was not aborted, and did not report a fatal during start, so a synchronous onFatal can no longer be overwritten back to ready. A start that resolves after its connection was superseded disposes the late handle (no leaked provider loop), and a non-current connection can no longer degrade the replacement health or catch path. Also widened the login test wait (500ms -> 3000ms) to remove a pre-existing flaky timeout under full-suite concurrency. Verification: npm run check passes (75 source files); npm test 406 pass / 0 fail (new N03 cases in test/integration/runtime.test.mjs).",
   "unresolved": [],
   "changedPaths": [
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
@@ -14,11 +14,9 @@
     "v1/HANDOFF.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/src/providers/platform.mjs",
-    "v1/src/security/secrets.mjs",
-    "v1/src/services/accounts.mjs",
-    "v1/src/services/import.mjs",
-    "v1/test/unit/secrets.test.mjs"
+    "v1/src/runtime/manager.mjs",
+    "v1/test/integration/runtime.test.mjs",
+    "v1/test/unit/runtime-login.test.mjs"
   ],
   "inventory": [
     {
@@ -159,12 +157,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the N02 (v4) fixed entry."
+      "reason": "Added the N03 (v4) fixed entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "N02 now done in the v4 follow-up table."
+      "reason": "N03 done in the v4 follow-up table; suite count 406."
     },
     {
       "path": "v1/README.md",
@@ -184,7 +182,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: G00/N01/N02 verified."
+      "reason": "Regenerated: G00/N01/N02/N03 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -294,7 +292,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "N02 status -> verified."
+      "reason": "N03 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",
