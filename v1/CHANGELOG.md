@@ -6,6 +6,14 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Added
 
+- T18 WeChat iLink: inbound long-poll with a bounded cursor and opaque `context_token`, typed
+  failures, media descriptors, and a `loginDriver` scan port (login:true) - `src/providers/wechat-ilink/index.mjs`.
+- T19 QQ Bot: app-access-token outbound with msg_seq idempotency, rate gate and segmentation, plus
+  the WebSocket gateway (HELLO/IDENTIFY/READY/heartbeat/RESUME/reconnect) - `src/providers/qq-bot/index.mjs`.
+- T20 DingTalk: signed webhook outbound, session replies, and the Stream gateway (auth/ACK/ping/
+  reconnect); inbound images normalize to attachment descriptors - `src/providers/dingtalk/index.mjs`.
+- T17 completion: Feishu now ships the `registerApp` scan login (loginDriver), so no declared
+  capability is a pending gap any more.
 - G00 (v4 release authority): the authoritative entry moved to
   `docs/developer/v1-release-v4/` (`00-START-HERE.md` + `REMAINING-TASKS.csv`, baseline
   `2eb91c9`). The root and `v1/AGENTS.md`, `handoff/00-START-HERE.md`, `v1/HANDOFF.md` and

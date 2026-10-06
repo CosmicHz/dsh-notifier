@@ -16,6 +16,9 @@ import desktop from './desktop/index.mjs';
 import telegram from './telegram/index.mjs';
 import feishu from './feishu/index.mjs';
 import wxpusher from './wxpusher/index.mjs';
+import wechatIlink from './wechat-ilink/index.mjs';
+import qqBot from './qq-bot/index.mjs';
+import dingtalk from './dingtalk/index.mjs';
 
 /**
  * Every implemented platform channel, including inbound-only channels that have
@@ -34,6 +37,9 @@ export const CHANNEL_IMPLEMENTATIONS = Object.freeze({
   telegram,
   feishu,
   wxpusher,
+  'wechat-ilink': wechatIlink,
+  'qq-bot': qqBot,
+  dingtalk,
 });
 
 /** Concrete outbound providers, keyed by channel id (capability.outbound === true). */
@@ -102,8 +108,17 @@ export const CAPABILITY_METHODS = Object.freeze({
  * caught immediately.
  */
 export const PENDING_CAPABILITY_GAPS = Object.freeze([
-  { channelId: 'feishu', capability: 'login', closesIn: 'T17 registerApp scan' },
+  // Empty: every declared capability now has its backing method. The final gate
+  // (G03) fails if this list ever grows again.
 ]);
+
+/** True when a provider really backs a capability with a usable implementation. */
+function hasBacking(provider, method) {
+  const value = provider[method];
+  // loginDriver is a factory returning the {capabilities, begin} port, so it is a
+  // function like the other methods; the port itself is checked by the caller.
+  return typeof value === 'function';
+}
 
 /** Every declared capability of a wired provider that lacks its backing method. */
 export function capabilityGaps() {
@@ -113,7 +128,7 @@ export function capabilityGaps() {
     const provider = WIRED_PROVIDERS[entry.id];
     for (const [capability, method] of Object.entries(CAPABILITY_METHODS)) {
       if (entry.capabilities[capability] !== true || method === null) continue;
-      if (typeof provider[method] === 'function') continue;
+      if (hasBacking(provider, method)) continue;
       const pending = PENDING_CAPABILITY_GAPS.some(
         (g) => g.channelId === entry.id && g.capability === capability,
       );

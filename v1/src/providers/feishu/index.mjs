@@ -184,6 +184,66 @@ function larkError(response, label) {
  * @param {object} [options]
  * @param {() => Promise<object>} [options.sdkLoader] SDK loader (dependency-injection point)
  */
+const QR_TTL_MS = 5 * 60 * 1000;
+const QR_WAIT_MS = 3000;
+
+/**
+ * Feishu scan-to-create login (T17). Wraps the SDK's registerApp: the QR text is
+ * pushed through onQrCode and `done` resolves to typed secretChanges, so the
+ * Account service (never the SDK) writes the store.
+ */
+function createLoginDriver({ sdkLoader }) {
+  return {
+    capabilities: { login: true },
+    async begin({ signal, onQrCode, now = Date.now }) {
+      let sdk;
+      try {
+        sdk = await sdkLoader();
+      } catch (error) {
+        throw new ProviderError('UNSUPPORTED', `\u98de\u4e66\u626b\u7801\u9700\u8981 ${SDK_PACKAGE}\uff08\u672a\u5b89\u88c5\uff09`, String(error?.message ?? error));
+      }
+      if (typeof sdk?.registerApp !== 'function') {
+        throw new ProviderError('UNSUPPORTED', `\u98de\u4e66\u626b\u7801\u9700\u8981 ${SDK_PACKAGE} >= 1.61.1 \u7684 registerApp`);
+      }
+      const expiresAt = now() + QR_TTL_MS;
+      let qrText = '';
+      let resolveQr;
+      const qrReady = new Promise((resolve) => { resolveQr = resolve; });
+      const done = (async () => {
+        const result = await sdk.registerApp({
+          createOnly: true,
+          onQRCodeReady: (info) => {
+            const url = typeof info === 'string' ? info : (info?.url ?? info?.qrCodeUrl ?? '');
+            if (typeof url === 'string' && url !== '') {
+              qrText = url;
+              if (signal?.aborted !== true) onQrCode?.({ text: url, expiresAt });
+            }
+            resolveQr();
+          },
+        });
+        if (signal?.aborted) throw new ProviderError('CANCELLED', '\u98de\u4e66\u626b\u7801\u5df2\u53d6\u6d88');
+        if (result?.status !== 'ok') {
+          throw new ProviderError('API_ERROR', `\u98de\u4e66\u626b\u7801\u672a\u5b8c\u6210\uff1a${result?.status ?? 'unknown'}`);
+        }
+        const appId = result?.client_id ?? result?.appId;
+        const appSecret = result?.client_secret ?? result?.appSecret;
+        if (typeof appId !== 'string' || appId === '' || typeof appSecret !== 'string' || appSecret === '') {
+          throw new ProviderError('API_ERROR', '\u98de\u4e66\u626b\u7801\u672a\u8fd4\u56de\u5b8c\u6574\u51ed\u636e');
+        }
+        return {
+          secretChanges: [
+            { op: 'set', path: 'inbound.appId', value: { kind: 'literal', value: JSON.stringify(appId) } },
+            { op: 'set', path: 'inbound.appSecret', value: { kind: 'literal', value: JSON.stringify(appSecret) } },
+          ],
+        };
+      })();
+      const qrWait = new Promise((resolve) => { const t = setTimeout(resolve, QR_WAIT_MS); t.unref?.(); });
+      await Promise.race([qrReady, qrWait]);
+      return { done, qrText, expiresAt };
+    },
+  };
+}
+
 export function createFeishuProvider({ sdkLoader = () => import(SDK_PACKAGE) } = {}) {
   const clients = new Map();
 
@@ -362,6 +422,7 @@ export function createFeishuProvider({ sdkLoader = () => import(SDK_PACKAGE) } =
     sendControlReply,
     updateControlMessage,
     start,
+    loginDriver: (options = {}) => createLoginDriver({ sdkLoader, ...options }),
   });
 }
 

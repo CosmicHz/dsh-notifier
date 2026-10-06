@@ -82,9 +82,9 @@ test('N04: every declared capability has a backing method or is an explicit pend
   for (const gap of gaps) {
     assert.equal(gap.pending, true, `${gap.channelId}:${gap.capability} must be recorded in PENDING_CAPABILITY_GAPS`);
   }
-  // Exactly the known Feishu scan gap today; the list must shrink, never grow.
-  assert.deepEqual(gaps.map((g) => `${g.channelId}:${g.capability}`).sort(), ['feishu:login']);
-  assert.equal(PENDING_CAPABILITY_GAPS.length, 1);
+  // No declared capability may be a gap: the list must stay empty.
+  assert.deepEqual(gaps.map((g) => `${g.channelId}:${g.capability}`).sort(), []);
+  assert.equal(PENDING_CAPABILITY_GAPS.length, 0);
   assert.equal(assertRegistryConsistent(), true);
 });
 

@@ -1,13 +1,13 @@
 {
   "generatedAt": "2026-10-06",
-  "note": "declared=true must have a backing method (implemented) or be an explicit pending gap; the final gate (G03) fails while any pending remains.",
+  "note": "declared=true must have a backing method (implemented) or be an explicit pending gap; the final gate (G03) fails while any pending remains. wechat-ilink has no fields in the frozen descriptor spec, so its credentials resolve through the documented convention path (inbound.token) instead of inboundSecrets; dingtalk has no message-edit API, so updateMessage is declared false.",
   "counts": {
     "channels": 29,
     "loginChannels": [
       "feishu",
       "wechat-ilink"
     ],
-    "pendingGaps": 1
+    "pendingGaps": 0
   },
   "capabilityMethods": {
     "outbound": "send",
@@ -19,13 +19,7 @@
     "media": null,
     "buttons": null
   },
-  "pendingGaps": [
-    {
-      "channelId": "feishu",
-      "capability": "login",
-      "closesIn": "T17 registerApp scan"
-    }
-  ],
+  "pendingGaps": [],
   "channels": {
     "telegram": {
       "outbound": true,
@@ -78,23 +72,23 @@
     "dingtalk": {
       "outbound": true,
       "inbound": true,
-      "wired": false,
-      "protocolTest": null,
+      "wired": true,
+      "protocolTest": "test/protocol/dingtalk.test.mjs",
       "capabilities": {
         "outbound": {
           "declared": true,
           "method": "send",
-          "status": "unwired"
+          "status": "implemented"
         },
         "inbound": {
           "declared": true,
           "method": "start",
-          "status": "unwired"
+          "status": "implemented"
         },
         "controlReply": {
           "declared": true,
           "method": "sendControlReply",
-          "status": "unwired"
+          "status": "implemented"
         },
         "login": {
           "declared": false,
@@ -102,9 +96,9 @@
           "status": "declared-false"
         },
         "updateMessage": {
-          "declared": true,
+          "declared": false,
           "method": "updateControlMessage",
-          "status": "unwired"
+          "status": "declared-false"
         },
         "replyLookup": {
           "declared": false,
@@ -114,12 +108,12 @@
         "media": {
           "declared": true,
           "method": "inline",
-          "status": "unwired"
+          "status": "implemented"
         },
         "buttons": {
           "declared": true,
           "method": "inline",
-          "status": "unwired"
+          "status": "implemented"
         }
       }
     },
@@ -147,7 +141,7 @@
         "login": {
           "declared": true,
           "method": "loginDriver",
-          "status": "pending"
+          "status": "implemented"
         },
         "updateMessage": {
           "declared": true,
@@ -1278,23 +1272,23 @@
     "qq-bot": {
       "outbound": true,
       "inbound": true,
-      "wired": false,
-      "protocolTest": null,
+      "wired": true,
+      "protocolTest": "test/protocol/qq-bot.test.mjs",
       "capabilities": {
         "outbound": {
           "declared": true,
           "method": "send",
-          "status": "unwired"
+          "status": "implemented"
         },
         "inbound": {
           "declared": true,
           "method": "start",
-          "status": "unwired"
+          "status": "implemented"
         },
         "controlReply": {
           "declared": true,
           "method": "sendControlReply",
-          "status": "unwired"
+          "status": "implemented"
         },
         "login": {
           "declared": false,
@@ -1304,7 +1298,7 @@
         "updateMessage": {
           "declared": true,
           "method": "updateControlMessage",
-          "status": "unwired"
+          "status": "implemented"
         },
         "replyLookup": {
           "declared": false,
@@ -1314,12 +1308,12 @@
         "media": {
           "declared": true,
           "method": "inline",
-          "status": "unwired"
+          "status": "implemented"
         },
         "buttons": {
           "declared": true,
           "method": "inline",
-          "status": "unwired"
+          "status": "implemented"
         }
       }
     },
@@ -1374,8 +1368,8 @@
     "wechat-ilink": {
       "outbound": false,
       "inbound": true,
-      "wired": false,
-      "protocolTest": null,
+      "wired": true,
+      "protocolTest": "test/protocol/wechat-ilink.test.mjs",
       "capabilities": {
         "outbound": {
           "declared": false,
@@ -1385,17 +1379,17 @@
         "inbound": {
           "declared": true,
           "method": "start",
-          "status": "unwired"
+          "status": "implemented"
         },
         "controlReply": {
           "declared": true,
           "method": "sendControlReply",
-          "status": "unwired"
+          "status": "implemented"
         },
         "login": {
           "declared": true,
           "method": "loginDriver",
-          "status": "unwired"
+          "status": "implemented"
         },
         "updateMessage": {
           "declared": false,
@@ -1410,7 +1404,7 @@
         "media": {
           "declared": true,
           "method": "inline",
-          "status": "unwired"
+          "status": "implemented"
         },
         "buttons": {
           "declared": false,

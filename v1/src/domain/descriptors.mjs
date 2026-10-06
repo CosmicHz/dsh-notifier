@@ -18,7 +18,8 @@ const CAPABILITY_OVERRIDES = Object.freeze({
   feishu: { login: true, replyLookup: true, media: true, buttons: true, updateMessage: true },
   'wechat-ilink': { login: true, media: true },
   'qq-bot': { media: true, buttons: true, updateMessage: true },
-  dingtalk: { media: true, buttons: true, updateMessage: true },
+  // DingTalk has no message-edit API (see T20 evidence); media covers inbound images.
+  dingtalk: { media: true, buttons: true },
   wxpusher: {},
 });
 

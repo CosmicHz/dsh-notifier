@@ -2,7 +2,7 @@
 
 Status source of truth: `docs/developer/v1-release-v4/REMAINING-TASKS.csv` (v4 release package, baseline `2eb91c9`). This file is generated from that list; do not hand-edit a second status. The frozen v3 task graph in `docs/developer/v1-flash-v3/TASKS.csv` and the `handoff/` snapshots are history only.
 
-Status values: `required` -> `in_progress` -> `implemented` -> `verified`. `implemented` means the code and local tests exist but the v4 `validation` file/command set has not yet been fully reconciled.
+Status values: `required` -> `in_progress` -> `implemented` -> `verified`.
 
 Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITION.md).
 
@@ -20,11 +20,11 @@ Goal: the **dsh-notifier 1.0.0 release-ready artifact** (see 02-RELEASE-DEFINITI
 | R11 | Host事件到对话回程与待办投递 | verified |
 | R12 | 媒体引用安全准入到Host AttachmentRef | verified |
 | R13 | 控制发送幂等及逐段效果证据 | verified |
-| T17 | Feishu | implemented |
-| T18 | WeChat | required |
-| T19 | QQ | required |
-| T20 | DingTalk | required |
-| T21 | WxPusher | implemented |
+| T17 | Feishu | verified |
+| T18 | WeChat | verified |
+| T19 | QQ | verified |
+| T20 | DingTalk | verified |
+| T21 | WxPusher | verified |
 | T26 | DSH integration | required |
 | T27 | RPC | required |
 | T28 | CLI | required |

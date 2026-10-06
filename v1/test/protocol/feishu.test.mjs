@@ -239,3 +239,43 @@ test('feishu: updateControlMessage patches the card', async () => {
   assert.equal(result.status, 'accepted');
   assert.equal(sdk.state.patch[0].path.message_id, 'om-3');
 });
+
+// --- T17 scan login (registerApp) ------------------------------------------
+
+test('feishu: T17 login driver pushes the QR and returns typed credential changes', async () => {
+  const sdk = {
+    async registerApp({ onQRCodeReady }) {
+      onQRCodeReady({ url: 'https://qr.example/abc' });
+      return { status: 'ok', client_id: 'cli_x', client_secret: 'sec_y' };
+    },
+  };
+  const provider = createFeishuProvider({ sdkLoader: async () => sdk });
+  const qr = [];
+  const begun = await provider.loginDriver().begin({ onQrCode: (i) => qr.push(i), now: () => 1000 });
+  assert.equal(begun.qrText, 'https://qr.example/abc');
+  assert.equal(qr.at(-1).text, 'https://qr.example/abc');
+  const result = await begun.done;
+  assert.deepEqual(result.secretChanges.map((c) => c.path), ['inbound.appId', 'inbound.appSecret']);
+  assert.equal(JSON.parse(result.secretChanges[0].value.value), 'cli_x');
+  assert.equal(JSON.parse(result.secretChanges[1].value.value), 'sec_y');
+});
+
+test('feishu: T17 scan login fails closed without the SDK or on denied/partial results', async () => {
+  const missing = createFeishuProvider({ sdkLoader: async () => { throw Object.assign(new Error('nope'), { code: 'ERR_MODULE_NOT_FOUND' }); } });
+  await assert.rejects(() => missing.loginDriver().begin({}), (e) => e.code === 'UNSUPPORTED');
+
+  const noRegister = createFeishuProvider({ sdkLoader: async () => ({}) });
+  await assert.rejects(() => noRegister.loginDriver().begin({}), (e) => e.code === 'UNSUPPORTED');
+
+  const denied = createFeishuProvider({
+    sdkLoader: async () => ({ registerApp: async ({ onQRCodeReady }) => { onQRCodeReady({ url: 'u' }); return { status: 'denied' }; } }),
+  });
+  const deniedBegun = await denied.loginDriver().begin({});
+  await assert.rejects(() => deniedBegun.done, (e) => e.code === 'API_ERROR');
+
+  const partial = createFeishuProvider({
+    sdkLoader: async () => ({ registerApp: async ({ onQRCodeReady }) => { onQRCodeReady({ url: 'u' }); return { status: 'ok', client_id: 'x' }; } }),
+  });
+  const partialBegun = await partial.loginDriver().begin({});
+  await assert.rejects(() => partialBegun.done, (e) => e.code === 'API_ERROR');
+});
