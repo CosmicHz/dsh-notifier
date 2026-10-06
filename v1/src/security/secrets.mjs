@@ -2,6 +2,7 @@
 // A secret is either a literal string or an env reference; env values are resolved
 // on demand and never written back into the store.
 import { DomainError, validationError } from '../domain/errors.mjs';
+import { validateFieldValue } from '../domain/descriptors.mjs';
 
 export const DIRECTION_PATHS = Object.freeze(['outbound', 'inbound', 'target']);
 const PATH_RE = /^(outbound|inbound|target)\.[A-Za-z0-9_]{1,64}$/;
@@ -102,36 +103,41 @@ export function applySecretChanges(base, changes, { creating = false } = {}) {
 export function resolveSecret(secret, env = process.env, descriptor = null) {
   if (secret === null || typeof secret !== 'object') return { ok: false, reason: 'INVALID' };
 
+  let value;
   if (secret.kind === 'literal') {
     if (typeof secret.value !== 'string') return { ok: false, reason: 'INVALID' };
     // Literal secrets are stored as JSON-encoded typed values (02-DATA.md, 15-FIELD-COPY.md).
-    // String values are JSON-encoded, non-string values are also JSON-encoded.
     try {
-      const decoded = JSON.parse(secret.value);
-      return { ok: true, value: decoded };
+      value = JSON.parse(secret.value);
     } catch {
       return { ok: false, reason: 'INVALID' };
     }
-  }
-
-  if (secret.kind === 'env') {
+  } else if (secret.kind === 'env') {
     if (typeof secret.name !== 'string' || !ENV_RE.test(secret.name)) return { ok: false, reason: 'INVALID' };
     const raw = env[secret.name];
     if (typeof raw !== 'string' || raw.length === 0) return { ok: false, reason: 'MISSING' };
-
-    // Env values: for string-typed fields, use as-is; for non-string, parse JSON (15-FIELD-COPY.md).
+    // Env values: for string-typed fields use as-is; for non-string, parse JSON (15-FIELD-COPY.md).
     if (!descriptor || descriptor.type === 'string') {
-      return { ok: true, value: raw };
+      value = raw;
+    } else {
+      try {
+        value = JSON.parse(raw);
+      } catch {
+        return { ok: false, reason: 'INVALID' };
+      }
     }
-    try {
-      const parsed = JSON.parse(raw);
-      return { ok: true, value: parsed };
-    } catch {
-      return { ok: false, reason: 'INVALID' };
-    }
+  } else {
+    return { ok: false, reason: 'INVALID' };
   }
 
-  return { ok: false, reason: 'INVALID' };
+  // N02: decode-then-validate against the field descriptor. A JSON object that
+  // decodes "successfully" is still rejected when the field is a string, so a
+  // token can never silently become the string "[object Object]".
+  if (descriptor) {
+    const problem = validateFieldValue(descriptor, value);
+    if (problem) return { ok: false, reason: 'INVALID' };
+  }
+  return { ok: true, value };
 }
 
 /**

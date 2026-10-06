@@ -5,22 +5,43 @@
 // `emit` port, and resolve their own declared inbound secrets on demand. A
 // missing required secret is a typed NOT_CONFIGURED, never an empty credential.
 import { ProviderError, str } from './http.mjs';
+import { fieldsFor } from '../domain/descriptors.mjs';
 import { resolveSecret } from '../security/secrets.mjs';
+
+/** Declared inbound secret fields for a channel, keyed by field name. */
+function declaredInboundSecrets(channelId) {
+  const map = new Map();
+  for (const field of fieldsFor(channelId, 'inbound', 'account')) {
+    if (field.exposure === 'secret') map.set(field.field, field);
+  }
+  return map;
+}
 
 /** Resolve declared inbound secret fields; `{field: required}`. */
 export function inboundSecrets(account, spec) {
   const out = {};
+  const fields = declaredInboundSecrets(account?.channelId);
   for (const [name, required] of Object.entries(spec)) {
-    const secret = account?.secrets?.[`inbound.${name}`];
-    // resolveSecret now handles JSON decoding for literal secrets (R08 fix)
-    const resolved = secret ? resolveSecret(secret) : null;
-    const value = resolved && resolved.ok ? resolved.value : null;
-    // Coerce to string for backward compatibility with existing provider code
-    const stringValue = value !== null && value !== undefined ? String(value) : '';
-    if (required === true && stringValue === '') {
-      throw new ProviderError('NOT_CONFIGURED', `${account?.channelId ?? 'channel'} 入站未配置：${name} 未填写`);
+    const field = fields.get(name) ?? null;
+    // N02: a provider-path secret must resolve against a declared descriptor and
+    // pass its schema; a decoded object is never coerced with String().
+    if (field === null) {
+      throw new ProviderError('NOT_CONFIGURED', `${account?.channelId ?? 'channel'} 入站凭据 ${name} 不是声明的字段`);
     }
-    out[name] = stringValue;
+    const secret = account?.secrets?.[field.path];
+    const resolved = secret ? resolveSecret(secret, process.env, field) : null;
+    const value = resolved && resolved.ok ? resolved.value : null;
+    if (value === null || value === undefined || value === '') {
+      if (required === true) {
+        throw new ProviderError('NOT_CONFIGURED', `${account?.channelId ?? 'channel'} 入站未配置：${name} 未填写`);
+      }
+      out[name] = '';
+      continue;
+    }
+    if (typeof value !== 'string') {
+      throw new ProviderError('NOT_CONFIGURED', `${account?.channelId ?? 'channel'} 入站凭据 ${name} 类型错误（需要 string）`);
+    }
+    out[name] = value;
   }
   return out;
 }

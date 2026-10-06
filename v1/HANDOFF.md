@@ -78,7 +78,7 @@ The v4 release package (`docs/developer/v1-release-v4/`) adds four follow-ups:
 | item | scope | status |
 |---|---|---|
 | N01 | R03 completion: task `sessionId` filter, owner session rule, execution-time re-auth | **done** (this push) |
-| N02 | typed secret validation after decoding (descriptor-driven) | open |
+| N02 | typed secret validation after decoding (descriptor-driven) | **done** (this push) |
 | N03 | `onFatal` early arrival must not be overwritten by `ready`; late handle disposal | open |
 | N04 | login capability truth (only Feishu/WeChat scan) + capability→method→test mapping | open |
 

@@ -67,6 +67,12 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Fixed
 
+- N02 (v4): `resolveSecret` now validates the decoded value against the field
+  descriptor (`validateFieldValue`) before returning it — a JSON object that decodes for
+  a string field is rejected instead of becoming `"[object Object]"`. Provider inbound
+  secrets resolve through the declared descriptor and are never coerced with `String()`;
+  account writes reject a literal whose decoded type does not match the field; the
+  importer stores literals JSON-encoded (02-DATA). Covered by `test/unit/secrets.test.mjs`.
 - N01 (v4): closed the rest of R03. `/tasks` authorizes a TaskView by its
   `sessionId` (never its own id, which may collide with a session id); the owner rule
   is "authorized for every session" with an explicit binding that must still point at a

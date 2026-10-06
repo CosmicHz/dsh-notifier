@@ -1,26 +1,24 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-05",
+  "generatedAt": "2026-10-06",
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
-  "base": "dd36cccc881291952a5dbbcf91961569cc2a166c",
-  "sourceDigest": "bfc031e1db949fdbd3846d4d95f4c1ad651d0b4a202902d64dfcd12a6a2628a5",
+  "base": "d9a9e2200be8a7b039164b210506ca2a7f593ee3",
+  "sourceDigest": "bfc96f08dde9e64cf4553be7ef93266e02068dd8ffc066a4193fb91a39b3c537",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "N01 (v4 follow-up): completed the rest of R03. /tasks now authorizes a TaskView by its sessionId (never its own id, which may collide with a session id); the owner rule is \"authorized for every session\" and an explicit binding wins only while it still points at a usable session; /use, /stop and converse re-read the current Principal (and Account) before any Host effect so a revocation or disable while queued cannot reach the Host. manager.ingest now injects the current Host session set so an owner with no declared scope resolves a single active session. Also: commit identity rule moved to the repository owner CosmicHz <xhz352010@163.com>; REMAINING-TASKS.csv status updated (G00/N01 verified, landed R07-R14/T17/T21 implemented) and PROGRESS regenerated from it. New tests: test/unit/conversation-r03.test.mjs (N01 cases) + test/integration/authorization-race.test.mjs. Verification: npm run check passes (75 source files); npm test 401 pass / 0 fail (86 protocol).",
+  "summary": "N02 (v4 follow-up): typed secret validation after decoding. resolveSecret now runs validateFieldValue(descriptor, decoded) before returning, so a JSON object for a string field is INVALID instead of becoming \"[object Object]\"; env values are validated after decoding too. providers/platform.inboundSecrets resolves via the declared inbound secret descriptor and rejects any non-string value (no String() coercion). accounts writes reject a literal whose decoded type does not match the field. The importer now stores literals JSON-encoded (02-DATA), which is what surfaced the previous raw-string path. Verification: npm run check passes (75 source files); npm test 404 pass / 0 fail (new N02 cases in test/unit/secrets.test.mjs; import integration suite green again).",
   "unresolved": [],
   "changedPaths": [
-    "AGENTS.md",
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
-    "v1/AGENTS.md",
     "v1/CHANGELOG.md",
     "v1/HANDOFF.md",
     "v1/docs/DOC-SYNC.json",
     "v1/docs/PROGRESS.md",
-    "v1/src/runtime/manager.mjs",
-    "v1/src/services/conversation.mjs",
-    "v1/src/services/routes.mjs",
-    "v1/test/integration/authorization-race.test.mjs",
-    "v1/test/unit/conversation-r03.test.mjs"
+    "v1/src/providers/platform.mjs",
+    "v1/src/security/secrets.mjs",
+    "v1/src/services/accounts.mjs",
+    "v1/src/services/import.mjs",
+    "v1/test/unit/secrets.test.mjs"
   ],
   "inventory": [
     {
@@ -161,12 +159,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the N01 (v4) fixed entry."
+      "reason": "Added the N02 (v4) fixed entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Added the v4 N01-N04 follow-up table (N01 done) and refreshed the suite count to 401."
+      "reason": "N02 now done in the v4 follow-up table."
     },
     {
       "path": "v1/README.md",
@@ -186,7 +184,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: G00/N01 verified, already-landed items implemented (single status source)."
+      "reason": "Regenerated: G00/N01/N02 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -296,7 +294,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "Task status updated: G00/N01 verified, landed R07-R14/T17/T21 implemented."
+      "reason": "N02 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",

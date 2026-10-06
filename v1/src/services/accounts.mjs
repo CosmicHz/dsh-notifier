@@ -5,7 +5,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import { DomainError, conflict, notFound, validationError, isDomainError } from '../domain/errors.mjs';
 import { LIMITS, codepointLength } from '../domain/limits.mjs';
 import { channelById, fieldsFor, fieldRequired, validateAccountConfig } from '../domain/descriptors.mjs';
-import { applySecretChanges, secretFieldStatus } from '../security/secrets.mjs';
+import { applySecretChanges, resolveSecret, secretFieldStatus } from '../security/secrets.mjs';
 import { commit } from '../storage/store.mjs';
 import { appendActivity } from './activity.mjs';
 
@@ -56,12 +56,29 @@ export function accountSecretPaths(channelId, direction = null) {
   return paths;
 }
 
+function accountSecretFields(channelId) {
+  const map = new Map();
+  for (const dir of ['outbound', 'inbound']) {
+    for (const field of fieldsFor(channelId, dir, 'account')) {
+      if (field.exposure === 'secret') map.set(field.path, field);
+    }
+  }
+  return map;
+}
+
 function validateSecretPaths(changes, channelId) {
-  const allowed = accountSecretPaths(channelId);
+  const byPath = accountSecretFields(channelId);
   const errors = [];
   for (const change of changes) {
-    if (change && typeof change.path === 'string' && !allowed.has(change.path)) {
-      errors.push(`${change.path}: not an account secret for ${channelId}`);
+    if (!change || typeof change.path !== 'string' || !byPath.has(change.path)) {
+      errors.push(`${change?.path ?? '(missing path)'}: not an account secret for ${channelId}`);
+      continue;
+    }
+    // N02: a literal secret must decode to a value matching its field schema at
+    // write time, so a typed mismatch is rejected before it is ever stored.
+    if (change.op === 'set' && change.value?.kind === 'literal') {
+      const resolved = resolveSecret(change.value, {}, byPath.get(change.path));
+      if (!resolved.ok) errors.push(`${change.path}: secret value does not match the field type`);
     }
   }
   if (errors.length) throw validationError('invalid secretChanges', errors);

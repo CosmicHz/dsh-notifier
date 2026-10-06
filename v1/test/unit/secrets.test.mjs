@@ -6,6 +6,7 @@ import {
 } from '../../src/security/secrets.mjs';
 import { redactObject, redactText, toRedactedView } from '../../src/security/redact.mjs';
 import { DomainError } from '../../src/domain/errors.mjs';
+import { inboundSecrets } from '../../src/providers/platform.mjs';
 
 test('A05: keep / set / clear semantics', () => {
   const base = {
@@ -106,4 +107,34 @@ test('redaction hides secrets in objects, views and text', () => {
   assert.equal(redactText('auth Bearer abcdef123456 ok', []), 'auth Bearer [redacted] ok');
   assert.equal(redactText('value leak-me here', ['leak-me']), 'value [redacted] here');
   assert.equal(redactText('short ab masked', ['ab']), 'short ab masked', 'short values are not masked');
+});
+// --- N02: typed validation after decode ----------------------------------
+
+const stringField = { field: 'token', type: 'string' };
+const arrField = { field: 'uids', type: 'string[]' };
+const recField = { field: 'headers', type: 'record<string,string>' };
+
+test('N02: a decoded value must satisfy the field descriptor type', () => {
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '"ok"' }, process.env, stringField), { ok: true, value: 'ok' });
+  // A JSON object decodes fine but is not a string: rejected, never String()'d.
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '{"a":1}' }, process.env, stringField), { ok: false, reason: 'INVALID' });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '123' }, process.env, stringField), { ok: false, reason: 'INVALID' });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '["a","b"]' }, process.env, arrField), { ok: true, value: ['a', 'b'] });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '["a",1]' }, process.env, arrField), { ok: false, reason: 'INVALID' });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '{"X":"1"}' }, process.env, recField), { ok: true, value: { X: '1' } });
+  assert.deepEqual(resolveSecret({ kind: 'literal', value: '{"X":1}' }, process.env, recField), { ok: false, reason: 'INVALID' });
+});
+
+test('N02: env values are validated after decoding too', () => {
+  assert.deepEqual(resolveSecret({ kind: 'env', name: 'N02_T' }, { N02_T: 'abc' }, stringField), { ok: true, value: 'abc' });
+  assert.deepEqual(resolveSecret({ kind: 'env', name: 'N02_A' }, { N02_A: '["x"]' }, arrField), { ok: true, value: ['x'] });
+  assert.deepEqual(resolveSecret({ kind: 'env', name: 'N02_A' }, { N02_A: 'not-json' }, arrField), { ok: false, reason: 'INVALID' });
+  assert.deepEqual(resolveSecret({ kind: 'env', name: 'N02_A' }, { N02_A: '{"a":1}' }, arrField), { ok: false, reason: 'INVALID' });
+});
+
+test('N02: inboundSecrets rejects a non-string value instead of coercing it', () => {
+  const bad = { channelId: 'telegram', secrets: { 'inbound.botToken': { kind: 'literal', value: '{"a":1}' } } };
+  assert.throws(() => inboundSecrets(bad, { botToken: true }), (e) => e.code === 'NOT_CONFIGURED');
+  const ok = { channelId: 'telegram', secrets: { 'inbound.botToken': { kind: 'literal', value: '"tok"' } } };
+  assert.deepEqual(inboundSecrets(ok, { botToken: true }), { botToken: 'tok' });
 });

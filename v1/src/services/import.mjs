@@ -76,14 +76,14 @@ export function readImportFile(file) {
   return { ok: true, sourceHash, json };
 }
 
-function toSecret(field, value) {
+function toSecret(value) {
   if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
     const name = value.kind === 'env' ? value.name : value.env;
     if (typeof name === 'string' && name !== '') return { kind: 'env', name };
   }
-  if (field.type === 'string') {
-    return { kind: 'literal', value: typeof value === 'string' ? value : String(value) };
-  }
+  // Literals are stored JSON-encoded (02-DATA.md), matching the descriptor type.
+  // A value of the wrong type is left to the typed validator to reject, never
+  // coerced with String().
   return { kind: 'literal', value: JSON.stringify(value) };
 }
 
@@ -119,7 +119,7 @@ function buildItem(sourceKey, channelId, raw, sourceHash, state) {
       if (!fieldVisible(accountField, raw)) { dropped.push(key); continue; }
       if (accountField.exposure === 'secret') {
         try {
-          secretChanges.push({ path: accountField.path, op: 'set', value: normalizeSecretValue(toSecret(accountField, value)) });
+          secretChanges.push({ path: accountField.path, op: 'set', value: normalizeSecretValue(toSecret(value)) });
         } catch {
           invalid = `INVALID_SECRET:${key}`;
         }
