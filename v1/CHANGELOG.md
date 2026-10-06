@@ -6,6 +6,13 @@ All notable changes to `dsh-notifier` v1. Chronological, newest first.
 
 ### Added
 
+- T27 RPC: `src/rpc/router.mjs` implements the full method table (39/39, matching
+  `spec/RPC-METHODS.json`) with explicit per-method schema checks, local-owner bearer
+  authentication (payload can never declare identity), the 24h/10000 idempotency key---
+  hash rules (same key+hash replays the redacted result, a different hash is CONFLICT),
+  strict pagination cursors and signal cancellation. `src/rpc/server.mjs` is the loopback
+  admin port (127.0.0.1:0, 32-byte bearer token in runtime-control.json 0600, POST /v1/rpc,
+  1MiB cap, GET cannot mutate, idempotent stop that removes the token file).
 - T26 DSH integration: `runtime/application.mjs` (composition root with the W08
   construct->start order, minimal-port injection and reverse disposer teardown),
   `host/dsh.mjs` (adapts injected host seams into the validated HostPort) and

@@ -4,9 +4,9 @@
   "repository": "https://github.com/CosmicHz/dsh-notifier",
   "branch": "dev",
   "base": "7bb25a2b80961da3cfb496c9a0da917e98ecf598",
-  "sourceDigest": "da7ef5399618bebf6c4d0738f517063b6806e5b9d22bc3e569074cede97d8fff",
+  "sourceDigest": "9efba7ea6cb3413477e25cb2ce9c150bf6b3b645cd577f925f562e63108886d1",
   "skillCommit": "6baae5fecfadf821f3e4d56e76ca0e2ba3bc8fc0",
-  "summary": "T26 DSH integration. New runtime/application.mjs is the composition root (construct vs start per W08, minimal-port injection per W07, reverse disposer teardown, storage-degraded keeps diagnostics only), host/dsh.mjs adapts injected host seams into the validated HostPort (missing capabilities are typed UNSUPPORTED, never fake success) and plugin-entry.mjs is the DSH plugin (name=dsh-notifier, ctx.provide(notifierV1, facade), notify/notify_test/ask_user with trusted-context-only scope/actor). New test/integration/application.test.mjs covers assembly, host call shapes, tools, attachments and teardown order. Also fixed a real bug: NOT_READY (required by 18-WIRING) was missing from ERROR_CODES. Honest simplifications: dsh.mjs adapts an injected seam bundle rather than the real DSH module loader, and native approval/user-question waterfall interceptors are not registered. Verification: npm run check passes (81 source files); npm test 495 pass / 0 fail.",
+  "summary": "T27 RPC. src/rpc/router.mjs implements the full 39/39 method table from 03-SERVICES-RPC.md (matching spec/RPC-METHODS.json) with per-method schema validation, local-owner bearer auth where the payload cannot declare identity, the [actorKind,actorId,method,requestId] idempotency key with a canonical input hash (same key+hash replays the redacted result, a different hash is CONFLICT, 24h/10000), strict base64url pagination cursors, redaction, and signal cancellation. src/rpc/server.mjs is the loopback admin port: 127.0.0.1:0 only, 32-byte bearer token in runtime-control.json (0600), POST /v1/rpc, 1MiB body cap, GET cannot mutate, idempotent stop that deletes the token file. Honest notes: the RPC server is not yet started by the composition root (T28/T30 wiring), notifications.test/interactions.settle need a host/network injected by that composition root, and accounts.health.appliedRevision currently reports the account revision. Verification: npm run check passes (83 source files); npm test 517 pass / 0 fail.",
   "unresolved": [],
   "changedPaths": [
     "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
@@ -17,8 +17,11 @@
     "v1/src/domain/errors.mjs",
     "v1/src/host/dsh.mjs",
     "v1/src/plugin-entry.mjs",
+    "v1/src/rpc/router.mjs",
+    "v1/src/rpc/server.mjs",
     "v1/src/runtime/application.mjs",
-    "v1/test/integration/application.test.mjs"
+    "v1/test/integration/application.test.mjs",
+    "v1/test/integration/rpc.test.mjs"
   ],
   "inventory": [
     {
@@ -159,12 +162,12 @@
     {
       "path": "v1/CHANGELOG.md",
       "disposition": "updated",
-      "reason": "Added the T26 entry and the NOT_READY fix."
+      "reason": "Added the T27 entry."
     },
     {
       "path": "v1/HANDOFF.md",
       "disposition": "updated",
-      "reason": "Suite 495."
+      "reason": "Suite 517."
     },
     {
       "path": "v1/README.md",
@@ -184,7 +187,7 @@
     {
       "path": "v1/docs/PROGRESS.md",
       "disposition": "updated",
-      "reason": "Regenerated: T26 verified."
+      "reason": "Regenerated: T27 verified."
     },
     {
       "path": "v1/docs/architecture.md",
@@ -294,7 +297,7 @@
     {
       "path": "docs/developer/v1-release-v4/REMAINING-TASKS.csv",
       "disposition": "updated",
-      "reason": "T26 status -> verified."
+      "reason": "T27 status -> verified."
     },
     {
       "path": "docs/developer/v1-release-v4/REQUIRED-ARTIFACTS.json",
